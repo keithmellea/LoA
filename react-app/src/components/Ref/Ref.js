@@ -9,8 +9,12 @@ import Treasure from "../Ref/images/treasure.png";
 import Tiles from "../Ref/images/tiles.png";
 import Bookshelf from "../Ref/images/bookshelf.png";
 import Table from "../Ref/images/table.png";
-import * as PIXI from "pixi.js";
+import { InteractionManager } from '@pixi/interaction'
 
+import * as PIXI from "pixi.js";
+//import "../Ref/EZGUI.js";
+
+//Renderer.registerPlugin("interaction", InteractionManager);
 
 const MyComponent = () => {
   let pixi_cnt = null;
@@ -144,7 +148,7 @@ function setup() {
   // dungeon = new Sprite(resources["dungeon"].texture);
   // gameScene.addChild(dungeon);
 
-  //Bookshelf
+  //#Bookshelf
   let bookshelf = new Sprite(resources["bookshelf"].texture);
   let bookshelfX = 167;
   let bookshelfY = 32;
@@ -168,18 +172,21 @@ function setup() {
     gameScene.addChild(bookshelf);
   }
 
-  //Table
+  //#Table
   let table = new Sprite(resources["table"].texture);
   table.position.set(468, 623);
   table.interactive = true;
+  table.buttonMode = true;
+  table.onTap = table.onTap.bind(table);
+  table.on('pointertap', table.onTap);
   gameScene.addChild(table);
 
-  //Door
+  //#Door
   door = new Sprite(resources["door"].texture);
   door.position.set(32, 0);
   gameScene.addChild(door);
 
-  //Explorer
+  //#Explorer
   explorer = new Sprite(resources["explorer"].texture);
   explorer.x = 68;
   explorer.y = gameScene.height / 2 - explorer.height / 2;
