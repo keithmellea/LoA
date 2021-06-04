@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Cat from "../Ref/images/cat.png"
-//import treasureHunter from "../Ref/images/treasureHunter.json"
 import Door from "../Ref/images/door.png"
 import Dungeon from "../Ref/images/dungeon.png";
 import Explorer from "../Ref/images/explorer.png";
@@ -11,20 +10,11 @@ import Bookshelf from "../Ref/images/bookshelf.png";
 import Table from "../Ref/images/table.png";
 import Textbox from "../Ref/images/textbox.png";
 import { InteractionManager } from '@pixi/interaction'
-
 import * as PIXI from "pixi.js";
-//import "../Ref/EZGUI.js";
-
-//Renderer.registerPlugin("interaction", InteractionManager);
 
 const MyComponent = () => {
   let pixi_cnt = null;
 
-  // let app = new PIXI.Application({
-  //   width: 600,
-  //   height: 600,
-  //   transparent: false,
-  // });
 
   let Application = PIXI.Application,
     Container = PIXI.Container,
@@ -141,13 +131,19 @@ function setup() {
   let bookshelf = new Sprite(resources["bookshelf"].texture);
   let bookshelfX = 167;
   let bookshelfY = 32;
+  bookshelf.interactive = true;
+  bookshelf.buttonMode = true;
   bookshelf.position.set(bookshelfX, bookshelfY);
+  bookshelf.on("pointerdown", onClickScrollX);
 
   //Populates Bookshelves along X-Axis
   for (let i = 0; i < 16; i++) {
     let bookshelf = new Sprite(resources["bookshelf"].texture);
     bookshelfX += 96;
     bookshelf.position.set(bookshelfX, bookshelfY);
+    bookshelf.interactive = true;
+    bookshelf.buttonMode = true;
+    bookshelf.on("pointerdown", onClickScrollX);
     gameScene.addChild(bookshelf);
   }
 
@@ -157,8 +153,13 @@ function setup() {
     bookshelfX = 1780;
     bookshelfY += 92;
     bookshelf.position.set(bookshelfX, bookshelfY);
+    bookshelf.interactive = true;
+    bookshelf.buttonMode = true;
+    bookshelf.on("pointerdown", onClickScrollY);
+
     gameScene.addChild(bookshelf);
   }
+
   //#Explorer
   explorer = new Sprite(resources["explorer"].texture);
   explorer.x = 68;
@@ -167,7 +168,6 @@ function setup() {
   explorer.vy = 0;
   explorer.interactive = true;
   explorer.buttonMode = true;
-  explorer.on("pointerdown", onClickScroll);
 
   //#Textbox
   let textbox = new Sprite(resources["textbox"].texture);
@@ -178,24 +178,57 @@ function setup() {
   textbox.position.set(window.innerWidth / 8, window.innerHeight / 6);
   textbox.on("pointerdown", onClickMsg);
 
+  let deskTextbox = new Sprite(resources["textbox"].texture);
+  deskTextbox.scale.x *= 3.5;
+  deskTextbox.scale.y *= 5;
+  deskTextbox.interactive = true;
+  deskTextbox.buttonMode = true;
+  deskTextbox.position.set(window.innerWidth / 8, window.innerHeight / 6);
+  deskTextbox.on("pointerdown", onClickMsg);
+
+
   let style1 = new TextStyle({
     fontFamily: "Futura",
     fontSize: 30,
     fill: "white",
-    "align": "center",
-    "whiteSpace": "normal",
-    "wordWrap": true,
-    "wordWrapWidth": 1220
+    align: "center",
+    whiteSpace: "normal",
+    wordWrap: true,
+    wordWrapWidth: 1220,
   });
 
-  let message = new Text("But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?"
-, style1);
-
-  
+  let message = new Text(
+    "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?",
+    style1
+  );
   message.x = window.innerWidth / 6.3;
   message.y = window.innerHeight / 4;
   message.interactive = true;
   message.buttonMode = true;
+
+  let writeText = new Text("Write", style1);
+  writeText.x = window.innerWidth / 6.3;
+  writeText.y = window.innerHeight / 4;
+  writeText.interactive = true;
+  writeText.buttonMode = true;
+
+  let editText = new Text("Edit", style1);
+  editText.x = window.innerWidth / 6.3;
+  editText.y = window.innerHeight / 4;
+  editText.interactive = true;
+  editText.buttonMode = true;
+
+  let chatText = new Text("Chat", style1);
+  chatText.x = window.innerWidth / 6.3;
+  chatText.y = window.innerHeight / 4;
+  chatText.interactive = true;
+  chatText.buttonMode = true;
+
+  let deleteText = new Text("Delete", style1);
+  deleteText.x = window.innerWidth / 6.3;
+  deleteText.y = window.innerHeight / 4;
+  deleteText.interactive = true;
+  deleteText.buttonMode = true;
 
   //#Door
   door = new Sprite(resources["door"].texture);
@@ -205,22 +238,25 @@ function setup() {
   //#Table
   let table = new Sprite(resources["table"].texture);
   table.position.set(468, 623);
-  table.interactive = true;
-  table.buttonMode = true;
-  table.on("pointerdown", onClickScroll);
-
+  
   // --- RENDER ORDER ---
+  message.visible = false;
+  textbox.visible = false;
+  deskTextbox.visible = false;
+  writeText.visible = false;
+  editText.visible = false;
+  deleteText.visible = false;
+  chatText.visible = false;
   gameScene.addChild(bookshelf);
-  gameScene.addChild(explorer);
   gameScene.addChild(table);
+  gameScene.addChild(explorer);
   gameScene.addChild(textbox);
+  gameScene.addChild(deskTextbox);
   gameScene.addChild(message);
-  //Create the text sprite and add it to the `gameOver` scene
-  let style = new TextStyle({
-    fontFamily: "Futura",
-    fontSize: 64,
-    fill: "white",
-  });
+  gameScene.addChild(writeText);
+  gameScene.addChild(editText);
+  gameScene.addChild(deleteText);
+  gameScene.addChild(chatText);
 
   //Capture the keyboard arrow keys
   let left = keyboard(37),
@@ -278,17 +314,28 @@ function setup() {
     }
   };
 
-  //#onClickScroll
-  function onClickScroll() {
+  //#onClickScrollX
+  function onClickScrollX() {
     if (message.visible) {
       message.visible = false;
       textbox.visible = false;
-    } else {
+    } else if (explorer.position.x > 100 && explorer.position.y < 151) {
       message.visible = true;
       textbox.visible = true;
     }
-  } 
-  
+  }
+
+  //#onClickScrollY
+  function onClickScrollY() {
+    if (message.visible) {
+      message.visible = false;
+      textbox.visible = false;
+    } else if (explorer.position.x > 1720 && explorer.position.y < 920) {
+      console.log(explorer.position);
+      message.visible = true;
+      textbox.visible = true;
+    }
+  }
   //#onClickMsg
   function onClickMsg() {
     if (message.visible) {
