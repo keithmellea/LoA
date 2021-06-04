@@ -80,14 +80,12 @@ let state,
   dungeon,
   door,
   healthBar,
-  message,
   gameScene,
   gameOverScene,
   enemies,
   id;
 
 function setup() {
-
   //Make the game scene and add it to the stage
   gameScene = new Container();
   app.stage.addChild(gameScene);
@@ -97,8 +95,8 @@ function setup() {
   scrollMenu.x = 500;
   scrollMenu.y = 500;
   app.stage.addChild(scrollMenu);
-  console.log(app.stage)
-  
+  console.log(app.stage);
+
   //Create the `tileset` sprite from the texture
   let tiles = TextureCache["tiles"];
 
@@ -144,16 +142,15 @@ function setup() {
   let bookshelfX = 167;
   let bookshelfY = 32;
   bookshelf.position.set(bookshelfX, bookshelfY);
-  gameScene.addChild(bookshelf);
 
   //Populates Bookshelves along X-Axis
   for (let i = 0; i < 16; i++) {
     let bookshelf = new Sprite(resources["bookshelf"].texture);
     bookshelfX += 96;
     bookshelf.position.set(bookshelfX, bookshelfY);
-    gameScene.addChild(bookshelf); 
+    gameScene.addChild(bookshelf);
   }
-  
+
   //Populates Bookshelves along Y-Axis
   for (let j = 0; j < 10; j++) {
     let bookshelf = new Sprite(resources["bookshelf"].texture);
@@ -162,119 +159,68 @@ function setup() {
     bookshelf.position.set(bookshelfX, bookshelfY);
     gameScene.addChild(bookshelf);
   }
-
-  //#Table
-  let table = new Sprite(resources["table"].texture);
-  table.position.set(468, 623);
-  table.interactive = true;
-  table.buttonMode = true;
-  gameScene.addChild(table);
-
-  //#Textbox
-  let textbox = new Sprite(resources["textbox"].texture);
-  textbox.position.set(window.innerWidth / 2, window.innerHeight / 2);
-  gameScene.addChild(textbox);
-
-  let style1 = new TextStyle({
-    fontFamily: "Futura",
-    fontSize: 64,
-    fill: "white",
-    overflow: "scroll"
-  });
-
-  message = new Text("The End!", style1);
-  message.x = window.innerWidth / 2;
-  message.y = window.innerHeight / 2;
-  gameScene.addChild(message);
-
-  //#Door
-  door = new Sprite(resources["door"].texture);
-  door.position.set(32, 0);
-  gameScene.addChild(door);
-
   //#Explorer
   explorer = new Sprite(resources["explorer"].texture);
   explorer.x = 68;
   explorer.y = gameScene.height / 2 - explorer.height / 2;
   explorer.vx = 0;
   explorer.vy = 0;
+  explorer.interactive = true;
+  explorer.buttonMode = true;
+  explorer.on("pointerdown", onClickScroll);
+
+  //#Textbox
+  let textbox = new Sprite(resources["textbox"].texture);
+  textbox.scale.x *= 3.5;
+  textbox.scale.y *= 5;
+  textbox.interactive = true;
+  textbox.buttonMode = true;
+  textbox.position.set(window.innerWidth / 8, window.innerHeight / 6);
+  textbox.on("pointerdown", onClickMsg);
+
+  let style1 = new TextStyle({
+    fontFamily: "Futura",
+    fontSize: 30,
+    fill: "white",
+    "align": "center",
+    "whiteSpace": "normal",
+    "wordWrap": true,
+    "wordWrapWidth": 1220
+  });
+
+  let message = new Text("But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?"
+, style1);
+
+  
+  message.x = window.innerWidth / 6.3;
+  message.y = window.innerHeight / 4;
+  message.interactive = true;
+  message.buttonMode = true;
+
+  //#Door
+  door = new Sprite(resources["door"].texture);
+  door.position.set(32, 0);
+  gameScene.addChild(door);
+
+  //#Table
+  let table = new Sprite(resources["table"].texture);
+  table.position.set(468, 623);
+  table.interactive = true;
+  table.buttonMode = true;
+  table.on("pointerdown", onClickScroll);
+
+  // --- RENDER ORDER ---
+  gameScene.addChild(bookshelf);
   gameScene.addChild(explorer);
-
-
-  //An array to store all the blob monsters
-  blobs = [];
-
-  // //Make as many blobs as there are `numberOfBlobs`
-  // for (let i = 0; i < numberOfBlobs; i++) {
-  //   //Make a blob
-  //   let blob = new Sprite(resources["blob"].texture);
-
-  //   //Space each blob horizontally according to the `spacing` value.
-  //   //`xOffset` determines the point from the left of the screen
-  //   //at which the first blob should be added
-  //   let x = spacing * i + xOffset;
-
-  //   //Give the blob a random y position
-  //   let y = randomInt(1, app.stage.height - blob.height);
-
-  //   //Set the blob's position
-  //   blob.x = 200;
-  //   blob.y = y;
-  //   blob.x += 20;
-  //   //Set the blob's vertical velocity. `direction` will be either `1` or
-  //   //`-1`. `1` means the enemy will move down and `-1` means the blob will
-  //   //move up. Multiplying `direction` by `speed` determines the blob's
-  //   //vertical direction
-  //   blob.vy = speed * direction;
-
-  //   //Reverse the direction for the next blob
-  //   direction *= -1;
-
-  //   //Push the blob into the `blobs` array
-  //   blobs.push(blob);
-
-  //   //Add the blob to the `gameScene`
-  //   gameScene.addChild(blob);
-  // }
-
-  //Create the health bar
-  healthBar = new Container();
-  healthBar.position.set(app.stage.width - 170, 4);
-  gameScene.addChild(healthBar);
-
-  //Create the black background rectangle
-  let innerBar = new Graphics();
-  innerBar.beginFill(0x000000);
-  innerBar.drawRect(0, 0, 128, 8);
-  innerBar.endFill();
-  healthBar.addChild(innerBar);
-
-  //Create the front red rectangle
-  let outerBar = new Graphics();
-  outerBar.beginFill(0xff3300);
-  outerBar.drawRect(0, 0, 128, 8);
-  outerBar.endFill();
-  healthBar.addChild(outerBar);
-
-  healthBar.outer = outerBar;
-
-  //Create the `gameOver` scene
-  gameOverScene = new Container();
-  app.stage.addChild(gameOverScene);
-
-  //Make the `gameOver` scene invisible when the game first starts
-  gameOverScene.visible = false;
-
+  gameScene.addChild(table);
+  gameScene.addChild(textbox);
+  gameScene.addChild(message);
   //Create the text sprite and add it to the `gameOver` scene
   let style = new TextStyle({
     fontFamily: "Futura",
     fontSize: 64,
     fill: "white",
   });
-  message = new Text("The End!", style);
-  message.x = 120;
-  message.y = app.stage.height / 2 - 32;
-  gameOverScene.addChild(message);
 
   //Capture the keyboard arrow keys
   let left = keyboard(37),
@@ -332,12 +278,36 @@ function setup() {
     }
   };
 
+  //#onClickScroll
+  function onClickScroll() {
+    if (message.visible) {
+      message.visible = false;
+      textbox.visible = false;
+    } else {
+      message.visible = true;
+      textbox.visible = true;
+    }
+  } 
+  
+  //#onClickMsg
+  function onClickMsg() {
+    if (message.visible) {
+      message.visible = false;
+      textbox.visible = false;
+    } else {
+      message.visible = true;
+      textbox.visible = true;
+    }
+  }
   //Set the game state
   state = play;
 
   //Start the game loop
   app.ticker.add((delta) => gameLoop(delta));
 }
+
+
+
 
 function gameLoop(delta) {
   //Update the current game state:
@@ -352,50 +322,6 @@ function play(delta) {
   //Contain the explorer inside the area of the dungeon
   contain(explorer, { x: 28, y: 10, width: window.innerWidth, height: window.innerWidth });
   //contain(explorer, stage);
-
-  //Set `explorerHit` to `false` before checking for a collision
-  let explorerHit = false;
-
-  //Loop through all the sprites in the `enemies` array
-  blobs.forEach(function (blob) {
-    //Move the blob
-    blob.y += blob.vy;
-
-    //Check the blob's screen boundaries
-    let blobHitsWall = contain(blob, { x: 28, y: 10, width: 488, height: 480 });
-
-    //If the blob hits the top or bottom of the stage, reverse
-    //its direction
-    if (blobHitsWall === "top" || blobHitsWall === "bottom") {
-      blob.vy *= -1;
-    }
-
-    //Test for a collision. If any of the enemies are touching
-    //the explorer, set `explorerHit` to `true`
-    if (hitTestRectangle(explorer, blob)) {
-      explorerHit = true;
-    }
-  });
-
-  //If the explorer is hit...
-  if (explorerHit) {
-    //Make the explorer semi-transparent
-    explorer.alpha = 0.5;
-
-    //Reduce the width of the health bar's inner rectangle by 1 pixel
-    healthBar.outer.width -= 1;
-  } else {
-    //Make the explorer fully opaque (non-transparent) if it hasn't been hit
-    explorer.alpha = 1;
-  }
-
-
-  //Does the explorer have enough health? If the width of the `innerBar`
-  //is less than zero, end the game and display "You lost!"
-  if (healthBar.outer.width < 0) {
-    state = end;
-    message.text = "You lost!";
-  }
 
 }
 
