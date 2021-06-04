@@ -179,13 +179,12 @@ function setup() {
   textbox.on("pointerdown", onClickMsg);
 
   let deskTextbox = new Sprite(resources["textbox"].texture);
-  deskTextbox.scale.x *= 3.5;
-  deskTextbox.scale.y *= 5;
+  deskTextbox.scale.x *= 0.7;
+  deskTextbox.scale.y *= 2.8;
   deskTextbox.interactive = true;
   deskTextbox.buttonMode = true;
-  deskTextbox.position.set(window.innerWidth / 8, window.innerHeight / 6);
-  deskTextbox.on("pointerdown", onClickMsg);
-
+  deskTextbox.position.set(window.innerWidth / 2.47, window.innerHeight / 3.7);
+  deskTextbox.on("pointerdown", onClickTable);
 
   let style1 = new TextStyle({
     fontFamily: "Futura",
@@ -206,27 +205,28 @@ function setup() {
   message.interactive = true;
   message.buttonMode = true;
 
+
+  let chatText = new Text("Chat", style1);
+  chatText.x = window.innerWidth / 2.2;
+  chatText.y = window.innerHeight / 3;
+  chatText.interactive = true;
+  chatText.buttonMode = true;
+
   let writeText = new Text("Write", style1);
-  writeText.x = window.innerWidth / 6.3;
-  writeText.y = window.innerHeight / 4;
+  writeText.x = window.innerWidth / 2.2;
+  writeText.y = window.innerHeight / 2.4;
   writeText.interactive = true;
   writeText.buttonMode = true;
 
   let editText = new Text("Edit", style1);
-  editText.x = window.innerWidth / 6.3;
-  editText.y = window.innerHeight / 4;
+  editText.x = window.innerWidth / 2.2;
+  editText.y = window.innerHeight / 1.97;
   editText.interactive = true;
   editText.buttonMode = true;
 
-  let chatText = new Text("Chat", style1);
-  chatText.x = window.innerWidth / 6.3;
-  chatText.y = window.innerHeight / 4;
-  chatText.interactive = true;
-  chatText.buttonMode = true;
-
   let deleteText = new Text("Delete", style1);
-  deleteText.x = window.innerWidth / 6.3;
-  deleteText.y = window.innerHeight / 4;
+  deleteText.x = window.innerWidth / 2.2;
+  deleteText.y = window.innerHeight / 1.67;
   deleteText.interactive = true;
   deleteText.buttonMode = true;
 
@@ -238,7 +238,10 @@ function setup() {
   //#Table
   let table = new Sprite(resources["table"].texture);
   table.position.set(468, 623);
-  
+  table.interactive = true;
+  table.buttonMode = true;
+  table.on("pointerdown", onClickTable);
+
   // --- RENDER ORDER ---
   message.visible = false;
   textbox.visible = false;
@@ -330,12 +333,13 @@ function setup() {
     if (message.visible) {
       message.visible = false;
       textbox.visible = false;
-    } else if (explorer.position.x > 1720 && explorer.position.y < 920) {
+    } else if (explorer.position.x > 1720 && explorer.position.y < 920 ) {
       console.log(explorer.position);
       message.visible = true;
       textbox.visible = true;
     }
   }
+
   //#onClickMsg
   function onClickMsg() {
     if (message.visible) {
@@ -346,6 +350,25 @@ function setup() {
       textbox.visible = true;
     }
   }
+
+  //#onClickTable
+  function onClickTable() {
+    if (deskTextbox.visible) {
+      deskTextbox.visible = false;
+      editText.visible = false;
+      deleteText.visible = false;
+      chatText.visible = false;
+      writeText.visible = false;
+    } else if (explorer.position.x > 400 && explorer.position.y < 800 && explorer.position.x < 700) {
+      console.log(explorer.position)
+      deskTextbox.visible = true;
+      editText.visible = true;
+      deleteText.visible = true;
+      chatText.visible = true;
+      writeText.visible = true;
+    }
+  }
+
   //Set the game state
   state = play;
 
