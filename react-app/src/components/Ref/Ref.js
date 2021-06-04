@@ -9,6 +9,7 @@ import Treasure from "../Ref/images/treasure.png";
 import Tiles from "../Ref/images/tiles.png";
 import Bookshelf from "../Ref/images/bookshelf.png";
 import Table from "../Ref/images/table.png";
+import Textbox from "../Ref/images/textbox.png";
 import { InteractionManager } from '@pixi/interaction'
 
 import * as PIXI from "pixi.js";
@@ -55,31 +56,15 @@ const MyComponent = () => {
     }
   };
 
-  // const setup = () => {
-  //   PIXI.loader.add("cat", Cat).load(initialize);
-  // };
-
-  // const initialize = () => {
-  //   let Stage = app.stage;
-  //   //We will create a sprite and then add it to stage and (0,0) position
-  //   let avatar = new PIXI.Sprite(PIXI.loader.resources["cat"].texture);
-  //   Stage.addChild(avatar);
-  // };
-  //Aliases
-
-  //Create a Pixi Application
-
-
   const pixiLoader = () => {
-    //loader.add("treasureHunter", treasureHunter)
     loader.add("door", Door)
     loader.add("explorer", Explorer)
     loader.add("blob", Blob)
-    loader.add("treasure", Treasure)
     loader.add("dungeon", Dungeon)
     loader.add("tiles", Tiles)
     loader.add("bookshelf", Bookshelf)
     loader.add("table", Table)
+    loader.add("textbox", Textbox)
     .load(setup);
   };
 
@@ -88,7 +73,6 @@ const MyComponent = () => {
 
 let state,
   explorer,
-  treasure,
   blobs,
   chimes,
   exit,
@@ -103,14 +87,21 @@ let state,
   id;
 
 function setup() {
+
   //Make the game scene and add it to the stage
   gameScene = new Container();
   app.stage.addChild(gameScene);
 
+  //#Scroll Menu
+  let scrollMenu = new Container();
+  scrollMenu.x = 500;
+  scrollMenu.y = 500;
+  app.stage.addChild(scrollMenu);
+  console.log(app.stage)
+  
   //Create the `tileset` sprite from the texture
   let tiles = TextureCache["tiles"];
 
-  console.log(window.innerWidth);
   //Create a rectangle object that defines the position and
   //size of the sub-image you want to extract from the texture
   let rectangle = new Rectangle(2, 0, 46, 48);
@@ -177,9 +168,24 @@ function setup() {
   table.position.set(468, 623);
   table.interactive = true;
   table.buttonMode = true;
-  table.onTap = table.onTap.bind(table);
-  table.on('pointertap', table.onTap);
   gameScene.addChild(table);
+
+  //#Textbox
+  let textbox = new Sprite(resources["textbox"].texture);
+  textbox.position.set(window.innerWidth / 2, window.innerHeight / 2);
+  gameScene.addChild(textbox);
+
+  let style1 = new TextStyle({
+    fontFamily: "Futura",
+    fontSize: 64,
+    fill: "white",
+    overflow: "scroll"
+  });
+
+  message = new Text("The End!", style1);
+  message.x = window.innerWidth / 2;
+  message.y = window.innerHeight / 2;
+  gameScene.addChild(message);
 
   //#Door
   door = new Sprite(resources["door"].texture);
@@ -194,18 +200,6 @@ function setup() {
   explorer.vy = 0;
   gameScene.addChild(explorer);
 
-  //Treasure
-  treasure = new Sprite(resources["treasure"].texture);
-  treasure.x = gameScene.width - treasure.width - 48;
-  treasure.y = gameScene.height / 2 - treasure.height / 2;
-  gameScene.addChild(treasure);
-
-  //Make the blobs
-  let numberOfBlobs = 20,
-    spacing = 100,
-    xOffset = 150,
-    speed = 2,
-    direction = 1;
 
   //An array to store all the blob monsters
   blobs = [];
@@ -395,12 +389,6 @@ function play(delta) {
     explorer.alpha = 1;
   }
 
-  //Check for a collision between the explorer and the treasure
-  if (hitTestRectangle(explorer, treasure)) {
-    //If the treasure is touching the explorer, center it over the explorer
-    treasure.x = explorer.x + 8;
-    treasure.y = explorer.y + 8;
-  }
 
   //Does the explorer have enough health? If the width of the `innerBar`
   //is less than zero, end the game and display "You lost!"
@@ -409,12 +397,6 @@ function play(delta) {
     message.text = "You lost!";
   }
 
-  //If the explorer has brought the treasure to the exit,
-  //end the game and display "You won!"
-  if (hitTestRectangle(treasure, door)) {
-    state = end;
-    message.text = "You won!";
-  }
 }
 
 function end() {
