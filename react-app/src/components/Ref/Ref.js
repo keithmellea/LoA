@@ -15,7 +15,6 @@ import * as PIXI from "pixi.js";
 const MyComponent = () => {
   let pixi_cnt = null;
 
-
   let Application = PIXI.Application,
     Container = PIXI.Container,
     loader = PIXI.loader,
@@ -62,22 +61,11 @@ const MyComponent = () => {
   //than one function
 
 let state,
-  explorer,
-  blobs,
-  chimes,
-  exit,
-  player,
-  dungeon,
-  door,
-  healthBar,
-  gameScene,
-  gameOverScene,
-  enemies,
-  id;
+  explorer;
 
 function setup() {
   //Make the game scene and add it to the stage
-  gameScene = new Container();
+  let gameScene = new Container();
   app.stage.addChild(gameScene);
 
   //#Scroll Menu
@@ -122,10 +110,6 @@ function setup() {
     x = 32;
     y += 48;
   }
-
-  //Dungeon
-  // dungeon = new Sprite(resources["dungeon"].texture);
-  // gameScene.addChild(dungeon);
 
   //#Bookshelf
   let bookshelf = new Sprite(resources["bookshelf"].texture);
@@ -205,7 +189,6 @@ function setup() {
   message.interactive = true;
   message.buttonMode = true;
 
-
   let chatText = new Text("Chat", style1);
   chatText.x = window.innerWidth / 2.2;
   chatText.y = window.innerHeight / 3;
@@ -229,11 +212,6 @@ function setup() {
   deleteText.y = window.innerHeight / 1.67;
   deleteText.interactive = true;
   deleteText.buttonMode = true;
-
-  //#Door
-  door = new Sprite(resources["door"].texture);
-  door.position.set(32, 0);
-  gameScene.addChild(door);
 
   //#Table
   let table = new Sprite(resources["table"].texture);
@@ -359,7 +337,8 @@ function setup() {
       deleteText.visible = false;
       chatText.visible = false;
       writeText.visible = false;
-    } else if (explorer.position.x > 400 && explorer.position.y < 800 && explorer.position.x < 700) {
+    } else if (explorer.position.x > 400 && explorer.position.y < 800 
+      && explorer.position.x < 700 && explorer.position.y > 530) {
       console.log(explorer.position)
       deskTextbox.visible = true;
       editText.visible = true;
@@ -374,10 +353,8 @@ function setup() {
 
   //Start the game loop
   app.ticker.add((delta) => gameLoop(delta));
+
 }
-
-
-
 
 function gameLoop(delta) {
   //Update the current game state:
@@ -392,12 +369,6 @@ function play(delta) {
   //Contain the explorer inside the area of the dungeon
   contain(explorer, { x: 28, y: 10, width: window.innerWidth, height: window.innerWidth });
   //contain(explorer, stage);
-
-}
-
-function end() {
-  gameScene.visible = false;
-  gameOverScene.visible = true;
 }
 
 /* Helper functions */
@@ -518,6 +489,7 @@ function keyboard(keyCode) {
   window.addEventListener("keyup", key.upHandler.bind(key), false);
   return key;
 }
+
   return (
       <div ref={updatePixiCnt} />
   );
