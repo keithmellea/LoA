@@ -3,15 +3,14 @@ from .db import db
 class Scroll(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
-    author = db.Column(db.String(30), nullable=False)
+    author = db.Column(db.String(30),  db.ForeignKey("user.username"), nullable=False,)
     title = db.Column(db.String(50), nullable=False, unique = True)
     published = db.Column(db.DateTime, nullable=False)
     body = db.Column(db.Text, nullable=False)
     created_on = db.Column(db.DateTime, server_default=db.func.now())
     updated_on = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
 
-    scrolls = db.relationship("Scroll", back_populates="scroll")
-    chat = 
+    users = db.relationship("User", back_populates="user")
 
     def to_dict(self):
         return {
