@@ -10,6 +10,9 @@ class Scroll(db.Model):
     created_on = db.Column(db.DateTime, server_default=db.func.now())
     updated_on = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
 
+    scrolls = db.relationship("Scroll", back_populates="scroll")
+    chat = 
+
     def to_dict(self):
         return {
         "id": self.id,

@@ -7,7 +7,7 @@ class User(db.Model, UserMixin):
 
   id = db.Column(db.Integer, primary_key = True)
   username = db.Column(db.String(40), nullable = False, unique = True)
-  gender = db.Column(db.SelectField(40), nullable = False, unique = True)
+  gender = db.Column(db.String(40), nullable = False, unique = True)
   email = db.Column(db.String(255), nullable = False, unique = True)
   hashed_password = db.Column(db.String(255), nullable = False)
 
