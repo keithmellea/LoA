@@ -1,9 +1,13 @@
 import {createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import session from "./session"
+import chat from "./chats"
+import scroll from "./scroll"
 
 const rootReducer = combineReducers({
     session,
+    chat,
+    scroll
 });
 
 
