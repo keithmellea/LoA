@@ -3,7 +3,7 @@ from .db import db
 class Scroll(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
-    author = db.Column(db.String(30),  db.ForeignKey("user.username"), nullable=False,)
+    author = db.Column(db.String(30),  db.ForeignKey("users.username"), nullable=False,)
     title = db.Column(db.String(50), nullable=False, unique = True)
     published = db.Column(db.DateTime, nullable=False)
     body = db.Column(db.Text, nullable=False)
