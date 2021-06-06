@@ -1,4 +1,9 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
+import { NavLink, useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+
+import { getScrolls } from "../../store/scroll";
+
 import Cat from "../Ref/images/cat.png"
 import Door from "../Ref/images/door.png"
 import Dungeon from "../Ref/images/dungeon.png";
@@ -9,10 +14,18 @@ import Tiles from "../Ref/images/tiles.png";
 import Bookshelf from "../Ref/images/bookshelf.png";
 import Table from "../Ref/images/table.png";
 import Textbox from "../Ref/images/textbox.png";
+
 import { InteractionManager } from '@pixi/interaction'
 import * as PIXI from "pixi.js";
 
 const MyComponent = () => {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getScrolls());
+  })
+
   let pixi_cnt = null;
 
   let Application = PIXI.Application,

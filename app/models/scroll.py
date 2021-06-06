@@ -1,6 +1,7 @@
 from .db import db
 
 class Scroll(db.Model):
+    __tablename__ = 'scrolls'
 
     id = db.Column(db.Integer, primary_key=True)
     author = db.Column(db.String(30),  db.ForeignKey("users.username"), nullable=False,)
@@ -10,7 +11,7 @@ class Scroll(db.Model):
     created_on = db.Column(db.DateTime, server_default=db.func.now())
     updated_on = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
 
-    users = db.relationship("User", back_populates="user")
+    users = db.relationship("User", back_populates="scrolls")
 
     def to_dict(self):
         return {

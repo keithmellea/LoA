@@ -2,6 +2,7 @@ const LOAD = "scrolls/LOAD";
 const ADD_SCROLL = "scrolls/ADD_SCROLL";
 const DELETE_SCROLL = "scrolls/DELETE_SCROLLS";
 const GET_SCROLL = "scrolls/GET_SCROLL";
+const GRAB_SCROLLS = "scrolls/GRAB_SCROLLS";
 
 const load = (list) => ({
   type: LOAD,
@@ -23,6 +24,11 @@ const get_scroll = (scroll) => ({
   scroll,
 });
 
+const grabScrolls = (scrolls) => ({
+  type: GRAB_SCROLLS,
+  scrolls,
+});
+
 // export const getUsersScrolls = () => async (dispatch) => {
 //   const response = await fetch("/api/scrolls/", {
 //     headers: {
@@ -36,6 +42,17 @@ const get_scroll = (scroll) => ({
 //     dispatch(load(usersScrolls));
 //   }
 // };
+
+//Get all Scrolls
+export const getScrolls = () => async (dispatch) => {
+  const response = await fetch("/api/scrolls/");
+  const scrolls = await response.json();
+  if (scrolls.errors) {
+    return;
+  }
+
+  dispatch(grabScrolls(scrolls));
+};
 
 //POST a new scroll
 export const addScroll = (img_url, scroll_name) => async (dispatch) => {

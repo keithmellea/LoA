@@ -9,7 +9,7 @@ class Chat(db.Model):
     created_on = db.Column(db.DateTime, server_default=db.func.now())
     updated_on = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
 
-    users = db.relationship("User", back_populates="user")
+    users = db.relationship("User", back_populates="chats")
 
     def to_dict(self):
         return {
