@@ -196,6 +196,7 @@ function setup() {
     wordWrapWidth: 1220,
   });
 
+  //#scrollList
   const scrollList = () => {
     const titleContainer = new Container();
       let i = 0;
@@ -206,9 +207,26 @@ function setup() {
       scrollName.x = window.innerWidth / 6.3;
       scrollName.y = i + 1 * 250;
       scrollName.y *= i + 0.5;
-     scrollName.interactive = true;
-     scrollName.buttonMode = true;
-     titleContainer.addChild(scrollName);
+      scrollName.interactive = true;
+      scrollName.buttonMode = true;
+      scrollName.on("pointerdown", onClickList);
+      titleContainer.addChild(scrollName);
+
+      //#onClickList
+      function onClickList() {        
+          let message = new Text(scroll.body, style1);
+        message.x = window.innerWidth / 6.3;
+        message.y = window.innerHeight / 4;
+        message.visible = false;
+        gameScene.addChild(message);
+        if (titleContainer.visible && scroll.body === message.text) {
+          titleContainer.visible = false;
+          message.visible = true;
+        }
+        else {
+          message.visible = false;
+        }
+      }
 
     }
     console.log(window.innerHeight / 2);
@@ -384,6 +402,8 @@ function setup() {
       writeText.visible = true;
     }
   }
+
+  
 
   //Set the game state
   state = play;
