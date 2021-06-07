@@ -8,6 +8,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "http-proxy-middleware": "^1.0.5",
+    "pixi-text-input": "^1.0.6",
     "pixi.js": "^4.5.5rc",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",

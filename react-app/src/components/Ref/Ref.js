@@ -198,20 +198,20 @@ function setup() {
 
   const scrollList = () => {
     const titleContainer = new Container();
-
-    scrolls.map(scroll => {
       let i = 0;
-      let scrollName = new Text(scroll.title, style1);
 
+    for (i = 0; i < scrolls.length; i++) {
+      let scroll = scrolls[i];
+      let scrollName = new Text(scroll.title, style1);
       scrollName.x = window.innerWidth / 6.3;
-      scrollName.y = window.innerHeight / 4;
-      scrollName.y += i;
+      scrollName.y = i + 1 * 250;
+      scrollName.y *= i + 0.5;
      scrollName.interactive = true;
      scrollName.buttonMode = true;
      titleContainer.addChild(scrollName);
-     i++;
-    })
-    console.log(titleContainer);
+
+    }
+    console.log(window.innerHeight / 2);
     return titleContainer;
   }
 
