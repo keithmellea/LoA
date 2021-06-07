@@ -28,11 +28,6 @@ const MyComponent = () => {
     dispatch(getScrolls());
   }, [dispatch])
 
-  console.log(scrolls);
-  if (scrolls) {
-  const scroll = scrolls[0]?.body;
-  console.log(scroll);
-  }
   let pixi_cnt = null;
 
   let Application = PIXI.Application,
@@ -201,8 +196,29 @@ function setup() {
     wordWrapWidth: 1220,
   });
 
+  const scrollList = () => {
+    const titleContainer = new Container();
+
+    scrolls.map(scroll => {
+      let i = 0;
+      let scrollName = new Text(scroll.title, style1);
+
+      scrollName.x = window.innerWidth / 6.3;
+      scrollName.y = window.innerHeight / 4;
+      scrollName.y += i;
+     scrollName.interactive = true;
+     scrollName.buttonMode = true;
+     titleContainer.addChild(scrollName);
+     i++;
+    })
+    console.log(titleContainer);
+    return titleContainer;
+  }
+
+  let titleList = scrollList();
   let message = new Text(
-    scroll,
+    scrollList().children.text,
+    // scrolls[0].body,
     style1
   );
   message.x = window.innerWidth / 6.3;
@@ -242,7 +258,7 @@ function setup() {
   table.on("pointerdown", onClickTable);
 
   // --- RENDER ORDER ---
-  message.visible = false;
+  titleList.visible = false;
   textbox.visible = false;
   deskTextbox.visible = false;
   writeText.visible = false;
@@ -254,7 +270,7 @@ function setup() {
   gameScene.addChild(explorer);
   gameScene.addChild(textbox);
   gameScene.addChild(deskTextbox);
-  gameScene.addChild(message);
+  gameScene.addChild(titleList);
   gameScene.addChild(writeText);
   gameScene.addChild(editText);
   gameScene.addChild(deleteText);
@@ -318,34 +334,34 @@ function setup() {
 
   //#onClickScrollX
   function onClickScrollX() {
-    if (message.visible) {
-      message.visible = false;
+    if (titleList.visible) {
+      titleList.visible = false;
       textbox.visible = false;
     } else if (explorer.position.x > 100 && explorer.position.y < 151) {
-      message.visible = true;
+      titleList.visible = true;
       textbox.visible = true;
     }
   }
 
   //#onClickScrollY
   function onClickScrollY() {
-    if (message.visible) {
-      message.visible = false;
+    if (titleList.visible) {
+      titleList.visible = false;
       textbox.visible = false;
     } else if (explorer.position.x > 1720 && explorer.position.y < 920 ) {
       console.log(explorer.position);
-      message.visible = true;
+      titleList.visible = true;
       textbox.visible = true;
     }
   }
 
   //#onClickMsg
   function onClickMsg() {
-    if (message.visible) {
-      message.visible = false;
+    if (titleList.visible) {
+      titleList.visible = false;
       textbox.visible = false;
     } else {
-      message.visible = true;
+      titleList.visible = true;
       textbox.visible = true;
     }
   }
@@ -510,6 +526,8 @@ function keyboard(keyCode) {
   window.addEventListener("keyup", key.upHandler.bind(key), false);
   return key;
 }
+
+if (!scrolls) return null;
 
   return (
       <div ref={updatePixiCnt} />
