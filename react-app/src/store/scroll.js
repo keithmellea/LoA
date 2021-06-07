@@ -24,9 +24,9 @@ const get_scroll = (scroll) => ({
   scroll,
 });
 
-const grabScrolls = (scrolls) => ({
+const grabScrolls = (scroll) => ({
   type: GRAB_SCROLLS,
-  scrolls,
+  scroll,
 });
 
 // export const getUsersScrolls = () => async (dispatch) => {
@@ -107,13 +107,11 @@ const initialState = {
 };
 
 const scrollsReducer = (state = initialState, action) => {
+  let newState = { ...state };
   switch (action.type) {
-    case LOAD: {
-      return {
-        ...state,
-        list: action.list,
-      };
-    }
+    case GRAB_SCROLLS:
+      newState["scrolls"] = action.scroll.scrolls;
+      return newState;
 
     case ADD_SCROLL: {
       return {

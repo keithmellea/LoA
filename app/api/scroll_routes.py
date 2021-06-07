@@ -11,4 +11,5 @@ def getScrolls():
     get user's scrolls
     '''
     scrolls = Scroll.query.all()
-    return {"scrolls": [scrolls.to_dict() for scroll in scrolls]}
+    print("scrolls", scrolls)
+    return {"scrolls": [scroll.to_dict() for scroll in scrolls]}
