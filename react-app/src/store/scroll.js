@@ -55,16 +55,18 @@ export const getScrolls = () => async (dispatch) => {
 };
 
 //POST a new scroll
-export const addScroll = (img_url, scroll_name) => async (dispatch) => {
-  console.log(img_url, scroll_name);
+export const addScroll = (author, title, published, body) => async (dispatch) => {
+  console.log(author, title, published, body);
   const res = await fetch("/api/scrolls/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      img_url,
-      scroll_name,
+      author,
+      title,
+      published,
+      body,
     }),
   });
   const data = await res.json();

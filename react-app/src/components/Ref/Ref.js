@@ -2,7 +2,7 @@ import React, { Component, useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
-import { getScrolls } from "../../store/scroll";
+import { getScrolls, addScroll } from "../../store/scroll";
 
 import Cat from "../Ref/images/cat.png"
 import Door from "../Ref/images/door.png"
@@ -17,6 +17,7 @@ import Textbox from "../Ref/images/textbox.png";
 
 import { InteractionManager } from '@pixi/interaction'
 import * as PIXI from "pixi.js";
+import TextInput from "pixi-text-input";
 
 const MyComponent = () => {
 
@@ -82,6 +83,9 @@ let state,
 function setup() {
   //Make the game scene and add it to the stage
   let gameScene = new Container();
+  const bodyContainer = new Container();
+  const titleContainer = new Container();
+  const deskContainer = new Container();
   app.stage.addChild(gameScene);
 
   //#Scroll Menu
@@ -176,7 +180,7 @@ function setup() {
   textbox.interactive = true;
   textbox.buttonMode = true;
   textbox.position.set(window.innerWidth / 8, window.innerHeight / 6);
-  textbox.on("pointerdown", onClickMsg);
+  textbox.on("pointerdown", onClickMsg);   
 
   let deskTextbox = new Sprite(resources["textbox"].texture);
   deskTextbox.scale.x *= 0.7;
@@ -196,12 +200,53 @@ function setup() {
     wordWrapWidth: 1220,
   });
 
-  //#scrollList
-  const scrollList = () => {
-    const titleContainer = new Container();
-      let i = 0;
+  let writeInput = new PIXI.TextInput({
+    input: { fontSize: "25px", width: "800px", height: "500px" },
+    box: {
+      default: {
+        fill: 0xe8e9f3,
+        rounded: 12,
+        stroke: { color: 0xcbcee0, width: 3 },
+      },
+      focused: {
+        fill: 0xe1e3ee,
+        rounded: 12,
+        stroke: { color: 0xabafc6, width: 3 },
+      },
+      disabled: { fill: 0xdbdbdb, rounded: 12 },
+    },
+  });
 
-    for (i = 0; i < scrolls.length; i++) {
+  writeInput.position.set(window.innerWidth / 2.47, window.innerHeight / 3.7);
+  writeInput.placeholder = "Enter your Text...";
+  writeInput.visible = false;
+  // input.on("pointerdown", e => {
+  //   addScroll("test", e, "test", "test");
+
+  // })
+
+  let editInput = new PIXI.TextInput({
+    input: { fontSize: "25px", width: "800px", height: "500px" },
+    box: {
+      default: {
+        fill: 0xe8e9f3,
+        rounded: 12,
+        stroke: { color: 0xcbcee0, width: 3 },
+      },
+      focused: {
+        fill: 0xe1e3ee,
+        rounded: 12,
+        stroke: { color: 0xabafc6, width: 3 },
+      },
+      disabled: { fill: 0xdbdbdb, rounded: 12 },
+    },
+  });
+
+  editInput.position.set(window.innerWidth / 2.47, window.innerHeight / 3.7);
+  editInput.placeholder = "Enter your Text...";
+  editInput.visible = false;
+
+    for (let i = 0; i < scrolls.length; i++) {
       let scroll = scrolls[i];
       let scrollName = new Text(scroll.title, style1);
       scrollName.x = window.innerWidth / 6.3;
@@ -209,33 +254,41 @@ function setup() {
       scrollName.y *= i + 0.5;
       scrollName.interactive = true;
       scrollName.buttonMode = true;
-      scrollName.on("pointerdown", onClickList);
+      scrollName.on("pointerdown", (e) => {
+
+  console.log("SCROLLNAME", i, e.target);
+for (let j = 0; j < scrolls.length; j++) {
+  let scroll = scrolls[j];
+  let currentScroll;
+  if (e.target._text === scroll.title) {
+    currentScroll = scroll;
+    bodyContainer.children.forEach((msg) => {
+       msg.visible = false;
+      if (currentScroll.body === msg._text) {
+        titleContainer.visible = false;
+        bodyContainer.visible = true;
+        msg.visible = true;
+      }
+    });
+  } // }
+}
+        
+      });
       titleContainer.addChild(scrollName);
 
-      //#onClickList
-      function onClickList() {        
-          let message = new Text(scroll.body, style1);
+        let message = new Text(scroll.body, style1);
         message.x = window.innerWidth / 6.3;
         message.y = window.innerHeight / 4;
         message.visible = false;
-        gameScene.addChild(message);
-        if (titleContainer.visible && scroll.body === message.text) {
-          titleContainer.visible = false;
-          message.visible = true;
-        }
-        else {
-          message.visible = false;
-        }
-      }
+        bodyContainer.addChild(message);
 
+      console.log(bodyContainer.children);
     }
-    console.log(window.innerHeight / 2);
-    return titleContainer;
-  }
 
-  let titleList = scrollList();
+  let titleList = titleContainer;
+
   let message = new Text(
-    scrollList().children.text,
+    titleContainer.children.text,
     // scrolls[0].body,
     style1
   );
@@ -255,18 +308,34 @@ function setup() {
   writeText.y = window.innerHeight / 2.4;
   writeText.interactive = true;
   writeText.buttonMode = true;
+  writeText.on("pointerdown", () => {
+    deskTextbox.visible = false;
+    textbox.visible = true;
+    writeInput.visible = true; 
+  writeText.visible = false;
+  editText.visible = false;
+  deleteText.visible = false;
+  chatText.visible = false;
+  })
 
   let editText = new Text("Edit", style1);
   editText.x = window.innerWidth / 2.2;
   editText.y = window.innerHeight / 1.97;
   editText.interactive = true;
   editText.buttonMode = true;
+  editText.on("pointerdown", () => {
+    deskTextbox.visible = false;
+    textbox.visible = true;
+    editInput.visible = true; 
+  })
 
   let deleteText = new Text("Delete", style1);
   deleteText.x = window.innerWidth / 2.2;
   deleteText.y = window.innerHeight / 1.67;
   deleteText.interactive = true;
   deleteText.buttonMode = true;
+
+
 
   //#Table
   let table = new Sprite(resources["table"].texture);
@@ -288,11 +357,14 @@ function setup() {
   gameScene.addChild(explorer);
   gameScene.addChild(textbox);
   gameScene.addChild(deskTextbox);
+  gameScene.addChild(bodyContainer);
   gameScene.addChild(titleList);
   gameScene.addChild(writeText);
   gameScene.addChild(editText);
   gameScene.addChild(deleteText);
   gameScene.addChild(chatText);
+  gameScene.addChild(writeInput);
+  gameScene.addChild(editInput);
 
   //Capture the keyboard arrow keys
   let left = keyboard(37),
@@ -352,9 +424,14 @@ function setup() {
 
   //#onClickScrollX
   function onClickScrollX() {
-    if (titleList.visible) {
+    if (textbox.visible) {
       titleList.visible = false;
+      message.visible = false;
       textbox.visible = false;
+      bodyContainer.visible = false;
+      titleContainer.visible = false;
+      writeInput.visible = false;
+      editInput.visible = false;
     } else if (explorer.position.x > 100 && explorer.position.y < 151) {
       titleList.visible = true;
       textbox.visible = true;
@@ -363,9 +440,13 @@ function setup() {
 
   //#onClickScrollY
   function onClickScrollY() {
-    if (titleList.visible) {
+    if (textbox.visible) {
       titleList.visible = false;
       textbox.visible = false;
+      bodyContainer.visible = false;
+      titleContainer.visible = false;
+      writeInput.visible = false;
+      editInput.visible = false;
     } else if (explorer.position.x > 1720 && explorer.position.y < 920 ) {
       console.log(explorer.position);
       titleList.visible = true;
@@ -375,23 +456,36 @@ function setup() {
 
   //#onClickMsg
   function onClickMsg() {
-    if (titleList.visible) {
-      titleList.visible = false;
+    if (textbox.visible) {
+      console.log(gameScene);
+      message.visible = false;
+      bodyContainer.visible = false;
       textbox.visible = false;
+      titleList.visible = false;
+      writeInput.visible = false;
+      editInput.visible = false;
+      writeText.visible = false;
+      editText.visible = false;
+      deleteText.visible = false;
+      chatText.visible = false;
     } else {
       titleList.visible = true;
       textbox.visible = true;
+      bodyContainer.visible = false;
     }
   }
 
   //#onClickTable
   function onClickTable() {
     if (deskTextbox.visible) {
+      titleList.visible = false;
       deskTextbox.visible = false;
       editText.visible = false;
       deleteText.visible = false;
       chatText.visible = false;
       writeText.visible = false;
+      writeInput.visible = false;
+      editInput.visible = false;
     } else if (explorer.position.x > 400 && explorer.position.y < 800 
       && explorer.position.x < 700 && explorer.position.y > 530) {
       console.log(explorer.position)
