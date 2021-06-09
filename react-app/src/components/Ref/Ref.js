@@ -317,6 +317,7 @@ for (let j = 0; j < scrolls.length; j++) {
 
   let writeInput = document.getElementById("add_scroll");
 
+    writeInput.style.display = "none";
   let writeText = new Text("Write", style1);
   writeText.x = window.innerWidth / 2.2;
   writeText.y = window.innerHeight / 2.4;
@@ -331,7 +332,7 @@ for (let j = 0; j < scrolls.length; j++) {
   chatText.visible = false;
 
 
-  writeInput.style.display = "block"; 
+  writeInput.style.display = "flex"; 
     
 
 

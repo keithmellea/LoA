@@ -33,15 +33,39 @@ const AddScrollForm = () => {
     return (
       <form key={"id"} onSubmit={handleSubmit} id="add_scroll">
         <label>Author</label>
-        <input type="text" required value={author} onChange={(e) => setAuthor(e.target.value)} />
+        <input
+          type="text"
+          required
+          value={author}
+          id="author"
+          onChange={(e) => setAuthor(e.target.value)}
+        />
         <label>Title</label>
-        <input type="text" required value={title} onChange={(e) => setTitle(e.target.value)} />
+        <input
+          type="text"
+          required
+          value={title}
+          id="title"
+          onChange={(e) => setTitle(e.target.value)}
+        />
         <label>Published</label>
-        <input type="text" required value={published} onChange={(e) => setPublished(e.target.value)} />
+        <input
+          type="text"
+          required
+          value={published}
+          id="published"
+          onChange={(e) => setPublished(e.target.value)}
+        />
         <label>Body</label>
-        <input type="text" required placeholder={body} onChange={(e) => setBody(e.target.value)} />
+        <input
+          type="text"
+          required
+          placeholder={body}
+          id="body"
+          onChange={(e) => setBody(e.target.value)}
+        />
         <button className="submit-button" type="submit">
-          Book
+          Create Scroll
         </button>
       </form>
     );
