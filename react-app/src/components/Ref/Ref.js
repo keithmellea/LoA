@@ -199,6 +199,19 @@ function setup() {
     wordWrap: true,
     wordWrapWidth: 1220,
   });
+  
+  // let writeForm = document.createElement("FORM");
+  // writeForm.name = 'writeForm';
+  // writeForm.method = 'POST';
+  // writeForm.action = "/api/scrolls/";
+  // let authorInput = document.createElement("INPUT");
+  // authorInput.type = 'TEXT';
+  // authorInput.name = 'authorInput';
+  // authorInput.value = 'Author';
+  // writeForm.x = window.innerWidth / 2;
+  // writeForm.y = window.innerHeight / 2;
+  // writeForm.appendChild(authorInput);
+  
 
   let writeInput = new PIXI.TextInput({
     input: { fontSize: "25px", width: "800px", height: "500px" },
@@ -218,13 +231,14 @@ function setup() {
   });
 
   writeInput.position.set(window.innerWidth / 2.47, window.innerHeight / 3.7);
-  writeInput.placeholder = "Enter your Text...";
   writeInput.visible = false;
+  writeInput.focus();
   // input.on("pointerdown", e => {
   //   addScroll("test", e, "test", "test");
 
   // })
 
+  console.log("writeInput", writeInput)
   let editInput = new PIXI.TextInput({
     input: { fontSize: "25px", width: "800px", height: "500px" },
     box: {
@@ -244,6 +258,7 @@ function setup() {
 
   editInput.position.set(window.innerWidth / 2.47, window.innerHeight / 3.7);
   editInput.placeholder = "Enter your Text...";
+  editInput.focus();
   editInput.visible = false;
 
     for (let i = 0; i < scrolls.length; i++) {
@@ -256,7 +271,6 @@ function setup() {
       scrollName.buttonMode = true;
       scrollName.on("pointerdown", (e) => {
 
-  console.log("SCROLLNAME", i, e.target);
 for (let j = 0; j < scrolls.length; j++) {
   let scroll = scrolls[j];
   let currentScroll;
@@ -334,8 +348,6 @@ for (let j = 0; j < scrolls.length; j++) {
   deleteText.y = window.innerHeight / 1.67;
   deleteText.interactive = true;
   deleteText.buttonMode = true;
-
-
 
   //#Table
   let table = new Sprite(resources["table"].texture);
@@ -644,7 +656,10 @@ function keyboard(keyCode) {
 if (!scrolls) return null;
 
   return (
+    <div>
       <div ref={updatePixiCnt} />
+      
+    </div>
   );
 };
 
