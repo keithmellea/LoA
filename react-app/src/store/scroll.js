@@ -2,12 +2,20 @@ const LOAD = "scrolls/LOAD";
 const ADD_SCROLL = "scrolls/ADD_SCROLL";
 const DELETE_SCROLL = "scrolls/DELETE_SCROLLS";
 const GET_SCROLL = "scrolls/GET_SCROLL";
+const SET_SCROLL = "scrolls/SET_SCROLL";
 const GRAB_SCROLLS = "scrolls/GRAB_SCROLLS";
 
 const load = (list) => ({
   type: LOAD,
   list,
 });
+
+const setScroll = (scroll) => {
+  return {
+    type: SET_SCROLL,
+    scroll
+  };
+};
 
 const add_scroll = (scroll) => ({
   type: ADD_SCROLL,
@@ -29,19 +37,19 @@ const grabScrolls = (scroll) => ({
   scroll,
 });
 
-// export const getUsersScrolls = () => async (dispatch) => {
-//   const response = await fetch("/api/scrolls/", {
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//   });
+export const getUsersScrolls = () => async (dispatch) => {
+  const response = await fetch("/api/scrolls/", {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 
-//   if (response.ok) {
-//     // console.log("OK")
-//     const usersScrolls = await response.json();
-//     dispatch(load(usersScrolls));
-//   }
-// };
+  if (response.ok) {
+    // console.log("OK")
+    const usersScrolls = await response.json();
+    dispatch(load(usersScrolls));
+  }
+};
 
 //Get all Scrolls
 export const getScrolls = () => async (dispatch) => {
@@ -54,21 +62,31 @@ export const getScrolls = () => async (dispatch) => {
   dispatch(grabScrolls(scrolls));
 };
 
+export const editScroll = (author, title, published, body, scrollId) => async (dispatch) => {
+  const res = await fetch(`/api/scrolls/${scrollId}`, {
+    method: "PATCH",
+    body: JSON.stringify(author, title, published, body, scrollId),
+  });
+
+  if (!res.ok) throw res;
+
+  const data = await res.json();
+  dispatch(setScroll(data));
+  return res;
+};
+
 //POST a new scroll
 export const addScroll = (author, title, published, body) => async (dispatch) => {
-  console.log(author, title, published, body);
   const res = await fetch("/api/scrolls/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      author,
-      title,
-      published,
-      body,
+      author, title, published, body
     }),
   });
+  if (!res.ok) throw res;
   const data = await res.json();
   console.log("THIS IS THE SCROLL WE ARE TRYING TO CRAETE", data);
   dispatch(add_scroll(data));
@@ -127,6 +145,11 @@ const scrollsReducer = (state = initialState, action) => {
       return {
         ...state,
       };
+    }
+
+    case SET_SCROLL: {
+        newState[action.scroll.id] = action.scroll
+        return newState
     }
 
     case GET_SCROLL: {

@@ -20,13 +20,13 @@ const AddScrollForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const newScroll = {
-          author: author,
-          title: title,
-          published: published,
-          body: body
-        };
-        let createdScroll = await dispatch(addScroll(newScroll));
+        // const newScroll = {
+        //   author: author,
+        //   title: title,
+        //   published: published,
+        //   body: body
+        // };
+        let createdScroll = await dispatch(addScroll(author, title, published, body));
         setScroll(" ");
     }
 

@@ -1,0 +1,9 @@
+#delete-scrolls {
+    color: white;
+    position: absolute;
+    top: 330px;
+    right: 700px;
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+}

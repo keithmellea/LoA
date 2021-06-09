@@ -16,6 +16,9 @@ import Table from "../Ref/images/table.png";
 import Textbox from "../Ref/images/textbox.png";
 
 import AddScrollForm from "../addScrollForm/addScrollForm"
+import EditScrollForm from "../EditScrollForm/EditScrollForm";
+import ScrollList from "../ScrollList/ScrollList";
+import DeleteList from "../DeleteList/DeleteList";
 
 import * as PIXI from "pixi.js";
 
@@ -24,7 +27,8 @@ const MyComponent = () => {
   const dispatch = useDispatch();
 
   const scrolls = useSelector((state) => state.scroll.scrolls);
-
+  const user = useSelector((state) => state.session.user.username);
+  console.log("user", user);
   useEffect(() => {
     dispatch(getScrolls());
   }, [dispatch])
@@ -199,65 +203,6 @@ function setup() {
     wordWrap: true,
     wordWrapWidth: 1220,
   });
-  
-  // let writeForm = document.createElement("FORM");
-  // writeForm.name = 'writeForm';
-  // writeForm.method = 'POST';
-  // writeForm.action = "/api/scrolls/";
-  // let authorInput = document.createElement("INPUT");
-  // authorInput.type = 'TEXT';
-  // authorInput.name = 'authorInput';
-  // authorInput.value = 'Author';
-  // writeForm.x = window.innerWidth / 2;
-  // writeForm.y = window.innerHeight / 2;
-  // writeForm.appendChild(authorInput);
-  
-
-  // let writeInput = new PIXI.TextInput({
-  //   input: { fontSize: "25px", width: "800px", height: "500px" },
-  //   box: {
-  //     default: {
-  //       fill: 0xe8e9f3,
-  //       rounded: 12,
-  //       stroke: { color: 0xcbcee0, width: 3 },
-  //     },
-  //     focused: {
-  //       fill: 0xe1e3ee,
-  //       rounded: 12,
-  //       stroke: { color: 0xabafc6, width: 3 },
-  //     },
-  //     disabled: { fill: 0xdbdbdb, rounded: 12 },
-  //   },
-  // });
-
-  // writeInput.position.set(window.innerWidth / 2.47, window.innerHeight / 3.7);
-  // writeInput.visible = false;
-  // input.on("pointerdown", e => {
-  //   addScroll("test", e, "test", "test");
-
-  // })
-
-  // console.log("writeInput", writeInput)
-  // let editInput = new PIXI.TextInput({
-  //   input: { fontSize: "25px", width: "800px", height: "500px" },
-  //   box: {
-  //     default: {
-  //       fill: 0xe8e9f3,
-  //       rounded: 12,
-  //       stroke: { color: 0xcbcee0, width: 3 },
-  //     },
-  //     focused: {
-  //       fill: 0xe1e3ee,
-  //       rounded: 12,
-  //       stroke: { color: 0xabafc6, width: 3 },
-  //     },
-  //     disabled: { fill: 0xdbdbdb, rounded: 12 },
-  //   },
-  // });
-
-  // editInput.position.set(window.innerWidth / 2.47, window.innerHeight / 3.7);
-  // editInput.placeholder = "Enter your Text...";
-  // editInput.visible = false;
 
     for (let i = 0; i < scrolls.length; i++) {
       let scroll = scrolls[i];
@@ -316,6 +261,8 @@ for (let j = 0; j < scrolls.length; j++) {
   chatText.buttonMode = true;
 
   let writeInput = document.getElementById("add_scroll");
+  let ScrollList = document.getElementById("scrolls");
+  let DeleteList = document.getElementById("delete-scrolls");
 
     writeInput.style.display = "none";
   let writeText = new Text("Write", style1);
@@ -347,7 +294,21 @@ for (let j = 0; j < scrolls.length; j++) {
   editText.on("pointerdown", () => {
     deskTextbox.visible = false;
     textbox.visible = true;
-    // editInput.visible = true; 
+    writeText.visible = false;
+    editText.visible = false;
+    deleteText.visible = false;
+    chatText.visible = false;
+    ScrollList.style.display = "flex";                
+    let listItems = document.querySelectorAll("li.scroll-items");
+    listItems.forEach((item) => {
+        item.style.display = "flex";
+        })
+    let editForm = document.querySelectorAll("add-scroll"); 
+    console.log(editForm);
+    editForm.forEach((item) => {   
+        item.style.display = "none";
+    });
+    
   })
 
   let deleteText = new Text("Delete", style1);
@@ -355,6 +316,15 @@ for (let j = 0; j < scrolls.length; j++) {
   deleteText.y = window.innerHeight / 1.67;
   deleteText.interactive = true;
   deleteText.buttonMode = true;
+  deleteText.on("pointerdown", () => {
+      deskTextbox.visible = false;
+      textbox.visible = true;
+      writeText.visible = false;
+      editText.visible = false;
+      deleteText.visible = false;
+      chatText.visible = false;
+      DeleteList.style.display = "flex";   
+  })
 
   //#Table
   let table = new Sprite(resources["table"].texture);
@@ -450,6 +420,7 @@ for (let j = 0; j < scrolls.length; j++) {
       bodyContainer.visible = false;
       titleContainer.visible = false;
       writeInput.style.display = "none";
+      ScrollList.style.display = "none";
       // editInput.visible = false;
     } else if (explorer.position.x > 100 && explorer.position.y < 151) {
       titleList.visible = true;
@@ -465,6 +436,7 @@ for (let j = 0; j < scrolls.length; j++) {
       bodyContainer.visible = false;
       titleContainer.visible = false;
       writeInput.style.display = "none";
+      ScrollList.style.display = "none";
       // editInput.visible = false;
     } else if (explorer.position.x > 1720 && explorer.position.y < 920 ) {
       console.log(explorer.position);
@@ -482,11 +454,11 @@ for (let j = 0; j < scrolls.length; j++) {
       textbox.visible = false;
       titleList.visible = false;
       writeInput.style.display = "none";
-      // editInput.visible = false;
       writeText.visible = false;
       editText.visible = false;
       deleteText.visible = false;
       chatText.visible = false;
+      ScrollList.style.display = "none";
     } else {
       titleList.visible = true;
       textbox.visible = true;
@@ -504,6 +476,7 @@ for (let j = 0; j < scrolls.length; j++) {
       chatText.visible = false;
       writeText.visible = false;
       writeInput.style.display = "none";
+      ScrollList.style.display = "none";
       // editInput.visible = false;
     } else if (explorer.position.x > 400 && explorer.position.y < 800 
       && explorer.position.x < 700 && explorer.position.y > 530) {
@@ -663,6 +636,8 @@ if (!scrolls) return null;
   return (
     <div>
       <AddScrollForm />
+      <ScrollList />
+      <DeleteList />
       <div ref={updatePixiCnt} />
       
     </div>
