@@ -15,9 +15,9 @@ import Bookshelf from "../Ref/images/bookshelf.png";
 import Table from "../Ref/images/table.png";
 import Textbox from "../Ref/images/textbox.png";
 
-import { InteractionManager } from '@pixi/interaction'
+import AddScrollForm from "../addScrollForm/addScrollForm"
+
 import * as PIXI from "pixi.js";
-import TextInput from "pixi-text-input";
 
 const MyComponent = () => {
 
@@ -213,53 +213,51 @@ function setup() {
   // writeForm.appendChild(authorInput);
   
 
-  let writeInput = new PIXI.TextInput({
-    input: { fontSize: "25px", width: "800px", height: "500px" },
-    box: {
-      default: {
-        fill: 0xe8e9f3,
-        rounded: 12,
-        stroke: { color: 0xcbcee0, width: 3 },
-      },
-      focused: {
-        fill: 0xe1e3ee,
-        rounded: 12,
-        stroke: { color: 0xabafc6, width: 3 },
-      },
-      disabled: { fill: 0xdbdbdb, rounded: 12 },
-    },
-  });
+  // let writeInput = new PIXI.TextInput({
+  //   input: { fontSize: "25px", width: "800px", height: "500px" },
+  //   box: {
+  //     default: {
+  //       fill: 0xe8e9f3,
+  //       rounded: 12,
+  //       stroke: { color: 0xcbcee0, width: 3 },
+  //     },
+  //     focused: {
+  //       fill: 0xe1e3ee,
+  //       rounded: 12,
+  //       stroke: { color: 0xabafc6, width: 3 },
+  //     },
+  //     disabled: { fill: 0xdbdbdb, rounded: 12 },
+  //   },
+  // });
 
-  writeInput.position.set(window.innerWidth / 2.47, window.innerHeight / 3.7);
-  writeInput.visible = false;
-  writeInput.focus();
+  // writeInput.position.set(window.innerWidth / 2.47, window.innerHeight / 3.7);
+  // writeInput.visible = false;
   // input.on("pointerdown", e => {
   //   addScroll("test", e, "test", "test");
 
   // })
 
-  console.log("writeInput", writeInput)
-  let editInput = new PIXI.TextInput({
-    input: { fontSize: "25px", width: "800px", height: "500px" },
-    box: {
-      default: {
-        fill: 0xe8e9f3,
-        rounded: 12,
-        stroke: { color: 0xcbcee0, width: 3 },
-      },
-      focused: {
-        fill: 0xe1e3ee,
-        rounded: 12,
-        stroke: { color: 0xabafc6, width: 3 },
-      },
-      disabled: { fill: 0xdbdbdb, rounded: 12 },
-    },
-  });
+  // console.log("writeInput", writeInput)
+  // let editInput = new PIXI.TextInput({
+  //   input: { fontSize: "25px", width: "800px", height: "500px" },
+  //   box: {
+  //     default: {
+  //       fill: 0xe8e9f3,
+  //       rounded: 12,
+  //       stroke: { color: 0xcbcee0, width: 3 },
+  //     },
+  //     focused: {
+  //       fill: 0xe1e3ee,
+  //       rounded: 12,
+  //       stroke: { color: 0xabafc6, width: 3 },
+  //     },
+  //     disabled: { fill: 0xdbdbdb, rounded: 12 },
+  //   },
+  // });
 
-  editInput.position.set(window.innerWidth / 2.47, window.innerHeight / 3.7);
-  editInput.placeholder = "Enter your Text...";
-  editInput.focus();
-  editInput.visible = false;
+  // editInput.position.set(window.innerWidth / 2.47, window.innerHeight / 3.7);
+  // editInput.placeholder = "Enter your Text...";
+  // editInput.visible = false;
 
     for (let i = 0; i < scrolls.length; i++) {
       let scroll = scrolls[i];
@@ -317,19 +315,27 @@ for (let j = 0; j < scrolls.length; j++) {
   chatText.interactive = true;
   chatText.buttonMode = true;
 
+  let writeInput = document.getElementById("add_scroll");
+
   let writeText = new Text("Write", style1);
   writeText.x = window.innerWidth / 2.2;
   writeText.y = window.innerHeight / 2.4;
   writeText.interactive = true;
   writeText.buttonMode = true;
   writeText.on("pointerdown", () => {
-    deskTextbox.visible = false;
-    textbox.visible = true;
-    writeInput.visible = true; 
+  deskTextbox.visible = false;
+  textbox.visible = true;
   writeText.visible = false;
   editText.visible = false;
   deleteText.visible = false;
   chatText.visible = false;
+
+
+  writeInput.style.display = "block"; 
+    
+
+
+
   })
 
   let editText = new Text("Edit", style1);
@@ -340,7 +346,7 @@ for (let j = 0; j < scrolls.length; j++) {
   editText.on("pointerdown", () => {
     deskTextbox.visible = false;
     textbox.visible = true;
-    editInput.visible = true; 
+    // editInput.visible = true; 
   })
 
   let deleteText = new Text("Delete", style1);
@@ -375,8 +381,8 @@ for (let j = 0; j < scrolls.length; j++) {
   gameScene.addChild(editText);
   gameScene.addChild(deleteText);
   gameScene.addChild(chatText);
-  gameScene.addChild(writeInput);
-  gameScene.addChild(editInput);
+  // gameScene.addChild(writeInput);
+  // gameScene.addChild(editInput);
 
   //Capture the keyboard arrow keys
   let left = keyboard(37),
@@ -442,8 +448,8 @@ for (let j = 0; j < scrolls.length; j++) {
       textbox.visible = false;
       bodyContainer.visible = false;
       titleContainer.visible = false;
-      writeInput.visible = false;
-      editInput.visible = false;
+      writeInput.style.display = "none";
+      // editInput.visible = false;
     } else if (explorer.position.x > 100 && explorer.position.y < 151) {
       titleList.visible = true;
       textbox.visible = true;
@@ -457,8 +463,8 @@ for (let j = 0; j < scrolls.length; j++) {
       textbox.visible = false;
       bodyContainer.visible = false;
       titleContainer.visible = false;
-      writeInput.visible = false;
-      editInput.visible = false;
+      writeInput.style.display = "none";
+      // editInput.visible = false;
     } else if (explorer.position.x > 1720 && explorer.position.y < 920 ) {
       console.log(explorer.position);
       titleList.visible = true;
@@ -474,8 +480,8 @@ for (let j = 0; j < scrolls.length; j++) {
       bodyContainer.visible = false;
       textbox.visible = false;
       titleList.visible = false;
-      writeInput.visible = false;
-      editInput.visible = false;
+      writeInput.style.display = "none";
+      // editInput.visible = false;
       writeText.visible = false;
       editText.visible = false;
       deleteText.visible = false;
@@ -496,8 +502,8 @@ for (let j = 0; j < scrolls.length; j++) {
       deleteText.visible = false;
       chatText.visible = false;
       writeText.visible = false;
-      writeInput.visible = false;
-      editInput.visible = false;
+      writeInput.style.display = "none";
+      // editInput.visible = false;
     } else if (explorer.position.x > 400 && explorer.position.y < 800 
       && explorer.position.x < 700 && explorer.position.y > 530) {
       console.log(explorer.position)
@@ -634,7 +640,6 @@ function keyboard(keyCode) {
       key.isDown = true;
       key.isUp = false;
     }
-    event.preventDefault();
   };
 
   //The `upHandler`
@@ -644,7 +649,6 @@ function keyboard(keyCode) {
       key.isDown = false;
       key.isUp = true;
     }
-    event.preventDefault();
   };
 
   //Attach event listeners
@@ -657,6 +661,7 @@ if (!scrolls) return null;
 
   return (
     <div>
+      <AddScrollForm />
       <div ref={updatePixiCnt} />
       
     </div>

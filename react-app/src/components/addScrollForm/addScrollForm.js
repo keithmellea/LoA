@@ -1,11 +1,14 @@
-import { useState, useEffect } from "react";
+
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { addScroll } from "../../store/scroll";
 
+import '../addScrollForm/addScrollForm.css';
 
-const addScrollForm = () => {
+const AddScrollForm = () => {
     const dispatch = useDispatch();
+    const [scroll, setScroll] = useState(" ");
     const [author, setAuthor] = useState("");
     const [title, setTitle] = useState("");
     const [published, setPublished] = useState("yyyy-MM-dd");
@@ -24,19 +27,19 @@ const addScrollForm = () => {
           body: body
         };
         let createdScroll = await dispatch(addScroll(newScroll));
-        setBooking("");
+        setScroll(" ");
     }
 
     return (
       <form key={"id"} onSubmit={handleSubmit} id="add_scroll">
         <label>Author</label>
-        <input type="text" require value={author} onChange={setAuthor} />
+        <input type="text" required value={author} onChange={(e) => setAuthor(e.target.value)} />
         <label>Title</label>
-        <input type="text" require value={title} onChange={setTitle} />
+        <input type="text" required value={title} onChange={(e) => setTitle(e.target.value)} />
         <label>Published</label>
-        <input type="text" require value={published} onChange={setPublished} />
+        <input type="text" required value={published} onChange={(e) => setPublished(e.target.value)} />
         <label>Body</label>
-        <input type="text" require value={body} onChange={setBody} />
+        <input type="text" required placeholder={body} onChange={(e) => setBody(e.target.value)} />
         <button className="submit-button" type="submit">
           Book
         </button>
@@ -44,4 +47,4 @@ const addScrollForm = () => {
     );
 }
 
-export default addScrollForm;
+export default AddScrollForm;

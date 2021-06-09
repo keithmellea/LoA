@@ -7,8 +7,11 @@ import NavBar from "./components/NavBar";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import UsersList from "./components/UsersList";
 import User from "./components/User";
-import MyComponent from "./components/Ref/Ref.js"
+import MyComponent from "../src/components/Ref/Ref"
 import { authenticate } from "./store/session";
+
+import addScrollForm from '../src/components/addScrollForm/addScrollForm'
+import AddScrollForm from "../src/components/addScrollForm/addScrollForm";
 
 function App() {
   const user = useSelector(state => state.session.user)
