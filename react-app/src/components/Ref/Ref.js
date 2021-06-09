@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { getScrolls, addScroll } from "../../store/scroll";
 
+import Chat from "../Chat/Chat";
+
 import Cat from "../Ref/images/cat.png"
 import Door from "../Ref/images/door.png"
 import Dungeon from "../Ref/images/dungeon.png";
@@ -640,6 +642,7 @@ if (!scrolls) return null;
       <AddScrollForm />
       <ScrollList />
       <DeleteList />
+      {/* <Chat /> */}
       <div ref={updatePixiCnt} />
       
     </div>

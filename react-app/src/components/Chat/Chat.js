@@ -66,7 +66,7 @@ const Chat = () => {
         socket.emit("chat", { user: user.username, msg: chatInput });
         setChatInput("")
         setMessagePosted(true)
-        await dispatch(chatPost(channel, chatInput))
+        await dispatch(chatPost(1, chatInput))
     }
 
 
@@ -82,13 +82,13 @@ const Chat = () => {
                     </div>
                 );
 
-
             }) : <div></div>
     }
 
+
     const messagesForChannel = async () => {
         console.log("This is a test")
-        await dispatch(chatForChannel(channel))
+        await dispatch(chatForChannel(1))
         setShow(true)
     }
     // console.log("Chats", chats)
@@ -101,7 +101,7 @@ const Chat = () => {
                     value={channel}
                     onChange={updateChannel}
                 />
-                <button onClick={messagesForChannel}> Channel {channel}</button>
+                <button onClick={messagesForChannel}> Channel {1}</button>
             </div>
             <div >
                 {place()}
