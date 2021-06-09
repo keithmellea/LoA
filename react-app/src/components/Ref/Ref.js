@@ -318,12 +318,12 @@ for (let j = 0; j < scrolls.length; j++) {
   deleteText.buttonMode = true;
   deleteText.on("pointerdown", () => {
       deskTextbox.visible = false;
-      textbox.visible = true;
-      writeText.visible = false;
-      editText.visible = false;
-      deleteText.visible = false;
-      chatText.visible = false;
-      DeleteList.style.display = "flex";   
+    textbox.visible = true;
+    writeText.visible = false;
+    editText.visible = false;
+    deleteText.visible = false;
+    chatText.visible = false;
+    DeleteList.style.display = "flex";   
   })
 
   //#Table
@@ -459,6 +459,7 @@ for (let j = 0; j < scrolls.length; j++) {
       deleteText.visible = false;
       chatText.visible = false;
       ScrollList.style.display = "none";
+    DeleteList.style.display = "none"; 
     } else {
       titleList.visible = true;
       textbox.visible = true;
@@ -477,6 +478,7 @@ for (let j = 0; j < scrolls.length; j++) {
       writeText.visible = false;
       writeInput.style.display = "none";
       ScrollList.style.display = "none";
+    DeleteList.style.display = "none";   
       // editInput.visible = false;
     } else if (explorer.position.x > 400 && explorer.position.y < 800 
       && explorer.position.x < 700 && explorer.position.y > 530) {
