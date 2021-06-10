@@ -164,35 +164,35 @@ function setup() {
 
   let pillars = new Sprite(resources["pillars"].texture);
 
-  //#Bookshelf
-  let bookshelf = new Sprite(resources["bookshelf"].texture);
-  let bookshelfX = 167;
-  let bookshelfY = 32;
-  bookshelf.interactive = true;
-  bookshelf.buttonMode = true;
-  bookshelf.position.set(bookshelfX, bookshelfY);
-  bookshelf.on("pointerdown", onClickScrollX);
+  // //#Bookshelf
+  // let bookshelf = new Sprite(resources["bookshelf"].texture);
+  // let bookshelfX = 167;
+  // let bookshelfY = 32;
+  // bookshelf.interactive = true;
+  // bookshelf.buttonMode = true;
+  // bookshelf.position.set(bookshelfX, bookshelfY);
+  // bookshelf.on("pointerdown", onClickScrollX);
 
-  //Populates Bookshelves along X-Axis
-  for (let i = 0; i < 16; i++) {
-    let bookshelf = new Sprite(resources["bookshelf"].texture);
-    bookshelfX += 96;
-    bookshelf.position.set(bookshelfX, bookshelfY);
-    gameScene.addChild(bookshelf);
-  }
+  // //Populates Bookshelves along X-Axis
+  // for (let i = 0; i < 16; i++) {
+  //   let bookshelf = new Sprite(resources["bookshelf"].texture);
+  //   bookshelfX += 96;
+  //   bookshelf.position.set(bookshelfX, bookshelfY);
+  //   gameScene.addChild(bookshelf);
+  // }
 
-  //Populates Bookshelves along Y-Axis
-  for (let j = 0; j < 10; j++) {
-    let bookshelf = new Sprite(resources["bookshelf"].texture);
-    bookshelfX = 1780;
-    bookshelfY += 92;
-    bookshelf.position.set(bookshelfX, bookshelfY);
-    bookshelf.interactive = true;
-    bookshelf.buttonMode = true;
-    bookshelf.on("pointerdown", onClickScrollY);
+  // //Populates Bookshelves along Y-Axis
+  // for (let j = 0; j < 10; j++) {
+  //   let bookshelf = new Sprite(resources["bookshelf"].texture);
+  //   bookshelfX = 1780;
+  //   bookshelfY += 92;
+  //   bookshelf.position.set(bookshelfX, bookshelfY);
+  //   bookshelf.interactive = true;
+  //   bookshelf.buttonMode = true;
+  //   bookshelf.on("pointerdown", onClickScrollY);
 
-    gameScene.addChild(bookshelf);
-  }
+  //   gameScene.addChild(bookshelf);
+  // }
 
   //#Explorer
   explorer = new Sprite(resources["explorer"].texture);
@@ -206,16 +206,16 @@ function setup() {
   //#Textbox
   let textbox = new Sprite(resources["textbox"].texture);
   textbox.scale.x *= 1;
-  textbox.scale.y *= 1;
+  textbox.scale.y *= 1.5;
   textbox.interactive = true;
   textbox.buttonMode = true;
-  textbox.position.set(100, 140);
+  textbox.position.set(30, 50);
   textbox.on("pointerdown", onClickMsg);   
 
   let deskTextbox = new Sprite(resources["textbox"].texture);
   deskTextbox.position.set(200, 100);
-  deskTextbox.scale.x *= 0.2;
-  deskTextbox.scale.y *= 1;
+  deskTextbox.scale.x *= 0.17;
+  deskTextbox.scale.y *= 0.7;
 
   let style1 = new TextStyle({
     fontFamily: "Futura",
@@ -279,7 +279,7 @@ for (let j = 0; j < scrolls.length; j++) {
 
   let chat = document.getElementById("top_level");
   let chatText = new Text("Chat", style1);
-  chatText.x = 230;
+  chatText.x = 220;
   chatText.y = 110;
   chatText.interactive = true;
   chatText.buttonMode = true;
@@ -300,8 +300,8 @@ chatText.on("pointerdown", () => {
 
     writeInput.style.display = "none";
   let writeText = new Text("Write", style1);
-  writeText.x = window.innerWidth / 2.2;
-  writeText.y = window.innerHeight / 2.4;
+  writeText.x = 220;
+  writeText.y = 130;
   writeText.interactive = true;
   writeText.buttonMode = true;
   writeText.on("pointerdown", () => {
@@ -317,8 +317,8 @@ chatText.on("pointerdown", () => {
   })
 
   let editText = new Text("Edit", style1);
-  editText.x = window.innerWidth / 2.2;
-  editText.y = window.innerHeight / 1.97;
+  editText.x = 220;
+  editText.y = 150;
   editText.interactive = true;
   editText.buttonMode = true;
   editText.on("pointerdown", () => {
@@ -342,8 +342,8 @@ chatText.on("pointerdown", () => {
   })
 
   let deleteText = new Text("Delete", style1);
-  deleteText.x = window.innerWidth / 2.2;
-  deleteText.y = window.innerHeight / 1.67;
+  deleteText.x = 220;
+  deleteText.y = 170;
   deleteText.interactive = true;
   deleteText.buttonMode = true;
   deleteText.on("pointerdown", () => {
@@ -372,11 +372,13 @@ chatText.on("pointerdown", () => {
   deleteText.visible = false;
   chatText.visible = false;
   gameScene.addChild(background);
-  gameScene.addChild(backshelves);
   gameScene.addChild(frontshelves);
+  gameScene.addChild(backshelves);
   gameScene.addChild(explorer);
   // gameScene.addChild(bookshelf);
   gameScene.addChild(table);
+  gameScene.addChild(pillars);
+  gameScene.addChild(lightBeams);
   gameScene.addChild(textbox);
   gameScene.addChild(deskTextbox);
   gameScene.addChild(bodyContainer);
@@ -385,8 +387,6 @@ chatText.on("pointerdown", () => {
   gameScene.addChild(editText);
   gameScene.addChild(deleteText);
   gameScene.addChild(chatText);
-  gameScene.addChild(pillars);
-  gameScene.addChild(lightBeams);
 
   // gameScene.addChild(writeInput);
   // gameScene.addChild(editInput);
@@ -449,6 +449,7 @@ chatText.on("pointerdown", () => {
 
   //#onClickScrollX
   function onClickScrollX() {
+    console.log("hit")
     if (textbox.visible) {
       titleList.visible = false;
       message.visible = false;

@@ -5,7 +5,7 @@
     border-radius: 3px;
     display: none;
     top: 350px;
-    left: 300px;
+    left: 150px;
     height: 600px;
     padding-bottom:20px;
     position: absolute;
@@ -67,7 +67,7 @@
 }
 
 #top_level_chat input {
-    width: 1275px;
+    width: 1000px;
     height: 22px;
     position: relative;
     border-radius: 3px;

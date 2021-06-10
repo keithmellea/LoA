@@ -12,8 +12,7 @@
 .scroll-form {
     color: white;
     position: absolute;
-    bottom: -600px;
-    left: 100px;
+    bottom: -520px;
     font-size: 18px;
     display: flex;
     flex-direction: column;

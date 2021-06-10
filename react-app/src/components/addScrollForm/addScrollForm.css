@@ -1,7 +1,7 @@
 #add_scroll {
     position: absolute;
-    top: 330px;
-    right: 700px;
+    top: 380px;
+    right: 800px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -22,5 +22,5 @@
 
 #body {
     width: 600px;
-    height: 500px;
+    height: 370px;
 }
