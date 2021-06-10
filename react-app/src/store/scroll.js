@@ -10,10 +10,10 @@ const load = (list) => ({
   list,
 });
 
-const setScroll = (scroll) => {
+const setScroll = (scrollId) => {
   return {
     type: SET_SCROLL,
-    scroll
+    scrollId
   };
 };
 
@@ -22,19 +22,20 @@ const add_scroll = (scroll) => ({
   scroll,
 });
 
-const delete_scroll = (scroll) => ({
-  type: DELETE_SCROLL,
-  scroll,
-});
+const delete_scroll = (scrollId) => {
+  console.log("-----===anything-----------======", scrollId);
+  return { type: DELETE_SCROLL, scrollId };
+  
+};
 
 const get_scroll = (scroll) => ({
   type: GET_SCROLL,
   scroll,
 });
 
-const grabScrolls = (scroll) => ({
+const grabScrolls = (scrolls) => ({
   type: GRAB_SCROLLS,
-  scroll,
+  scrolls,
 });
 
 export const getUsersScrolls = () => async (dispatch) => {
@@ -55,9 +56,6 @@ export const getUsersScrolls = () => async (dispatch) => {
 export const getScrolls = () => async (dispatch) => {
   const response = await fetch("/api/scrolls/");
   const scrolls = await response.json();
-  if (scrolls.errors) {
-    return;
-  }
 
   dispatch(grabScrolls(scrolls));
 };
@@ -65,13 +63,16 @@ export const getScrolls = () => async (dispatch) => {
 export const editScroll = (author, title, published, body, scrollId) => async (dispatch) => {
   const res = await fetch(`/api/scrolls/${scrollId}`, {
     method: "PATCH",
-    body: JSON.stringify(author, title, published, body, scrollId),
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ author, title, published, body, scrollId }),
   });
 
   if (!res.ok) throw res;
 
   const data = await res.json();
-  dispatch(setScroll(data));
+  dispatch(setScroll(data.id));
   return res;
 };
 
@@ -90,6 +91,7 @@ export const addScroll = (author, title, published, body) => async (dispatch) =>
   const data = await res.json();
   console.log("THIS IS THE SCROLL WE ARE TRYING TO CRAETE", data);
   dispatch(add_scroll(data));
+  dispatch(setScroll(data.id));
   return;
 };
 
@@ -97,10 +99,8 @@ export const deleteScroll = (id) => async (dispatch) => {
   const res = await fetch(`/api/scrolls/${id}`, {
     method: "DELETE",
   });
-  console.log("THIS IS THE SCROLL ID", id);
-  const data = await res.json();
-  console.log("THIS IS THE DATA FROM DELETION", data);
-  dispatch(delete_scroll(data));
+  // const data = await res.json();
+  dispatch(delete_scroll(id));
   return;
 };
 
@@ -123,33 +123,35 @@ export const getScroll = (id) => async (dispatch) => {
 
 const initialState = {
   list: [],
-  current: [],
+  current: null,
+  scrolls: {}
 };
 
 const scrollsReducer = (state = initialState, action) => {
+  console.log("state", state, action);
   let newState = { ...state };
   switch (action.type) {
     case GRAB_SCROLLS:
-      newState["scrolls"] = action.scroll.scrolls;
-      return newState;
+      return {...state, scrolls: action.scrolls}
 
     case ADD_SCROLL: {
+      state.scrolls[action.scroll.id] = action.scroll;
       return {
         ...state,
-        list: action.scroll,
       };
     }
 
     case DELETE_SCROLL: {
-      delete state[action.scroll.id];
+      console.log("actionId", action.scrollId);
+      console.log("state.scrolls", state.scrolls);
+      delete state.scrolls[action.scrollId];
       return {
         ...state,
       };
     }
 
     case SET_SCROLL: {
-        newState[action.scroll.id] = action.scroll
-        return newState
+      return { ...state, current: state.scrolls[action.scrollId]}
     }
 
     case GET_SCROLL: {

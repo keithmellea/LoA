@@ -7,7 +7,7 @@ import EditScrollForm from "../EditScrollForm/EditScrollForm";
 import "./DeleteList.css";
 
 const DeleteList = () => {
-  const scrolls = useSelector((state) => state.scroll.scrolls);
+  const scrolls = useSelector((state) => Object.values(state.scroll.scrolls));
   const user = useSelector((state) => state.session.user.username);
 
   const dispatch = useDispatch();
@@ -28,6 +28,10 @@ const DeleteList = () => {
   //   );
   // };
 
+  const onDelete = (scrollId) => () => {
+    dispatch(deleteScroll(scrollId));
+  };
+
   if (!scrolls) {
     return null;
   } else {
@@ -40,7 +44,7 @@ const DeleteList = () => {
             <div id="delete-scroll">
               <li
                 className="delete-scroll-items"
-                onClick={deleteScroll(scroll.id)
+                onClick={onDelete(scroll.id)
                 }
               >
                 {scroll.title}

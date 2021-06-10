@@ -10,9 +10,11 @@
 }
 
 .scroll-form {
-    color: white;
+    color: white; 
     position: absolute;
-    bottom: -520px;
+    background-color: red;
+    height: 500px;
+    width: 500px;
     font-size: 18px;
     display: flex;
     flex-direction: column;

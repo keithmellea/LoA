@@ -20,6 +20,7 @@ import Backshelves from "../Ref/images/backshelves.png";
 import Frontshelves from "../Ref/images/frontshelves.png";
 import LightBeams from "../Ref/images/lightbeams.png";
 import Pillars from "../Ref/images/pillars.png";
+import Librarian from "../Ref/images/librarian.png";
 
 import AddScrollForm from "../addScrollForm/addScrollForm"
 import EditScrollForm from "../EditScrollForm/EditScrollForm";
@@ -32,8 +33,9 @@ const MyComponent = () => {
 
   const dispatch = useDispatch();
 
-  const scrolls = useSelector((state) => state.scroll.scrolls);
+  const scrolls = useSelector((state) => Object.values(state.scroll.scrolls));
   const user = useSelector((state) => state.session.user.username);
+  
   console.log("user", user);
   useEffect(() => {
     dispatch(getScrolls());
@@ -85,6 +87,7 @@ const MyComponent = () => {
     loader.add("frontshelves", Frontshelves)
     loader.add("lightbeams", LightBeams);
     loader.add("pillars", Pillars)
+    loader.add("librarian", Librarian)
     .load(setup);
   };
 
@@ -162,6 +165,8 @@ function setup() {
 
   let pillars = new Sprite(resources["pillars"].texture);
 
+  let librarian = new Sprite(resources["librarian"].texture);
+  librarian.position.set(100, 170);
   // //#Bookshelf
   // let bookshelf = new Sprite(resources["bookshelf"].texture);
   // let bookshelfX = 167;
@@ -370,8 +375,9 @@ chatText.on("pointerdown", () => {
   deleteText.visible = false;
   chatText.visible = false;
   gameScene.addChild(background);
-  gameScene.addChild(frontshelves);
   gameScene.addChild(backshelves);
+  gameScene.addChild(frontshelves);
+  gameScene.addChild(librarian);
   gameScene.addChild(explorer);
   // gameScene.addChild(bookshelf);
   gameScene.addChild(table);

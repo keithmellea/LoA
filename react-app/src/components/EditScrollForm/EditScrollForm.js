@@ -1,52 +1,55 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { addScroll } from "../../store/scroll";
+import { addScroll, editScroll } from "../../store/scroll";
 
 import "../addScrollForm/addScrollForm.css";
 
-const EditScrollForm = ({user, scrolls}) => {
+const EditScrollForm = ({scroll}) => {
   const dispatch = useDispatch();
 
 
-  const [scroll, setScroll] = useState(" ");
-  const [author, setAuthor] = useState("");
-  const [title, setTitle] = useState("");
-  const [published, setPublished] = useState("yyyy-MM-dd");
-  const [body, setBody] = useState("");
+  const [author, setAuthor] = useState(scroll.author);
+  const [title, setTitle] = useState(scroll.title);
+  const [published, setPublished] = useState(scroll.published);
+  const [body, setBody] = useState(scroll.body);
 
   // const updateStartDate = (e) => setStartDate(e.target.value);
   // const updateEndDate = (e) => setEndDate(e.target.value);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // const newScroll = {
-    //   author: author,
-    //   title: title,
-    //   published: published,
-    //   body: body
-    // };
+    console.log(author, title, published, body, scroll.id);
     let createdScroll = await dispatch(
-      addScroll(author, title, published, body)
+      editScroll(author, title, published, body, scroll.id)
     );
-    setScroll(" ");
   };
 
   return (
-    <form key={"id"} onSubmit={handleSubmit} id="add_scroll">
+    <form
+      key={"id"}
+      onSubmit={handleSubmit}
+      style={{ display: "none" }}
+      id={`add-scroll-${scroll.id}`}
+      className="scroll-form"
+    >
       <label>Author</label>
       <input
         type="text"
         required
+        placeholder={scroll.author}
         value={author}
         id="author"
-        onChange={(e) => setAuthor(e.target.value)}
+        onChange={(e) => {
+          console.log(author);
+          setAuthor(e.target.value);
+        }}
       />
       <label>Title</label>
       <input
         type="text"
         required
+        placeholder={scroll.title}
         value={title}
         id="title"
         onChange={(e) => setTitle(e.target.value)}
@@ -55,6 +58,7 @@ const EditScrollForm = ({user, scrolls}) => {
       <input
         type="text"
         required
+        placeholder={scroll.published}
         value={published}
         id="published"
         onChange={(e) => setPublished(e.target.value)}
@@ -63,12 +67,13 @@ const EditScrollForm = ({user, scrolls}) => {
       <input
         type="text"
         required
-        placeholder={body}
+        placeholder={scroll.body}
+        value={body}
         id="body"
         onChange={(e) => setBody(e.target.value)}
       />
       <button className="submit-button" type="submit">
-        Create Scroll
+        Edit Scroll
       </button>
     </form>
   );

@@ -1,16 +1,28 @@
 /* TODO Add site wide styles */
 * {
-    overflow: hidden;
+    /* overflow: hidden; */
     background-color: black;
     color: lightgrey;
     font-family: Arial, Helvetica, sans-serif;
 }
 
+#top-container {
+    display: flex;
+}
+
 #navbar {
-    position: absolute;
-    left: 1500px;
+    width: 150px;
+    border-left: 1px solid white;
     top: 100px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+body {
+    min-width: calc(1440px + 150px);
+}
+
+#site-container {
+    width: 1440px;
 }

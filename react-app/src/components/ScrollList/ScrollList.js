@@ -8,7 +8,7 @@ import "../ScrollList/ScrollList.css";
 
 const ScrollList = () => {
 
-const scrolls = useSelector((state) => state.scroll.scrolls);
+const scrolls = useSelector((state) => Object.values(state.scroll.scrolls));
 const user = useSelector((state) => state.session.user.username);
 
 const dispatch = useDispatch();
@@ -48,55 +48,7 @@ console.log("scrolls", scrolls);
       <ul id="scrolls">
         {scrolls?.map((scroll) => (
           <div id="scroll">
-            <form
-              key={"id"}
-              onSubmit={handleSubmit}
-              style={{ display: "none" }}
-              id={`add-scroll-${scroll.id}`}
-              className="scroll-form"
-            >
-              <label>Author</label>
-              <input
-                type="text"
-                required
-                placeholder={scroll.author}
-                value={author}
-                id="author"
-                onChange={(e) => {
-                    console.log(author);
-                    setAuthor(e.target.value)}}
-              />
-              <label>Title</label>
-              <input
-                type="text"
-                required
-                placeholder={scroll.title}
-                value={title}
-                id="title"
-                onChange={(e) => setTitle(e.target.value)}
-              />
-              <label>Published</label>
-              <input
-                type="text"
-                required
-                placeholder={scroll.published}
-                value={published}
-                id="published"
-                onChange={(e) => setPublished(e.target.value)}
-              />
-              <label>Body</label>
-              <input
-                type="text"
-                required
-                placeholder={scroll.body}
-                value={body}
-                id="body"
-                onChange={(e) => setBody(e.target.value)}
-              />
-              <button className="submit-button" type="submit">
-                Create Scroll
-              </button>
-            </form>
+            <EditScrollForm scroll={scroll}/>
             <li
               className="scroll-items"
               onClick={() => {

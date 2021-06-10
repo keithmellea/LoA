@@ -12,7 +12,7 @@ def getScrolls():
     '''
     scrolls = Scroll.query.all()
     print("scrolls", scrolls)
-    return {"scrolls": [scroll.to_dict() for scroll in scrolls]}
+    return {scroll.id: scroll.to_dict() for scroll in scrolls}
 
 
 @scroll_routes.route('/', methods=["POST"])
@@ -34,6 +34,8 @@ def post_scroll():
         db.session.commit()
 
         return scroll.to_dict()
+        
+    return {}
 
 
 @scroll_routes.route('/<int:scroll_id>', methods=["PATCH"])
@@ -42,6 +44,8 @@ def edit_scroll(scroll_id):
     EDIT a scroll
     '''
     scroll = Scroll.query.get(scroll_id)
+    print(request.json)
+    print(request.get_json())
     author = request.get_json()['author']
     title= request.get_json()['title']
     published = request.get_json()['published']
@@ -55,14 +59,14 @@ def edit_scroll(scroll_id):
     db.session.commit()
     return scroll.to_dict()
 
-@scroll_routes.route('/<id>', methods=["DELETE"])
-def scroll(id):
+@scroll_routes.route('/<int:scroll_id>', methods=["DELETE"])
+def delete_scroll(scroll_id):
     '''
     Delete a server
     '''
 
-    print("TRYING TO SEE IF I GET THE ID", id)
-    scroll = Scroll.query.get(id)
+    print("TRYING TO SEE IF I GET THE ID", scroll_id)
+    scroll = Scroll.query.get(scroll_id)
     db.session.delete(scroll)
     db.session.commit()
-    return {"scroll": scroll.to_dict()}
+    return "scroll deleted"
