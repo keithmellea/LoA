@@ -4,10 +4,12 @@
     /* background-color:#36393F; */
     border-radius: 3px;
     display: none;
-    width: 600px;
-    height: 800px;
+    top: 350px;
+    left: 300px;
+    height: 600px;
     padding-bottom:20px;
     position: absolute;
+    overflow-y: scroll;
 }
 
 /* #messageComponent {

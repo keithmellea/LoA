@@ -16,6 +16,11 @@ import Tiles from "../Ref/images/tiles.png";
 import Bookshelf from "../Ref/images/bookshelf.png";
 import Table from "../Ref/images/table.png";
 import Textbox from "../Ref/images/textbox.png";
+import Background from "../Ref/images/background.png";
+import Backshelves from "../Ref/images/backshelves.png";
+import Frontshelves from "../Ref/images/frontshelves.png";
+import LightBeams from "../Ref/images/lightbeams.png";
+import Pillars from "../Ref/images/pillars.png";
 
 import AddScrollForm from "../addScrollForm/addScrollForm"
 import EditScrollForm from "../EditScrollForm/EditScrollForm";
@@ -49,11 +54,11 @@ const MyComponent = () => {
     Rectangle = PIXI.Rectangle;
 
   let app = new Application({
-    width: window.innerWidth,
-    height: window.innerHeight,
+    width: 480,
+    height: 270,
     antialiasing: true,
     transparent: false,
-    resolution: 1,
+    resolution: 3,
   });
 
 
@@ -77,6 +82,11 @@ const MyComponent = () => {
     loader.add("bookshelf", Bookshelf)
     loader.add("table", Table)
     loader.add("textbox", Textbox)
+    loader.add("background", Background)
+    loader.add("backshelves", Backshelves)
+    loader.add("frontshelves", Frontshelves)
+    loader.add("lightbeams", LightBeams);
+    loader.add("pillars", Pillars)
     .load(setup);
   };
 
@@ -137,6 +147,17 @@ function setup() {
     y += 48;
   }
 
+  //#Background
+  let background = new Sprite(resources["background"].texture);
+
+  let backshelves = new Sprite(resources["backshelves"].texture);
+
+  let frontshelves = new Sprite(resources["frontshelves"].texture);
+  
+  let lightBeams = new Sprite(resources["lightbeams"].texture);
+
+  let pillars = new Sprite(resources["pillars"].texture);
+
   //#Bookshelf
   let bookshelf = new Sprite(resources["bookshelf"].texture);
   let bookshelfX = 167;
@@ -173,7 +194,7 @@ function setup() {
   //#Explorer
   explorer = new Sprite(resources["explorer"].texture);
   explorer.x = 68;
-  explorer.y = gameScene.height / 2 - explorer.height / 2;
+  explorer.y = 200;
   explorer.vx = 0;
   explorer.vy = 0;
   explorer.interactive = true;
@@ -256,6 +277,7 @@ for (let j = 0; j < scrolls.length; j++) {
   message.interactive = true;
   message.buttonMode = true;
 
+  let chat = document.getElementById("top_level");
   let chatText = new Text("Chat", style1);
   chatText.x = window.innerWidth / 2.2;
   chatText.y = window.innerHeight / 3;
@@ -268,8 +290,9 @@ chatText.on("pointerdown", () => {
   editText.visible = false;
   deleteText.visible = false;
   chatText.visible = false;
+  console.log(chat);
+  chat.style.display = "inline-block";
 
-  writeInput.style.display = "flex";
 });
   let writeInput = document.getElementById("add_scroll");
   let ScrollList = document.getElementById("scrolls");
@@ -288,10 +311,9 @@ chatText.on("pointerdown", () => {
   editText.visible = false;
   deleteText.visible = false;
   chatText.visible = false;
-  let chat = document.querySelectorAll("#top_level");
-  console.log(chat);
   // chat.style.display = "inline-block";
 
+  writeInput.style.display = "flex"; 
   })
 
   let editText = new Text("Edit", style1);
@@ -351,7 +373,6 @@ chatText.on("pointerdown", () => {
   chatText.visible = false;
   gameScene.addChild(bookshelf);
   gameScene.addChild(table);
-  gameScene.addChild(explorer);
   gameScene.addChild(textbox);
   gameScene.addChild(deskTextbox);
   gameScene.addChild(bodyContainer);
@@ -360,6 +381,13 @@ chatText.on("pointerdown", () => {
   gameScene.addChild(editText);
   gameScene.addChild(deleteText);
   gameScene.addChild(chatText);
+  gameScene.addChild(background);
+  gameScene.addChild(backshelves);
+  gameScene.addChild(frontshelves);
+  gameScene.addChild(pillars);
+  gameScene.addChild(explorer);
+  gameScene.addChild(lightBeams);
+
   // gameScene.addChild(writeInput);
   // gameScene.addChild(editInput);
 
@@ -468,6 +496,7 @@ chatText.on("pointerdown", () => {
       chatText.visible = false;
       ScrollList.style.display = "none";
     DeleteList.style.display = "none"; 
+  chat.style.display = "none";
     } else {
       titleList.visible = true;
       textbox.visible = true;
