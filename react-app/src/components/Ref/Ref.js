@@ -305,7 +305,7 @@ for (let j = 0; j < scrolls.length; j++) {
     listItems.forEach((item) => {
         item.style.display = "flex";
         })
-    let editForm = document.querySelectorAll("add-scroll"); 
+    let editForm = document.querySelectorAll("scroll-form"); 
     console.log(editForm);
     editForm.forEach((item) => {   
         item.style.display = "none";
