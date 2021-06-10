@@ -151,9 +151,15 @@ function setup() {
   let background = new Sprite(resources["background"].texture);
 
   let backshelves = new Sprite(resources["backshelves"].texture);
+  backshelves.interactive = true;
+  backshelves.buttonMode = true;
+  backshelves.on("pointerdown", onClickScrollX);
 
   let frontshelves = new Sprite(resources["frontshelves"].texture);
-  
+  frontshelves.interactive = true;
+  frontshelves.buttonMode = true;
+  frontshelves.on("pointerdown", onClickTable);
+
   let lightBeams = new Sprite(resources["lightbeams"].texture);
 
   let pillars = new Sprite(resources["pillars"].texture);
@@ -172,9 +178,6 @@ function setup() {
     let bookshelf = new Sprite(resources["bookshelf"].texture);
     bookshelfX += 96;
     bookshelf.position.set(bookshelfX, bookshelfY);
-    bookshelf.interactive = true;
-    bookshelf.buttonMode = true;
-    bookshelf.on("pointerdown", onClickScrollX);
     gameScene.addChild(bookshelf);
   }
 
@@ -202,24 +205,21 @@ function setup() {
 
   //#Textbox
   let textbox = new Sprite(resources["textbox"].texture);
-  textbox.scale.x *= 3.5;
-  textbox.scale.y *= 5;
+  textbox.scale.x *= 1;
+  textbox.scale.y *= 1;
   textbox.interactive = true;
   textbox.buttonMode = true;
-  textbox.position.set(window.innerWidth / 8, window.innerHeight / 6);
+  textbox.position.set(100, 140);
   textbox.on("pointerdown", onClickMsg);   
 
   let deskTextbox = new Sprite(resources["textbox"].texture);
-  deskTextbox.scale.x *= 0.7;
-  deskTextbox.scale.y *= 2.8;
-  deskTextbox.interactive = true;
-  deskTextbox.buttonMode = true;
-  deskTextbox.position.set(window.innerWidth / 2.47, window.innerHeight / 3.7);
-  deskTextbox.on("pointerdown", onClickTable);
+  deskTextbox.position.set(200, 100);
+  deskTextbox.scale.x *= 0.2;
+  deskTextbox.scale.y *= 1;
 
   let style1 = new TextStyle({
     fontFamily: "Futura",
-    fontSize: 30,
+    fontSize: 10,
     fill: "white",
     align: "center",
     whiteSpace: "normal",
@@ -230,9 +230,9 @@ function setup() {
     for (let i = 0; i < scrolls.length; i++) {
       let scroll = scrolls[i];
       let scrollName = new Text(scroll.title, style1);
-      scrollName.x = window.innerWidth / 6.3;
-      scrollName.y = i + 1 * 250;
-      scrollName.y *= i + 0.5;
+      scrollName.x = 240
+      scrollName.y = 120;
+      scrollName.y *= i + 0.15;
       scrollName.interactive = true;
       scrollName.buttonMode = true;
       scrollName.on("pointerdown", (e) => {
@@ -279,8 +279,8 @@ for (let j = 0; j < scrolls.length; j++) {
 
   let chat = document.getElementById("top_level");
   let chatText = new Text("Chat", style1);
-  chatText.x = window.innerWidth / 2.2;
-  chatText.y = window.innerHeight / 3;
+  chatText.x = 230;
+  chatText.y = 110;
   chatText.interactive = true;
   chatText.buttonMode = true;
 chatText.on("pointerdown", () => {
@@ -371,7 +371,11 @@ chatText.on("pointerdown", () => {
   editText.visible = false;
   deleteText.visible = false;
   chatText.visible = false;
-  gameScene.addChild(bookshelf);
+  gameScene.addChild(background);
+  gameScene.addChild(backshelves);
+  gameScene.addChild(frontshelves);
+  gameScene.addChild(explorer);
+  // gameScene.addChild(bookshelf);
   gameScene.addChild(table);
   gameScene.addChild(textbox);
   gameScene.addChild(deskTextbox);
@@ -381,11 +385,7 @@ chatText.on("pointerdown", () => {
   gameScene.addChild(editText);
   gameScene.addChild(deleteText);
   gameScene.addChild(chatText);
-  gameScene.addChild(background);
-  gameScene.addChild(backshelves);
-  gameScene.addChild(frontshelves);
   gameScene.addChild(pillars);
-  gameScene.addChild(explorer);
   gameScene.addChild(lightBeams);
 
   // gameScene.addChild(writeInput);
@@ -400,7 +400,7 @@ chatText.on("pointerdown", () => {
   //Left arrow key `press` method
   left.press = function () {
     //Change the explorer's velocity when the key is pressed
-    explorer.vx = -5;
+    explorer.vx = -2;
     explorer.vy = 0;
   };
 
@@ -416,7 +416,7 @@ chatText.on("pointerdown", () => {
 
   //Up
   up.press = function () {
-    explorer.vy = -5;
+    explorer.vy = -2;
     explorer.vx = 0;
   };
   up.release = function () {
@@ -427,7 +427,7 @@ chatText.on("pointerdown", () => {
 
   //Right
   right.press = function () {
-    explorer.vx = 5;
+    explorer.vx = 2;
     explorer.vy = 0;
   };
   right.release = function () {
@@ -438,7 +438,7 @@ chatText.on("pointerdown", () => {
 
   //Down
   down.press = function () {
-    explorer.vy = 5;
+    explorer.vy = 2;
     explorer.vx = 0;
   };
   down.release = function () {
@@ -458,7 +458,7 @@ chatText.on("pointerdown", () => {
       writeInput.style.display = "none";
       ScrollList.style.display = "none";
       // editInput.visible = false;
-    } else if (explorer.position.x > 100 && explorer.position.y < 151) {
+    } else if (explorer.position.x > 20 && explorer.position.y < 90) {
       titleList.visible = true;
       textbox.visible = true;
     }
@@ -517,14 +517,29 @@ chatText.on("pointerdown", () => {
       ScrollList.style.display = "none";
     DeleteList.style.display = "none";   
       // editInput.visible = false;
-    } else if (explorer.position.x > 400 && explorer.position.y < 800 
-      && explorer.position.x < 700 && explorer.position.y > 530) {
-      console.log(explorer.position)
+    } else if (
+      explorer.position.x > 20 &&
+      explorer.position.y < 200 &&
+      explorer.position.x < 185 &&
+      explorer.position.y > 165
+    ) {
       deskTextbox.visible = true;
       editText.visible = true;
       deleteText.visible = true;
       chatText.visible = true;
       writeText.visible = true;
+    } else if (
+      explorer.position.x > 300 &&
+      explorer.position.y < 200 &&
+      explorer.position.y > 165
+    ) {
+      deskTextbox.visible = true;
+      editText.visible = true;
+      deleteText.visible = true;
+      chatText.visible = true;
+      writeText.visible = true;
+    } else {
+      console.log(explorer.position);
     }
   }
 
@@ -549,7 +564,7 @@ function play(delta) {
   explorer.y += explorer.vy;
 
   //Contain the explorer inside the area of the dungeon
-  contain(explorer, { x: 28, y: 10, width: window.innerWidth, height: window.innerWidth });
+  contain(explorer, { x: 28, y: 70, width: 400, height: 270 });
   //contain(explorer, stage);
 }
 
