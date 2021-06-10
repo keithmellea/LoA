@@ -1,1 +1,16 @@
 /* TODO Add site wide styles */
+* {
+    overflow: hidden;
+    background-color: black;
+    color: lightgrey;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#navbar {
+    position: absolute;
+    left: 1500px;
+    top: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

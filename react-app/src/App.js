@@ -46,7 +46,6 @@ function App() {
           <User />
         </ProtectedRoute>
         <ProtectedRoute path="/" exact={true} >
-          <h1>My Home Page</h1>
           <MyComponent />
         </ProtectedRoute>
       </Switch>

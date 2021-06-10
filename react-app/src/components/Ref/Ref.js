@@ -7,7 +7,6 @@ import { getScrolls, addScroll } from "../../store/scroll";
 import Chat from "../Chat/Chat";
 
 import Cat from "../Ref/images/cat.png"
-import Door from "../Ref/images/door.png"
 import Dungeon from "../Ref/images/dungeon.png";
 import Explorer from "../Ref/images/explorer.png";
 import Blob from "../Ref/images/blob.png";
@@ -74,7 +73,6 @@ const MyComponent = () => {
   };
 
   const pixiLoader = () => {
-    loader.add("door", Door)
     loader.add("explorer", Explorer)
     loader.add("blob", Blob)
     loader.add("dungeon", Dungeon)
@@ -565,7 +563,7 @@ function play(delta) {
   explorer.y += explorer.vy;
 
   //Contain the explorer inside the area of the dungeon
-  contain(explorer, { x: 28, y: 70, width: 400, height: 270 });
+  contain(explorer, { x: 28, y: 70, width: 450, height: 270 });
   //contain(explorer, stage);
 }
 
