@@ -21,6 +21,11 @@ import Frontshelves from "../Ref/images/frontshelves.png";
 import LightBeams from "../Ref/images/lightbeams.png";
 import Pillars from "../Ref/images/pillars.png";
 import Librarian from "../Ref/images/librarian.png";
+import Scribe from "../Ref/images/scribe.png";
+import Armor from "../Ref/images/armor.png";
+import Urns from "../Ref/images/urns.png";
+import Screen from "../Ref/images/screen.png";
+import Darker from "../Ref/images/darker.png";
 
 import AddScrollForm from "../addScrollForm/addScrollForm"
 import EditScrollForm from "../EditScrollForm/EditScrollForm";
@@ -35,7 +40,7 @@ const MyComponent = () => {
 
   const scrolls = useSelector((state) => Object.values(state.scroll.scrolls));
   const user = useSelector((state) => state.session.user.username);
-  
+
   console.log("user", user);
   useEffect(() => {
     dispatch(getScrolls());
@@ -88,6 +93,11 @@ const MyComponent = () => {
     loader.add("lightbeams", LightBeams);
     loader.add("pillars", Pillars)
     loader.add("librarian", Librarian)
+    loader.add("scribe", Scribe);
+    loader.add("armor", Armor);
+    loader.add("urns", Urns)
+    loader.add("screen", Screen);
+    loader.add("darker", Darker)
     .load(setup);
   };
 
@@ -162,11 +172,23 @@ function setup() {
   frontshelves.on("pointerdown", onClickTable);
 
   let lightBeams = new Sprite(resources["lightbeams"].texture);
-
+  lightBeams.blendMode = PIXI.BLEND_MODES.SOFT_LIGHT;   
   let pillars = new Sprite(resources["pillars"].texture);
 
   let librarian = new Sprite(resources["librarian"].texture);
   librarian.position.set(100, 170);
+
+  let scribe = new Sprite(resources["scribe"].texture);
+  let armor = new Sprite(resources["armor"].texture);
+  let urns = new Sprite(resources["urns"].texture);
+  let screen = new Sprite(resources["screen"].texture);    
+  screen.blendMode = PIXI.BLEND_MODES.ADD;
+  let darker = new Sprite(resources["darker"].texture);    
+  darker.blendMode = PIXI.BLEND_MODES.ADD;    
+  darker.blendMode = PIXI.BLEND_MODES.SUBTRACT = 4;   
+  // darker.alpha = 0.6;
+  screen.alpha = 0.7;
+
   // //#Bookshelf
   // let bookshelf = new Sprite(resources["bookshelf"].texture);
   // let bookshelfX = 167;
@@ -378,11 +400,15 @@ chatText.on("pointerdown", () => {
   gameScene.addChild(backshelves);
   gameScene.addChild(frontshelves);
   gameScene.addChild(librarian);
-  gameScene.addChild(explorer);
-  // gameScene.addChild(bookshelf);
   gameScene.addChild(table);
-  gameScene.addChild(pillars);
+  gameScene.addChild(scribe);
+  gameScene.addChild(urns);
+  gameScene.addChild(explorer);
+  gameScene.addChild(armor);
+  gameScene.addChild(darker);
+  gameScene.addChild(screen);
   gameScene.addChild(lightBeams);
+  gameScene.addChild(pillars);
   gameScene.addChild(textbox);
   gameScene.addChild(deskTextbox);
   gameScene.addChild(bodyContainer);
