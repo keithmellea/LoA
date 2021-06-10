@@ -24,13 +24,12 @@ def chat_channel(id):
 def chatPost(id):
     form = ChatForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    form.data['channel_id'] = 1
 
     if form.validate_on_submit():
         chat = Chat(
-            content = form.data['content'],
-            channel_id = 1
+            content = form.data['content']
         )
+
         db.session.add(chat)
         db.session.commit()
         return chat.to_dict()

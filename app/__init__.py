@@ -11,6 +11,11 @@ from .api.auth_routes import auth_routes
 from .api.chat_routes import chat_routes
 from .api.scroll_routes import scroll_routes
 
+# import your socketio object (with the other imports at the
+# top of the file)
+# in this example, the file from the previous step is named socket.py
+from .socket import socketio
+
 from .seeds import seed_commands
 
 from .config import Config
@@ -34,9 +39,13 @@ app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(scroll_routes, url_prefix='/api/scrolls')
-app.register_blueprint(chat_routes, url_prefix='/api/chats')
+app.register_blueprint(chat_routes, url_prefix='/api/chat')
 db.init_app(app)
 Migrate(app, db)
+
+# initialize the app with the socket instance
+# you could include this line right after Migrate(app, db)
+socketio.init_app(app)
 
 # Application Security
 CORS(app)
@@ -75,3 +84,7 @@ def react_root(path):
     if path == 'favicon.ico':
         return app.send_static_file('favicon.ico')
     return app.send_static_file('index.html')
+    
+# at the bottom of the file, use this to run the app
+if __name__ == '__main__':
+    socketio.run(app)

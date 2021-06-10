@@ -69,8 +69,6 @@ const Chat = () => {
         await dispatch(chatPost(1, chatInput))
     }
 
-
-
     const place = () => {
         if (chats)
             return show ? chats.map((msg) => {

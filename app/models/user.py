@@ -12,7 +12,6 @@ class User(db.Model, UserMixin):
   hashed_password = db.Column(db.String(255), nullable = False)
 
   scrolls = db.relationship("Scroll", back_populates="users")
-  chats = db.relationship("Chat", back_populates="users")
 
   @property
   def password(self):

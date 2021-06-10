@@ -305,8 +305,8 @@ for (let j = 0; j < scrolls.length; j++) {
     listItems.forEach((item) => {
         item.style.display = "flex";
         })
-    let editForm = document.querySelectorAll("scroll-form"); 
-    console.log(editForm);
+    let editForm = document.querySelectorAll(".scroll-form"); 
+    console.log("edit", editForm);
     editForm.forEach((item) => {   
         item.style.display = "none";
     });
@@ -642,7 +642,7 @@ if (!scrolls) return null;
       <AddScrollForm />
       <ScrollList />
       <DeleteList />
-      {/* <Chat /> */}
+      <Chat />
       <div ref={updatePixiCnt} />
       
     </div>
