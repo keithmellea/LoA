@@ -3,10 +3,11 @@
     width: 100%;
     /* background-color:#36393F; */
     border-radius: 3px;
-    display:inline-block;
+    display: none;
+    width: 600px;
     height: 800px;
     padding-bottom:20px;
-
+    position: absolute;
 }
 
 /* #messageComponent {

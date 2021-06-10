@@ -261,7 +261,16 @@ for (let j = 0; j < scrolls.length; j++) {
   chatText.y = window.innerHeight / 3;
   chatText.interactive = true;
   chatText.buttonMode = true;
+chatText.on("pointerdown", () => {
+  deskTextbox.visible = false;
+  textbox.visible = true;
+  writeText.visible = false;
+  editText.visible = false;
+  deleteText.visible = false;
+  chatText.visible = false;
 
+  writeInput.style.display = "flex";
+});
   let writeInput = document.getElementById("add_scroll");
   let ScrollList = document.getElementById("scrolls");
   let DeleteList = document.getElementById("delete-scrolls");
@@ -279,12 +288,9 @@ for (let j = 0; j < scrolls.length; j++) {
   editText.visible = false;
   deleteText.visible = false;
   chatText.visible = false;
-
-
-  writeInput.style.display = "flex"; 
-    
-
-
+  let chat = document.querySelectorAll("#top_level");
+  console.log(chat);
+  // chat.style.display = "inline-block";
 
   })
 
