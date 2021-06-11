@@ -30,7 +30,6 @@ const [body, setBody] = useState("");
 const handleSubmit = async (e) => {
   
   e.preventDefault();
-  console.log(author, title, published, body, scrollId);
   let createdScroll = await dispatch(
     editScroll(author, title, published, body, scrollId)
   );
@@ -41,15 +40,15 @@ if (!scrolls) {
     return null;
 }
 else {
-console.log("scrolls", scrolls);
 
   return (
     <>
       <ul id="scrolls">
         {scrolls?.map((scroll) => (
           <div id="scroll">
-            <EditScrollForm scroll={scroll}/>
+            <EditScrollForm scroll={scroll} />
             <li
+              key={scroll.id}
               className="scroll-items"
               onClick={() => {
                 let scrollId = `add-scroll-${scroll.id}`;
@@ -60,7 +59,6 @@ console.log("scrolls", scrolls);
                 listItems.forEach((item) => {
                   item.style.display = "none";
                 });
-                console.log(listItems);
                 // scrollForm.style.display = "flex";
               }}
             >

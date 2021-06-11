@@ -11,11 +11,10 @@ const Chat = () => {
     const [channel, setChannel] = useState()
     const [show, setShow] = useState(false)
     const [messagePosted, setMessagePosted] = useState(false)
-    const [content, setContent] = useState('')
+    // const [content, setContent] = useState('')
     const user = useSelector(state => state.session.user)
     const dispatch = useDispatch();
     let chats = useSelector(state => state.chats)
-    // console.log(chats)
 
     useEffect(() => {
 
@@ -24,30 +23,12 @@ const Chat = () => {
         socket.on("chat", (chat) => {
             setMessages(messages => [...messages, chat])
         })
-        console.log("first milestone")
 
         return (() => {
             socket.disconnect()
         })
 
     }, [chats])
-
-    // function theChat(e) {
-    //     e.preventDefault();
-    //     socket.emit("chat_to_channel", {
-    //         channel_id: channel.id,
-    //         body: content
-    //     })
-    //     setContent("");
-    // }
-    // useEffect(() => {
-    //     if(messagePosted === true) {
-    //         setShow(true)
-    //     }
-    // },[messagePosted, channel])
-    // console.log(channel)
-    // console.log(messagePosted)
-
 
     const updateChatInput = (e) => {
         setChatInput(e.target.value)
@@ -85,11 +66,9 @@ const Chat = () => {
 
 
     const messagesForChannel = async () => {
-        console.log("This is a test")
         await dispatch(chatForChannel(1))
         setShow(true)
     }
-    // console.log("Chats", chats)
 
     return (user && (
         <div id="top_level" >

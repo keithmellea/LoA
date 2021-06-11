@@ -1,6 +1,6 @@
 
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 
 import { addScroll } from "../../store/scroll";
 
@@ -8,7 +8,6 @@ import '../addScrollForm/addScrollForm.css';
 
 const AddScrollForm = () => {
     const dispatch = useDispatch();
-    const [scroll, setScroll] = useState(" ");
     const [author, setAuthor] = useState("");
     const [title, setTitle] = useState("");
     const [published, setPublished] = useState("yyyy-MM-dd");
@@ -27,7 +26,6 @@ const AddScrollForm = () => {
         //   body: body
         // };
         let createdScroll = await dispatch(addScroll(author, title, published, body));
-        setScroll(" ");
     }
 
     return (

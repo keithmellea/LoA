@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 
-import { addScroll, editScroll } from "../../store/scroll";
+import { editScroll } from "../../store/scroll";
 
 import "../addScrollForm/addScrollForm.css";
 
@@ -19,7 +19,6 @@ const EditScrollForm = ({scroll}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(author, title, published, body, scroll.id);
     let createdScroll = await dispatch(
       editScroll(author, title, published, body, scroll.id)
     );
@@ -39,9 +38,8 @@ const EditScrollForm = ({scroll}) => {
         required
         placeholder={scroll.author}
         value={author}
-        id="author"
+        className="author"
         onChange={(e) => {
-          console.log(author);
           setAuthor(e.target.value);
         }}
       />
@@ -51,7 +49,7 @@ const EditScrollForm = ({scroll}) => {
         required
         placeholder={scroll.title}
         value={title}
-        id="title"
+        className="title"
         onChange={(e) => setTitle(e.target.value)}
       />
       <label>Published</label>
@@ -60,7 +58,7 @@ const EditScrollForm = ({scroll}) => {
         required
         placeholder={scroll.published}
         value={published}
-        id="published"
+        className="published"
         onChange={(e) => setPublished(e.target.value)}
       />
       <label>Body</label>
@@ -69,7 +67,7 @@ const EditScrollForm = ({scroll}) => {
         required
         placeholder={scroll.body}
         value={body}
-        id="body"
+        className="body"
         onChange={(e) => setBody(e.target.value)}
       />
       <button className="submit-button" type="submit">

@@ -39,7 +39,6 @@ export const chatPost = (content) => async (dispatch) => {
   if (data.errors) {
     return data;
   }
-  console.log("this is the thunk data", data);
   dispatch(addChat(data));
   return {};
 };
@@ -48,9 +47,7 @@ export default function chatReducer(state = [], action) {
   let newState;
   switch (action.type) {
     case SHOW_CHAT:
-      // console.log(action.payload)
       newState = action.payload.chats;
-      // console.log(newState)
       return newState;
     case ADD_CHAT:
       newState = [...state, action.payload];

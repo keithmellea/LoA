@@ -1,19 +1,13 @@
-import React, { Component, useEffect, useState } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Howl, Howler } from "howler";
 
-import { getScrolls, addScroll } from "../../store/scroll";
+
+import { getScrolls } from "../../store/scroll";
 
 import Chat from "../Chat/Chat";
 
-import Cat from "../Ref/images/cat.png"
-import Dungeon from "../Ref/images/dungeon.png";
 import Explorer from "../Ref/images/explorer.png";
-import Blob from "../Ref/images/blob.png";
-import Treasure from "../Ref/images/treasure.png";
-import Tiles from "../Ref/images/tiles.png";
-import Bookshelf from "../Ref/images/bookshelf.png";
-import Table from "../Ref/images/table.png";
 import Textbox from "../Ref/images/textbox.png";
 import Background from "../Ref/images/background.png";
 import Backshelves from "../Ref/images/backshelves.png";
@@ -28,7 +22,6 @@ import Screen from "../Ref/images/screen.png";
 import Darker from "../Ref/images/darker.png";
 
 import AddScrollForm from "../addScrollForm/addScrollForm"
-import EditScrollForm from "../EditScrollForm/EditScrollForm";
 import ScrollList from "../ScrollList/ScrollList";
 import DeleteList from "../DeleteList/DeleteList";
 
@@ -36,12 +29,17 @@ import * as PIXI from "pixi.js";
 
 const MyComponent = () => {
 
+  // let sound = new Howl({
+  //   src: ["../Ref/library.mp3"],
+  // });
+
+  // sound.play();
+
   const dispatch = useDispatch();
 
   const scrolls = useSelector((state) => Object.values(state.scroll.scrolls));
-  const user = useSelector((state) => state.session.user.username);
+  // const user = useSelector((state) => state.session.user.username);
 
-  console.log("user", user);
   useEffect(() => {
     dispatch(getScrolls());
   }, [dispatch])
@@ -52,12 +50,9 @@ const MyComponent = () => {
     Container = PIXI.Container,
     loader = PIXI.loader,
     resources = PIXI.loader.resources,
-    Graphics = PIXI.Graphics,
-    TextureCache = PIXI.utils.TextureCache,
     Sprite = PIXI.Sprite,
     Text = PIXI.Text,
-    TextStyle = PIXI.TextStyle,
-    Rectangle = PIXI.Rectangle;
+    TextStyle = PIXI.TextStyle;
 
   let app = new Application({
     width: 480,
@@ -81,11 +76,6 @@ const MyComponent = () => {
 
   const pixiLoader = () => {
     loader.add("explorer", Explorer)
-    loader.add("blob", Blob)
-    loader.add("dungeon", Dungeon)
-    loader.add("tiles", Tiles)
-    loader.add("bookshelf", Bookshelf)
-    loader.add("table", Table)
     loader.add("textbox", Textbox)
     loader.add("background", Background)
     loader.add("backshelves", Backshelves)
@@ -112,7 +102,6 @@ function setup() {
   let gameScene = new Container();
   const bodyContainer = new Container();
   const titleContainer = new Container();
-  const deskContainer = new Container();
   app.stage.addChild(gameScene);
 
   //#Scroll Menu
@@ -120,56 +109,16 @@ function setup() {
   scrollMenu.x = 500;
   scrollMenu.y = 500;
   app.stage.addChild(scrollMenu);
-  console.log(app.stage);
-
-  //Create the `tileset` sprite from the texture
-  let tiles = TextureCache["tiles"];
-
-  //Create a rectangle object that defines the position and
-  //size of the sub-image you want to extract from the texture
-  let rectangle = new Rectangle(2, 0, 46, 48);
-
-  //Tell the texture to use that rectangular section
-  tiles.frame = rectangle;
-
-  //Create the sprite from the texture
-  let tile = new Sprite(tiles);
-
-  //Position the rocket sprite on the canvas
-  tile.x = 32;
-  tile.y = 32;
-
-  gameScene.addChild(tile);
-
-  let x = 32;
-  let y = 32;
-
-  //Nested loop to tile the ground
-  for (let j = 0; j < 20; j++) {
-    for (let i = 0; i < 40; i++) {
-      let tile = new Sprite(tiles);
-      tile.x = x;
-      tile.y = y;
-
-      gameScene.addChild(tile);
-      x += 46;
-    }
-    x = 32;
-    y += 48;
-  }
 
   //#Background
   let background = new Sprite(resources["background"].texture);
 
   let backshelves = new Sprite(resources["backshelves"].texture);
-  backshelves.interactive = true;
-  backshelves.buttonMode = true;
-  backshelves.on("pointerdown", onClickScrollX);
 
   let frontshelves = new Sprite(resources["frontshelves"].texture);
   frontshelves.interactive = true;
   frontshelves.buttonMode = true;
-  frontshelves.on("pointerdown", onClickTable);
+  frontshelves.on("pointerdown", onClickScrollX);
 
   let lightBeams = new Sprite(resources["lightbeams"].texture);
   lightBeams.blendMode = PIXI.BLEND_MODES.SOFT_LIGHT;   
@@ -179,15 +128,19 @@ function setup() {
   librarian.position.set(100, 170);
 
   let scribe = new Sprite(resources["scribe"].texture);
+  scribe.interactive = true;
+  scribe.buttonMode = true;
+  scribe.on("pointerdown", onClickTable);
+  
   let armor = new Sprite(resources["armor"].texture);
   let urns = new Sprite(resources["urns"].texture);
   let screen = new Sprite(resources["screen"].texture);    
   screen.blendMode = PIXI.BLEND_MODES.ADD;
   let darker = new Sprite(resources["darker"].texture);    
   darker.blendMode = PIXI.BLEND_MODES.ADD;    
-  darker.blendMode = PIXI.BLEND_MODES.SUBTRACT = 4;   
-  // darker.alpha = 0.6;
-  screen.alpha = 0.7;
+  darker.blendMode = PIXI.BLEND_MODES.SUBTRACT = 2;   
+  darker.alpha = 0.6;
+  screen.alpha = 0.2;
 
   // //#Bookshelf
   // let bookshelf = new Sprite(resources["bookshelf"].texture);
@@ -287,7 +240,6 @@ for (let j = 0; j < scrolls.length; j++) {
         message.visible = false;
         bodyContainer.addChild(message);
 
-      console.log(bodyContainer.children);
     }
 
   let titleList = titleContainer;
@@ -315,7 +267,6 @@ chatText.on("pointerdown", () => {
   editText.visible = false;
   deleteText.visible = false;
   chatText.visible = false;
-  console.log(chat);
   chat.style.display = "inline-block";
 
 });
@@ -359,7 +310,6 @@ chatText.on("pointerdown", () => {
         item.style.display = "flex";
         })
     let editForm = document.querySelectorAll(".scroll-form"); 
-    console.log("edit", editForm);
     editForm.forEach((item) => {   
         item.style.display = "none";
     });
@@ -381,13 +331,6 @@ chatText.on("pointerdown", () => {
     DeleteList.style.display = "flex";   
   })
 
-  //#Table
-  let table = new Sprite(resources["table"].texture);
-  table.position.set(468, 623);
-  table.interactive = true;
-  table.buttonMode = true;
-  table.on("pointerdown", onClickTable);
-
   // --- RENDER ORDER ---
   titleList.visible = false;
   textbox.visible = false;
@@ -399,9 +342,8 @@ chatText.on("pointerdown", () => {
   gameScene.addChild(background);
   gameScene.addChild(backshelves);
   gameScene.addChild(frontshelves);
-  gameScene.addChild(librarian);
-  gameScene.addChild(table);
   gameScene.addChild(scribe);
+  gameScene.addChild(librarian);
   gameScene.addChild(urns);
   gameScene.addChild(explorer);
   gameScene.addChild(armor);
@@ -479,7 +421,6 @@ chatText.on("pointerdown", () => {
 
   //#onClickScrollX
   function onClickScrollX() {
-    console.log("hit")
     if (textbox.visible) {
       titleList.visible = false;
       message.visible = false;
@@ -489,7 +430,9 @@ chatText.on("pointerdown", () => {
       writeInput.style.display = "none";
       ScrollList.style.display = "none";
       // editInput.visible = false;
-    } else if (explorer.position.x > 20 && explorer.position.y < 90) {
+    } else 
+    // if (explorer.position.x > 20 && explorer.position.y < 90) 
+    {
       titleList.visible = true;
       textbox.visible = true;
     }
@@ -506,7 +449,6 @@ chatText.on("pointerdown", () => {
       ScrollList.style.display = "none";
       // editInput.visible = false;
     } else if (explorer.position.x > 1720 && explorer.position.y < 920 ) {
-      console.log(explorer.position);
       titleList.visible = true;
       textbox.visible = true;
     }
@@ -515,7 +457,6 @@ chatText.on("pointerdown", () => {
   //#onClickMsg
   function onClickMsg() {
     if (textbox.visible) {
-      console.log(gameScene);
       message.visible = false;
       bodyContainer.visible = false;
       textbox.visible = false;
@@ -549,28 +490,16 @@ chatText.on("pointerdown", () => {
     DeleteList.style.display = "none";   
       // editInput.visible = false;
     } else if (
-      explorer.position.x > 20 &&
-      explorer.position.y < 200 &&
-      explorer.position.x < 185 &&
-      explorer.position.y > 165
+      explorer.position.x > 160 &&
+      explorer.position.y < 141 &&
+      explorer.position.x < 301 &&
+      explorer.position.y > 71
     ) {
       deskTextbox.visible = true;
       editText.visible = true;
       deleteText.visible = true;
       chatText.visible = true;
       writeText.visible = true;
-    } else if (
-      explorer.position.x > 300 &&
-      explorer.position.y < 200 &&
-      explorer.position.y > 165
-    ) {
-      deskTextbox.visible = true;
-      editText.visible = true;
-      deleteText.visible = true;
-      chatText.visible = true;
-      writeText.visible = true;
-    } else {
-      console.log(explorer.position);
     }
   }
 
@@ -632,57 +561,53 @@ function contain(sprite, container) {
   return collision;
 }
 
-//The `hitTestRectangle` function
-function hitTestRectangle(r1, r2) {
-  //Define the variables we'll need to calculate
-  let hit, combinedHalfWidths, combinedHalfHeights, vx, vy;
+// //The `hitTestRectangle` function
+// function hitTestRectangle(r1, r2) {
+//   //Define the variables we'll need to calculate
+//   let hit, combinedHalfWidths, combinedHalfHeights, vx, vy;
 
-  //hit will determine whether there's a collision
-  hit = false;
+//   //hit will determine whether there's a collision
+//   hit = false;
 
-  //Find the center points of each sprite
-  r1.centerX = r1.x + r1.width / 2;
-  r1.centerY = r1.y + r1.height / 2;
-  r2.centerX = r2.x + r2.width / 2;
-  r2.centerY = r2.y + r2.height / 2;
+//   //Find the center points of each sprite
+//   r1.centerX = r1.x + r1.width / 2;
+//   r1.centerY = r1.y + r1.height / 2;
+//   r2.centerX = r2.x + r2.width / 2;
+//   r2.centerY = r2.y + r2.height / 2;
 
-  //Find the half-widths and half-heights of each sprite
-  r1.halfWidth = r1.width / 2;
-  r1.halfHeight = r1.height / 2;
-  r2.halfWidth = r2.width / 2;
-  r2.halfHeight = r2.height / 2;
+//   //Find the half-widths and half-heights of each sprite
+//   r1.halfWidth = r1.width / 2;
+//   r1.halfHeight = r1.height / 2;
+//   r2.halfWidth = r2.width / 2;
+//   r2.halfHeight = r2.height / 2;
 
-  //Calculate the distance vector between the sprites
-  vx = r1.centerX - r2.centerX;
-  vy = r1.centerY - r2.centerY;
+//   //Calculate the distance vector between the sprites
+//   vx = r1.centerX - r2.centerX;
+//   vy = r1.centerY - r2.centerY;
 
-  //Figure out the combined half-widths and half-heights
-  combinedHalfWidths = r1.halfWidth + r2.halfWidth;
-  combinedHalfHeights = r1.halfHeight + r2.halfHeight;
+//   //Figure out the combined half-widths and half-heights
+//   combinedHalfWidths = r1.halfWidth + r2.halfWidth;
+//   combinedHalfHeights = r1.halfHeight + r2.halfHeight;
 
-  //Check for a collision on the x axis
-  if (Math.abs(vx) < combinedHalfWidths) {
-    //A collision might be occurring. Check for a collision on the y axis
-    if (Math.abs(vy) < combinedHalfHeights) {
-      //There's definitely a collision happening
-      hit = true;
-    } else {
-      //There's no collision on the y axis
-      hit = false;
-    }
-  } else {
-    //There's no collision on the x axis
-    hit = false;
-  }
+//   //Check for a collision on the x axis
+//   if (Math.abs(vx) < combinedHalfWidths) {
+//     //A collision might be occurring. Check for a collision on the y axis
+//     if (Math.abs(vy) < combinedHalfHeights) {
+//       //There's definitely a collision happening
+//       hit = true;
+//     } else {
+//       //There's no collision on the y axis
+//       hit = false;
+//     }
+//   } else {
+//     //There's no collision on the x axis
+//     hit = false;
+//   }
 
-  //`hit` will be either `true` or `false`
-  return hit;
-}
+//   //`hit` will be either `true` or `false`
+//   return hit;
+// }
 
-//The `randomInt` helper function
-function randomInt(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
 
 //The `keyboard` helper function
 function keyboard(keyCode) {

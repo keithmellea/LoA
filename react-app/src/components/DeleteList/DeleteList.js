@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { getScrolls, deleteScroll } from "../../store/scroll";
 
-import EditScrollForm from "../EditScrollForm/EditScrollForm";
 import "./DeleteList.css";
 
 const DeleteList = () => {
   const scrolls = useSelector((state) => Object.values(state.scroll.scrolls));
-  const user = useSelector((state) => state.session.user.username);
+  // const user = useSelector((state) => state.session.user.username);
 
   const dispatch = useDispatch();
 
@@ -17,16 +16,6 @@ const DeleteList = () => {
   }, [dispatch]);
 
 
-  // const updateStartDate = (e) => setStartDate(e.target.value);
-  // const updateEndDate = (e) => setEndDate(e.target.value);
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   console.log(author, title, published, body, scrollId);
-  //   let createdScroll = await dispatch(
-  //     editScroll(author, title, published, body, scrollId)
-  //   );
-  // };
 
   const onDelete = (scrollId) => () => {
     dispatch(deleteScroll(scrollId));
@@ -35,7 +24,6 @@ const DeleteList = () => {
   if (!scrolls) {
     return null;
   } else {
-    console.log("scrolls", scrolls);
 
     return (
       <>
@@ -43,9 +31,9 @@ const DeleteList = () => {
           {scrolls?.map((scroll) => (
             <div id="delete-scroll">
               <li
+                key={scroll.id}
                 className="delete-scroll-items"
-                onClick={onDelete(scroll.id)
-                }
+                onClick={onDelete(scroll.id)}
               >
                 {scroll.title}
               </li>
