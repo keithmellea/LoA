@@ -24,6 +24,7 @@ import Darker from "../Ref/images/darker.png";
 import AddScrollForm from "../addScrollForm/addScrollForm"
 import ScrollList from "../ScrollList/ScrollList";
 import DeleteList from "../DeleteList/DeleteList";
+import TitleList from "../TitleList/TitleList";
 
 import * as PIXI from "pixi.js";
 
@@ -97,6 +98,7 @@ const MyComponent = () => {
 let state,
   explorer;
 
+
 function setup() {
   //Make the game scene and add it to the stage
   let gameScene = new Container();
@@ -130,7 +132,7 @@ function setup() {
   let scribe = new Sprite(resources["scribe"].texture);
   scribe.interactive = true;
   scribe.buttonMode = true;
-  scribe.on("pointerdown", onClickTable);
+  scribe.on("pointerdown", onClickMsg);
   
   let armor = new Sprite(resources["armor"].texture);
   let urns = new Sprite(resources["urns"].texture);
@@ -244,6 +246,7 @@ for (let j = 0; j < scrolls.length; j++) {
 
   let titleList = titleContainer;
 
+    console.log(titleList);
   let message = new Text(
     titleContainer.children.text,
     // scrolls[0].body,
@@ -469,10 +472,36 @@ chatText.on("pointerdown", () => {
       deleteText.visible = false;
       chatText.visible = false;
       ScrollList.style.display = "none";
-    DeleteList.style.display = "none"; 
-  chat.style.display = "none"; 
-    deleteTitle.style.display = "none";
+      DeleteList.style.display = "none"; 
+      chat.style.display = "none"; 
+      deleteTitle.style.display = "none";
+
+  const scrollLi = document.getElementById(`read-scrolls`);
+    scrollLi.style.display = "none";
+
+  
+
+  const titleRead = document.getElementById(`title-read`);
+    titleRead.style.display = "none";
+
+  const scrollBody = document.querySelectorAll(`.scroll-bodies`);
+    scrollBody.forEach(element => {
+      element.style.display = "none";
+       });
+
     } else {
+  const scrollList = document.getElementById(`read-scrolls`);
+  scrollList.style.display = "flex";
+
+  const titleRead = document.getElementById(`title-read`);
+  titleRead.style.display = "flex";
+
+  const scrollLi = document.querySelectorAll(`.read-scroll`);
+
+  scrollLi.forEach((element) => {
+    element.style.display = "list-item";
+      });
+      
       titleList.visible = true;
       textbox.visible = true;
       bodyContainer.visible = false;
@@ -654,6 +683,7 @@ if (!scrolls) return null;
       <ScrollList />
       <DeleteList />
       <Chat />
+      <TitleList />
       <div ref={updatePixiCnt} />
       
     </div>

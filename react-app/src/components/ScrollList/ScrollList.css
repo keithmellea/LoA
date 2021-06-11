@@ -1,9 +1,9 @@
 #scrolls {
     color: white;
     position: absolute;
-    top: 360px;
+    top: 200px;
     font-size: 40px;
-    right: 1400px;
+    right: 1550px;
     display: none;
     flex-direction: column;
     align-items: flex-start;
@@ -12,11 +12,37 @@
 .scroll-form {
     color: white; 
     position: absolute;
-    background-color: red;
-    height: 500px;
-    width: 500px;
+    bottom: -500px;
     font-size: 18px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+}
+
+#add_scroll {
+    position: absolute;
+    top: 200px;
+    right: 800px;
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    color: black;
+}
+
+.author {
+    width: 300px;
+}
+
+.title {
+    width: 300px;
+}
+
+.published {
+    width: 300px;
+}
+
+
+.body {
+    width: 600px;
+    height: 370px;
 }
