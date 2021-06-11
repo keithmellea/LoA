@@ -1,10 +1,25 @@
 #delete-scrolls {
-    color: white;
+    color: black;
     position: absolute;
-    top: 360px;
-    font-size: 40px;
-    right: 1400px;
+    top: 250px;
+    font-size: 30px;
+    right: 1600px;
     display: none;
     flex-direction: column;
     align-items: flex-start;
+}
+
+#title-delete {
+    position: absolute;
+    top: 200px;
+    left: 550px;
+    color: black;
+    font-weight: 600;
+    font-size: 40px;
+    display: none;
+}
+
+.delete-scroll-items {
+    color: black;
+    cursor: pointer;
 }

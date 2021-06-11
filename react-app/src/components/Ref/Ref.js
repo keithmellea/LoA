@@ -316,6 +316,7 @@ chatText.on("pointerdown", () => {
     
   })
 
+  let deleteTitle = document.getElementById("title-delete");
   let deleteText = new Text("Delete", style1);
   deleteText.x = 220;
   deleteText.y = 170;
@@ -328,7 +329,8 @@ chatText.on("pointerdown", () => {
     editText.visible = false;
     deleteText.visible = false;
     chatText.visible = false;
-    DeleteList.style.display = "flex";   
+    DeleteList.style.display = "flex"; 
+    deleteTitle.style.display = "flex";  
   })
 
   // --- RENDER ORDER ---
@@ -468,13 +470,15 @@ chatText.on("pointerdown", () => {
       chatText.visible = false;
       ScrollList.style.display = "none";
     DeleteList.style.display = "none"; 
-  chat.style.display = "none";
+  chat.style.display = "none"; 
+    deleteTitle.style.display = "none";
     } else {
       titleList.visible = true;
       textbox.visible = true;
       bodyContainer.visible = false;
     }
   }
+
 
   //#onClickTable
   function onClickTable() {
@@ -488,6 +492,7 @@ chatText.on("pointerdown", () => {
       writeInput.style.display = "none";
       ScrollList.style.display = "none";
     DeleteList.style.display = "none";   
+    deleteTitle.style.display = "none";
       // editInput.visible = false;
     } else if (
       explorer.position.x > 160 &&

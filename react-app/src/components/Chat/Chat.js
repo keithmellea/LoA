@@ -70,41 +70,45 @@ const Chat = () => {
         setShow(true)
     }
 
-    return (user && (
-        <div id="top_level" >
-            <div id="channelTest">
-                <input
-                    placeholder="Select Channel"
-                    value={channel}
-                    onChange={updateChannel}
-                />
-                <button onClick={messagesForChannel}> Channel {1}</button>
-            </div>
-            <div >
-                {place()}
-                {messages.map((message, ind) => (
-                    <div id="messageComponent">
-                        {/* <div id="RecentMessage">Most Recent Message From you</div> */}
-                        <div id="Chat_user" key={ind}>{`${message.user}`}</div>
-                        <div id="another">
-                            <div id="Chat_message" key={ind}>{` ${message.msg} `}</div>
-                        </div>
-                    </div>
-                ))}
-
-            </div>
-                <form id="top_level_chat" method="POST" onSubmit={sendChat}>
-                    <input
-                        id="bar"
-                        placeholder="Message"
-                        value={chatInput}
-                        onChange={updateChatInput}
-                    />
-                    {/* <button type="submit">Send</button> */}
-                </form>
+    return (
+      user && (
+        <div id="top_level">
+          <div id="channelTest">
+            <input
+              className="select-channel"
+              placeholder="Select Channel"
+              value={channel}
+              onChange={updateChannel}
+            />
+            <button className="select-channel" onClick={messagesForChannel}>
+              {" "}
+              Channel {1}
+            </button>
+          </div>
+          <div>
+            {place()}
+            {messages.map((message, ind) => (
+              <div id="messageComponent">
+                {/* <div id="RecentMessage">Most Recent Message From you</div> */}
+                <div id="Chat_user" key={ind}>{`${message.user}`}</div>
+                <div id="another">
+                  <div id="Chat_message" key={ind}>{` ${message.msg} `}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <form id="top_level_chat" method="POST" onSubmit={sendChat}>
+            <input
+              id="bar"
+              placeholder="Message"
+              value={chatInput}
+              onChange={updateChatInput}
+            />
+            {/* <button type="submit">Send</button> */}
+          </form>
         </div>
-    )
-    )
+      )
+    );
 };
 
 

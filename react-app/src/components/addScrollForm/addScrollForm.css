@@ -1,10 +1,11 @@
 #add_scroll {
     position: absolute;
-    top: 380px;
+    top: 200px;
     right: 800px;
     display: none;
     flex-direction: column;
     align-items: flex-start;
+    color: black;
 }
 
 #author {

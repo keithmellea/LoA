@@ -4,12 +4,14 @@
     /* background-color:#36393F; */
     border-radius: 3px;
     display: none;
-    top: 350px;
+    top: 200px;
     left: 150px;
-    height: 400px;
+    height: 500px;
+    width: 1050px;
     padding-bottom:20px;
     position: absolute;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 /* #messageComponent {
@@ -24,7 +26,9 @@
     padding: 10px;
 }
 
-
+.select-channel {
+    display: none;
+}
 
 /* #RecentMessage > div {
     padding-bottom: 15px;
@@ -63,6 +67,7 @@
 
 
 #bar {
+    position: absolute;
     margin-bottom: 5px;
 }
 
