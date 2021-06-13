@@ -1,5 +1,5 @@
 #read-scroll {
-color: white;
+    color: white;
     position: absolute;
     top: 200px;
     font-size: 40px;
@@ -9,11 +9,11 @@ color: white;
 }
 
 #read-scrolls {
-color: white;
+    color: white;
     position: absolute;
     top: 200px;
     font-size: 40px;
-    right: 1550px;
+    right: 1510px;
     height: 500px;
     /* overflow-y: scroll; */
     display: none;
@@ -24,16 +24,41 @@ color: white;
 .scroll-bodies {
     color: white;
     position: absolute;
+    width: 1000px;
+    height: 410px;
+    overflow-y: scroll;
+    top: 310px;
+    font-size: 25px;
+    right: 710px;
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.scroll-titles {
+    color: white;
+    position: absolute;
+    left: 590px;
+    top: 200px;
+    font-size: 25px;
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.scroll-authors {
+    color: white;
+    position: absolute;
+    font-size: 25px;
+    left: 570px;
     top: 250px;
-    font-size: 40px;
-    right: 1550px;
     display: none;
     flex-direction: column;
     align-items: flex-start;
 }
 
 #title-read {
-    color: black;
+    color: white;
     position: absolute;
     top: 200px;
     font-size: 40px;

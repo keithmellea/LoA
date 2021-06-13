@@ -18,10 +18,16 @@ const TitleList = () => {
   const showBody = (scroll) => () => {
       const scrollLi = document.querySelectorAll(`.read-scroll`);
       const scrollBody = document.getElementById(`scroll-body-${scroll.id}`);
+      const readScroll = document.getElementById(`title-read`);
+      const scrollTitle = document.getElementById(`scroll-title-${scroll.id}`);
+      const scrollAuthor = document.getElementById(`scroll-author-${scroll.id}`);
       scrollLi.forEach(element => {
           element.style.display = "none";
       });
       scrollBody.style.display = "flex";
+      scrollTitle.style.display = "flex";
+      scrollAuthor.style.display = "flex";
+      readScroll.style.display = "none";
       console.log(scrollBody);
   };
 
@@ -46,13 +52,25 @@ const TitleList = () => {
             </div>
           ))}
         </ul>
-          {scrolls?.map((scroll) => (
-            <div>
-              <div id={`scroll-body-${scroll.id}`} className="scroll-bodies">
-                {scroll.body}
-              </div>
+        {scrolls?.map((scroll) => (
+          <div>
+            <div
+              id={`scroll-title-${scroll.id}`}
+              className="scroll-titles"
+            >
+              {scroll.title}
             </div>
-          ))}
+            <div
+              id={`scroll-author-${scroll.id}`}
+              className="scroll-authors"
+            >
+              {scroll.author}
+            </div>
+            <div id={`scroll-body-${scroll.id}`} className="scroll-bodies">
+              {scroll.body}
+            </div>
+          </div>
+        ))}
       </>
     );
   }

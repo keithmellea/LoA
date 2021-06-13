@@ -118,9 +118,6 @@ function setup() {
   let backshelves = new Sprite(resources["backshelves"].texture);
 
   let frontshelves = new Sprite(resources["frontshelves"].texture);
-  frontshelves.interactive = true;
-  frontshelves.buttonMode = true;
-  frontshelves.on("pointerdown", onClickScrollX);
 
   let lightBeams = new Sprite(resources["lightbeams"].texture);
   lightBeams.blendMode = PIXI.BLEND_MODES.SOFT_LIGHT;   
@@ -128,11 +125,14 @@ function setup() {
 
   let librarian = new Sprite(resources["librarian"].texture);
   librarian.position.set(100, 170);
+  librarian.interactive = true;
+  librarian.buttonMode = true;
+  librarian.on("pointerdown", onClickMsg);
 
   let scribe = new Sprite(resources["scribe"].texture);
   scribe.interactive = true;
   scribe.buttonMode = true;
-  scribe.on("pointerdown", onClickMsg);
+  scribe.on("pointerdown", onClickTable);
   
   let armor = new Sprite(resources["armor"].texture);
   let urns = new Sprite(resources["urns"].texture);
@@ -489,6 +489,15 @@ chatText.on("pointerdown", () => {
       element.style.display = "none";
        });
 
+  const scrollTitle = document.querySelectorAll(`.scroll-titles`);
+  scrollTitle.forEach((element) => {
+    element.style.display = "none";
+  });
+
+  const scrollAuthor = document.querySelectorAll(`.scroll-authors`);
+  scrollAuthor.forEach((element) => {
+    element.style.display = "none";
+  });
     } else {
   const scrollList = document.getElementById(`read-scrolls`);
   scrollList.style.display = "flex";
