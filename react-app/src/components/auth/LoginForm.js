@@ -40,6 +40,7 @@ const LoginForm = () => {
       <div>
         <label htmlFor="email">Email</label>
         <input
+          style={{ color: "black" }}
           name="email"
           type="text"
           placeholder="Email"
@@ -50,13 +51,16 @@ const LoginForm = () => {
       <div>
         <label htmlFor="password">Password</label>
         <input
+          style={{ color: "black" }}
           name="password"
           type="password"
           placeholder="Password"
           value={password}
           onChange={updatePassword}
         />
-        <button type="submit">Login</button>
+        <button style={{ color: "black" }} type="submit">
+          Login
+        </button>
       </div>
     </form>
   );

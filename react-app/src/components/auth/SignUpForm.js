@@ -50,6 +50,7 @@ const demoLogin = async (e) => {
       <div>
         <label>User Name</label>
         <input
+          style={{ color: "black" }}
           type="text"
           name="username"
           onChange={updateUsername}
@@ -59,6 +60,7 @@ const demoLogin = async (e) => {
       <div>
         <label>Email</label>
         <input
+          style={{ color: "black" }}
           type="text"
           name="email"
           onChange={updateEmail}
@@ -68,6 +70,7 @@ const demoLogin = async (e) => {
       <div>
         <label>Password</label>
         <input
+          style={{ color: "black" }}
           type="password"
           name="password"
           onChange={updatePassword}
@@ -77,6 +80,7 @@ const demoLogin = async (e) => {
       <div>
         <label>Repeat Password</label>
         <input
+          style={{ color: "black" }}
           type="password"
           name="repeat_password"
           onChange={updateRepeatPassword}
@@ -84,8 +88,15 @@ const demoLogin = async (e) => {
           required={true}
         ></input>
       </div>
-      <button type="submit">Sign Up</button>
-      <button type="submit" id="demo__login" onClick={demoLogin}>
+      <button style={{ color: "black" }} type="submit">
+        Sign Up
+      </button>
+      <button
+        style={{ color: "black" }}
+        type="submit"
+        id="demo__login"
+        onClick={demoLogin}
+      >
         Demo Login
       </button>
     </form>

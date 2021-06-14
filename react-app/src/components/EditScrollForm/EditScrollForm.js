@@ -34,6 +34,7 @@ const EditScrollForm = ({scroll}) => {
     >
       <label>Author</label>
       <input
+        style={{ color: "black" }}
         type="text"
         required
         placeholder={scroll.author}
@@ -45,6 +46,7 @@ const EditScrollForm = ({scroll}) => {
       />
       <label>Title</label>
       <input
+        style={{ color: "black" }}
         type="text"
         required
         placeholder={scroll.title}
@@ -54,6 +56,7 @@ const EditScrollForm = ({scroll}) => {
       />
       <label>Published</label>
       <input
+        style={{ color: "black" }}
         type="text"
         required
         placeholder={scroll.published}
@@ -63,6 +66,7 @@ const EditScrollForm = ({scroll}) => {
       />
       <label>Body</label>
       <input
+        style={{ color: "black" }}
         type="text"
         required
         placeholder={scroll.body}

@@ -29,9 +29,15 @@ const AddScrollForm = () => {
     }
 
     return (
-      <form key={"id"} onSubmit={handleSubmit} id="add_scroll">
+      <form
+        key={"id"}
+        onSubmit={handleSubmit}
+        id="add_scroll"
+        style={{ color: "black" }}
+      >
         <label>Author</label>
         <input
+          style={{ color: "black" }}
           type="text"
           required
           value={author}
@@ -40,6 +46,7 @@ const AddScrollForm = () => {
         />
         <label>Title</label>
         <input
+          style={{ color: "black" }}
           type="text"
           required
           value={title}
@@ -48,6 +55,7 @@ const AddScrollForm = () => {
         />
         <label>Published</label>
         <input
+          style={{ color: "black" }}
           type="text"
           required
           value={published}
@@ -56,6 +64,7 @@ const AddScrollForm = () => {
         />
         <label>Body</label>
         <input
+          style={{ color: "black" }}
           type="text"
           required
           placeholder={body}

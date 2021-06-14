@@ -3,16 +3,22 @@
     position: absolute;
     top: 200px;
     font-size: 40px;
-    right: 1550px;
+    left: 170px;
     display: none;
+    height: 500px;
+    overflow-y: scroll;
     flex-direction: column;
     align-items: flex-start;
+    font-size: 40px;
+    height: 480px;
+    width: 1000px;
+    overflow-y: scroll;
+    flex-wrap: wrap;
 }
 
 .scroll-form {
     color: white; 
     position: absolute;
-    bottom: -500px;
     font-size: 18px;
     display: flex;
     flex-direction: column;
@@ -56,4 +62,8 @@
     font-size: 40px;
     flex-direction: column;
     align-items: flex-start;
+}
+
+li.scroll-items {
+    padding: 5px;
 }
