@@ -46,3 +46,14 @@
     width: 600px;
     height: 370px;
 }
+
+.edit-title {
+    color: white;
+    left: 470px;
+    bottom: 90px;
+    width: 500px;
+    position: absolute;
+    font-size: 40px;
+    flex-direction: column;
+    align-items: flex-start;
+}

@@ -44,6 +44,7 @@ else {
   return (
     <>
       <ul id="scrolls">
+        <div className="edit-title"> Edit Scrolls </div>
         {scrolls?.map((scroll) => (
           <div id="scroll">
             <EditScrollForm scroll={scroll} />
