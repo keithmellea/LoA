@@ -5,3 +5,12 @@ Take a tour around the library, explorer. Read some of our countless books and s
 
 ![Screen Shot 2021-06-14 at 11 14 16 AM](https://user-images.githubusercontent.com/74005185/121915918-ab727b00-cd01-11eb-986a-c165c1762cdb.png)
 
+TECHNOLOGIES USED
+React-Redux
+PIXIjs
+Javascript
+Flask
+SQL-Alchemy
+PSQL Database
+CSS
+HTML
