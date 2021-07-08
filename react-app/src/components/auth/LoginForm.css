@@ -1,0 +1,14 @@
+.loginform {
+    background-color: blue;
+    width: 50vw;
+    height: 20vh;
+    position: absolute;
+    left: 250px;
+    top: 100px;
+}
+
+#email {
+    position: absolute;
+    left: 400px;
+    bottom: 50px;
+}

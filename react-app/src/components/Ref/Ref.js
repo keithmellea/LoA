@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Howl, Howler } from "howler";
 
-
 import { getScrolls } from "../../store/scroll";
 
 import Chat from "../Chat/Chat";
@@ -20,6 +19,7 @@ import Armor from "../Ref/images/armor.png";
 import Urns from "../Ref/images/urns.png";
 import Screen from "../Ref/images/screen.png";
 import Darker from "../Ref/images/darker.png";
+import Transparent from "../Ref/images/transparent.png";
 
 import AddScrollForm from "../addScrollForm/addScrollForm"
 import ScrollList from "../ScrollList/ScrollList";
@@ -30,43 +30,57 @@ import * as PIXI from "pixi.js";
 
 const MyComponent = () => {
 
-  // let sound = new Howl({
-  //   src: ["../Ref/library.mp3"],
-  // });
-
-  // sound.play();
-
   const dispatch = useDispatch();
 
   const scrolls = useSelector((state) => Object.values(state.scroll.scrolls));
-  // const user = useSelector((state) => state.session.user.username);
-
-  useEffect(() => {
-    dispatch(getScrolls());
-  }, [dispatch])
-
-  let pixi_cnt = null;
 
   let Application = PIXI.Application,
     Container = PIXI.Container,
-    loader = PIXI.loader,
-    resources = PIXI.loader.resources,
+    loader = new PIXI.Loader(),
+    resources = PIXI.Loader.resources,
     Sprite = PIXI.Sprite,
     Text = PIXI.Text,
     TextStyle = PIXI.TextStyle;
+    
+let app = new PIXI.Renderer({
+  width: 480,
+  height: 270,
+  antialiasing: true,
+  transparent: false,
+  resolution: 3,
+});
 
-  let app = new Application({
-    width: 480,
-    height: 270,
-    antialiasing: true,
-    transparent: false,
-    resolution: 3,
-  });
+document.body.appendChild(app.view);
+let stage = new PIXI.Container();
+
+
+function removeCanvas() {
+  
+  let canvases = document.querySelectorAll("canvas");
+  let canvasOne = canvases[0];
+  let canvasTwo = canvases[1];
+  canvasOne.remove();  
+  canvasTwo.remove();
+  console.log(canvasTwo);
+}
+
+  useEffect(() => {
+    dispatch(getScrolls())
+    removeCanvas(); 
+  }, [dispatch])
+  
+
+  let pixi_cnt = null;
+
+console.log("hello");
+
+  console.log(document.querySelectorAll("canvas"));
 
 
   const updatePixiCnt = (element) => {
     // the element is the DOM object that we will use as container to add pixi stage(canvas)
     pixi_cnt = element;
+  let scene = new Container();
     //now we are adding the application to the DOM element which we got from the Ref.
     if (pixi_cnt && pixi_cnt.children.length <= 0) {
       pixi_cnt.appendChild(app.view);
@@ -82,11 +96,12 @@ const MyComponent = () => {
     loader.add("backshelves", Backshelves)
     loader.add("frontshelves", Frontshelves)
     loader.add("lightbeams", LightBeams);
-    loader.add("pillars", Pillars)
-    loader.add("librarian", Librarian)
+    loader.add("pillars", Pillars);
+    loader.add("librarian", Librarian);
     loader.add("scribe", Scribe);
+    loader.add("transparent", Transparent);
     loader.add("armor", Armor);
-    loader.add("urns", Urns)
+    loader.add("urns", Urns);
     loader.add("screen", Screen);
     loader.add("darker", Darker)
     .load(setup);
@@ -100,82 +115,62 @@ let state,
 
 
 function setup() {
+
+
   //Make the game scene and add it to the stage
   let gameScene = new Container();
   const bodyContainer = new Container();
   const titleContainer = new Container();
-  app.stage.addChild(gameScene);
+  stage.addChild(gameScene);
 
   //#Scroll Menu
   let scrollMenu = new Container();
   scrollMenu.x = 500;
   scrollMenu.y = 500;
-  app.stage.addChild(scrollMenu);
+  stage.addChild(scrollMenu);
 
   //#Background
-  let background = new Sprite(resources["background"].texture);
+  let background = Sprite.from("background");
 
-  let backshelves = new Sprite(resources["backshelves"].texture);
+  let backshelves = Sprite.from("backshelves");
 
-  let frontshelves = new Sprite(resources["frontshelves"].texture);
+  let frontshelves = Sprite.from("frontshelves");
 
-  let lightBeams = new Sprite(resources["lightbeams"].texture);
+  let lightBeams = Sprite.from("lightbeams");
   lightBeams.blendMode = PIXI.BLEND_MODES.SOFT_LIGHT;   
-  let pillars = new Sprite(resources["pillars"].texture);
+  let pillars = Sprite.from("pillars");
 
-  let librarian = new Sprite(resources["librarian"].texture);
+  let librarian = Sprite.from("librarian");
   librarian.position.set(100, 170);
   librarian.interactive = true;
   librarian.buttonMode = true;
   librarian.on("pointerdown", onClickMsg);
 
-  let scribe = new Sprite(resources["scribe"].texture);
-  scribe.interactive = true;
-  scribe.buttonMode = true;
-  scribe.on("pointerdown", onClickTable);
+  let scribe = Sprite.from("scribe");
+  // scribe.interactive = true;
+  // scribe.buttonMode = true;
+  // scribe.on("pointerdown", onClickTable);
   
-  let armor = new Sprite(resources["armor"].texture);
-  let urns = new Sprite(resources["urns"].texture);
-  let screen = new Sprite(resources["screen"].texture);    
+  let scribeClickArea = Sprite.from("transparent");
+  scribeClickArea.position.set(200, 90);
+  scribeClickArea.interactive = true;
+  scribeClickArea.buttonMode = true;
+  scribeClickArea.on("pointerdown", onClickTable);
+  
+
+  let armor = Sprite.from("armor");
+  let urns = Sprite.from("urns");
+  let screen = Sprite.from("screen");    
   screen.blendMode = PIXI.BLEND_MODES.ADD;
-  let darker = new Sprite(resources["darker"].texture);    
+  let darker = Sprite.from("darker");
   darker.blendMode = PIXI.BLEND_MODES.ADD;    
   darker.blendMode = PIXI.BLEND_MODES.SUBTRACT = 2;   
   darker.alpha = 0.6;
   screen.alpha = 0.2;
 
-  // //#Bookshelf
-  // let bookshelf = new Sprite(resources["bookshelf"].texture);
-  // let bookshelfX = 167;
-  // let bookshelfY = 32;
-  // bookshelf.interactive = true;
-  // bookshelf.buttonMode = true;
-  // bookshelf.position.set(bookshelfX, bookshelfY);
-  // bookshelf.on("pointerdown", onClickScrollX);
-
-  // //Populates Bookshelves along X-Axis
-  // for (let i = 0; i < 16; i++) {
-  //   let bookshelf = new Sprite(resources["bookshelf"].texture);
-  //   bookshelfX += 96;
-  //   bookshelf.position.set(bookshelfX, bookshelfY);
-  //   gameScene.addChild(bookshelf);
-  // }
-
-  // //Populates Bookshelves along Y-Axis
-  // for (let j = 0; j < 10; j++) {
-  //   let bookshelf = new Sprite(resources["bookshelf"].texture);
-  //   bookshelfX = 1780;
-  //   bookshelfY += 92;
-  //   bookshelf.position.set(bookshelfX, bookshelfY);
-  //   bookshelf.interactive = true;
-  //   bookshelf.buttonMode = true;
-  //   bookshelf.on("pointerdown", onClickScrollY);
-
-  //   gameScene.addChild(bookshelf);
-  // }
 
   //#Explorer
-  explorer = new Sprite(resources["explorer"].texture);
+  explorer = Sprite.from("explorer");
   explorer.x = 68;
   explorer.y = 200;
   explorer.vx = 0;
@@ -184,7 +179,7 @@ function setup() {
   explorer.buttonMode = true;
 
   //#Textbox
-  let textbox = new Sprite(resources["textbox"].texture);
+  let textbox = Sprite.from("textbox");
   textbox.scale.x *= 1;
   textbox.scale.y *= 1.5;
   textbox.interactive = true;
@@ -192,7 +187,7 @@ function setup() {
   textbox.position.set(30, 50);
   textbox.on("pointerdown", onClickMsg);   
 
-  let deskTextbox = new Sprite(resources["textbox"].texture);
+  let deskTextbox = Sprite.from("textbox");
   deskTextbox.position.set(200, 100);
   deskTextbox.scale.x *= 0.17;
   deskTextbox.scale.y *= 0.7;
@@ -230,7 +225,7 @@ for (let j = 0; j < scrolls.length; j++) {
         msg.visible = true;
       }
     });
-  } // }
+  }
 }
         
       });
@@ -246,7 +241,6 @@ for (let j = 0; j < scrolls.length; j++) {
 
   let titleList = titleContainer;
 
-    console.log(titleList);
   let message = new Text(
     titleContainer.children.text,
     // scrolls[0].body,
@@ -258,7 +252,7 @@ for (let j = 0; j < scrolls.length; j++) {
   message.buttonMode = true;
 
   let chat = document.getElementById("top_level");
-  let chatText = new Text("Chat", style1);
+  let chatText = new Text("Log", style1);
   chatText.x = 220;
   chatText.y = 110;
   chatText.interactive = true;
@@ -290,7 +284,6 @@ chatText.on("pointerdown", () => {
   editText.visible = false;
   deleteText.visible = false;
   chatText.visible = false;
-  // chat.style.display = "inline-block";
 
   writeInput.style.display = "flex"; 
   })
@@ -320,7 +313,7 @@ chatText.on("pointerdown", () => {
   })
 
   let deleteTitle = document.getElementById("title-delete");
-  let deleteText = new Text("Delete", style1);
+  let deleteText = new Text("Destroy", style1);
   deleteText.x = 220;
   deleteText.y = 170;
   deleteText.interactive = true;
@@ -348,6 +341,7 @@ chatText.on("pointerdown", () => {
   gameScene.addChild(backshelves);
   gameScene.addChild(frontshelves);
   gameScene.addChild(scribe);
+  gameScene.addChild(scribeClickArea);
   gameScene.addChild(librarian);
   gameScene.addChild(urns);
   gameScene.addChild(explorer);
@@ -472,48 +466,58 @@ chatText.on("pointerdown", () => {
       deleteText.visible = false;
       chatText.visible = false;
       ScrollList.style.display = "none";
-      DeleteList.style.display = "none"; 
-      chat.style.display = "none"; 
+      DeleteList.style.display = "none";
+      chat.style.display = "none";
       deleteTitle.style.display = "none";
 
-  const scrollLi = document.getElementById(`read-scrolls`);
-    scrollLi.style.display = "none";
+      const scrollLi = document.getElementById(`read-scrolls`);
+      scrollLi.style.display = "none";
 
-  
+      const titleRead = document.getElementById(`title-read`);
+      titleRead.style.display = "none";
 
-  const titleRead = document.getElementById(`title-read`);
-    titleRead.style.display = "none";
-
-  const scrollBody = document.querySelectorAll(`.scroll-bodies`);
-    scrollBody.forEach(element => {
-      element.style.display = "none";
-       });
-
-  const scrollTitle = document.querySelectorAll(`.scroll-titles`);
-  scrollTitle.forEach((element) => {
-    element.style.display = "none";
-  });
-
-  const scrollAuthor = document.querySelectorAll(`.scroll-authors`);
-  scrollAuthor.forEach((element) => {
-    element.style.display = "none";
-  });
-    } else {
-  const scrollList = document.getElementById(`read-scrolls`);
-  scrollList.style.display = "flex";
-
-  const titleRead = document.getElementById(`title-read`);
-  titleRead.style.display = "flex";
-
-  const scrollLi = document.querySelectorAll(`.read-scroll`);
-
-  scrollLi.forEach((element) => {
-    element.style.display = "list-item";
+      const scrollBody = document.querySelectorAll(`.scroll-bodies`);
+      scrollBody.forEach((element) => {
+        element.style.display = "none";
       });
-      
+
+      const scrollTitle = document.querySelectorAll(`.scroll-titles`);
+      scrollTitle.forEach((element) => {
+        element.style.display = "none";
+      });
+
+      const scrollAuthor = document.querySelectorAll(`.scroll-authors`);
+      scrollAuthor.forEach((element) => {
+        element.style.display = "none";
+      });
+    } else if (
+      explorer.position.x > 75 &&
+      explorer.position.y < 190 &&
+      explorer.position.x < 130 &&
+      explorer.position.y > 70
+    ) {
+      const scrollList = document.getElementById(`read-scrolls`);
+      scrollList.style.display = "flex";
+
+      const titleRead = document.getElementById(`title-read`);
+      titleRead.style.display = "flex";
+
+      const scrollLi = document.querySelectorAll(`.read-scroll`);
+
+      scrollLi.forEach((element) => {
+        element.style.display = "list-item";
+      });
+
       titleList.visible = true;
       textbox.visible = true;
       bodyContainer.visible = false;
+      console.log(explorer.position.x);
+      console.log(explorer.position.y);
+    }
+    else {
+
+      console.log(explorer.position.x);
+      console.log(explorer.position.y);
     }
   }
 
@@ -551,8 +555,15 @@ chatText.on("pointerdown", () => {
   //Set the game state
   state = play;
 
-  //Start the game loop
-  app.ticker.add((delta) => gameLoop(delta));
+  // //Start the game loop
+  // app.ticker.add((delta) => gameLoop(delta));
+
+var ticker = new PIXI.Ticker();
+ticker.add((delta) => {
+  app.render(stage);
+  gameLoop(delta);
+}, PIXI.UPDATE_PRIORITY.LOW);
+ticker.start();
 
 }
 
@@ -600,57 +611,44 @@ function contain(sprite, container) {
     collision = "bottom";
   }
 
+  //Left Bookshelf Collisions
+  if (sprite.y < 170 && sprite.y > 100 && sprite.x < 150) {
+    if (sprite.y < 110 && sprite.y > 100 && sprite.x < 150) {
+      sprite.x = sprite.x;
+      sprite.y = 100;
+      console.log("top");
+    } else if (sprite.y < 165 && sprite.y > 100 && sprite.x < 150) {
+      sprite.x = 150;
+      sprite.y = sprite.y;
+      console.log("side");
+    } else {
+      sprite.y = 170;
+      sprite.x = sprite.x;
+      collision = "bookshelf";
+      console.log(sprite.position);
+    }
+  }
+
+  //Right Bookshelf Collisions
+  if (sprite.y < 170 && sprite.y > 100 && sprite.x > 305) {
+    if (sprite.y < 110 && sprite.y > 100 && sprite.x > 305) {
+      sprite.x = sprite.x;
+      sprite.y = 100;
+      console.log("top");
+    } else if (sprite.y < 165 && sprite.y > 100 && sprite.x > 305) {
+      sprite.x = 305;
+      sprite.y = sprite.y;
+      console.log("side");
+    } else {
+      sprite.y = 170;
+      sprite.x = sprite.x;
+      collision = "bookshelf";
+      console.log(sprite.position);
+    }
+  }
   //Return the `collision` value
   return collision;
 }
-
-// //The `hitTestRectangle` function
-// function hitTestRectangle(r1, r2) {
-//   //Define the variables we'll need to calculate
-//   let hit, combinedHalfWidths, combinedHalfHeights, vx, vy;
-
-//   //hit will determine whether there's a collision
-//   hit = false;
-
-//   //Find the center points of each sprite
-//   r1.centerX = r1.x + r1.width / 2;
-//   r1.centerY = r1.y + r1.height / 2;
-//   r2.centerX = r2.x + r2.width / 2;
-//   r2.centerY = r2.y + r2.height / 2;
-
-//   //Find the half-widths and half-heights of each sprite
-//   r1.halfWidth = r1.width / 2;
-//   r1.halfHeight = r1.height / 2;
-//   r2.halfWidth = r2.width / 2;
-//   r2.halfHeight = r2.height / 2;
-
-//   //Calculate the distance vector between the sprites
-//   vx = r1.centerX - r2.centerX;
-//   vy = r1.centerY - r2.centerY;
-
-//   //Figure out the combined half-widths and half-heights
-//   combinedHalfWidths = r1.halfWidth + r2.halfWidth;
-//   combinedHalfHeights = r1.halfHeight + r2.halfHeight;
-
-//   //Check for a collision on the x axis
-//   if (Math.abs(vx) < combinedHalfWidths) {
-//     //A collision might be occurring. Check for a collision on the y axis
-//     if (Math.abs(vy) < combinedHalfHeights) {
-//       //There's definitely a collision happening
-//       hit = true;
-//     } else {
-//       //There's no collision on the y axis
-//       hit = false;
-//     }
-//   } else {
-//     //There's no collision on the x axis
-//     hit = false;
-//   }
-
-//   //`hit` will be either `true` or `false`
-//   return hit;
-// }
-
 
 //The `keyboard` helper function
 function keyboard(keyCode) {

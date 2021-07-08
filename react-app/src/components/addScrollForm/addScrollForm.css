@@ -1,7 +1,7 @@
 #add_scroll {
     position: absolute;
     top: 200px;
-    right: 800px;
+    right: 900px;
     display: none;
     flex-direction: column;
     align-items: flex-start;
@@ -24,4 +24,8 @@
 #body {
     width: 600px;
     height: 370px;
+}
+
+.submit-button {
+    color: black;
 }

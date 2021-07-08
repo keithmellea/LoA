@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { io } from 'socket.io-client';
 import { chatPost, chatForChannel } from "../../store/chats"
 import './index.css';
+import * as PIXI from "pixi.js";
+//import app from '../Ref/Ref'
 let socket;
 
 const Chat = () => {
@@ -16,6 +18,19 @@ const Chat = () => {
     const dispatch = useDispatch();
     let chats = useSelector(state => state.chats)
 
+//  function createRenderer(color, canvas) {
+//    canvas = canvas || document.createElement("canvas");
+//    var renderer = new PIXI.WebGLRenderer(800, 600, { view: canvas });
+//    var stage = new PIXI.Container();
+//    var graphics = new PIXI.Graphics();
+//    graphics.beginFill(color, 0.5);
+//    graphics.drawCircle(0, 0, 200);
+//    graphics.endFill();
+//    stage.addChild(graphics);
+//    renderer.render(stage);
+//    return { renderer: renderer, stage: stage, graphics: graphics };
+//  }
+
     useEffect(() => {
 
         socket = io();
@@ -23,7 +38,17 @@ const Chat = () => {
         socket.on("chat", (chat) => {
             setMessages(messages => [...messages, chat])
         })
-
+// var canvas = document.createElement("canvas");
+// document.body.appendChild(canvas);
+// var scene = createRenderer(0x00ff00, canvas);
+// // Uncomment to see that the original canvas isn't removed.
+// scene.renderer.currentRenderer.gl
+//   .getExtension("WEBGL_lose_context")
+//   .loseContext();
+// console.log(scene);
+// scene.renderer.destroy();
+// scene.stage.removeChild(scene.graphics);
+// document.body.removeChild(canvas);
         return (() => {
             socket.disconnect()
         })
@@ -31,7 +56,8 @@ const Chat = () => {
     }, [chats])
 
     const updateChatInput = (e) => {
-        setChatInput(e.target.value)
+      setChatInput(e.target.value); // maintain the reference to this Application even as your SPA view gets destroyed
+      
     };
 
     const updateChannel = (e) => {
@@ -39,15 +65,31 @@ const Chat = () => {
     }
 
     const sendChat = async (e) => {
-        e.preventDefault()
-        // socket.emit("chat_to_channel", {
-        //     channel_id: channel.id,
-        //     body: content
-        // })
-        socket.emit("chat", { user: user.username, msg: chatInput });
-        setChatInput("")
-        setMessagePosted(true)
-        await dispatch(chatPost(1, chatInput))
+      e.preventDefault();
+      // socket.emit("chat_to_channel", {
+      //     channel_id: channel.id,
+      //     body: content
+      // })
+      socket.emit("chat", { user: user.username, msg: chatInput });
+      setChatInput("");
+      // setMessagePosted(true);
+      // var canvas = document.createElement("canvas");
+      // document.body.appendChild(canvas);
+      // var scene = createRenderer(0x00ff00, canvas);
+      // // Uncomment to see that the original canvas isn't removed.
+      // scene.renderer.currentRenderer.gl
+      //   .getExtension("WEBGL_lose_context")
+      //   .loseContext();
+      // console.log(scene);
+      // scene.renderer.destroy();
+      // scene.stage.removeChild(scene.graphics);
+      // document.body.removeChild(canvas);
+      await dispatch(chatPost(1, chatInput));
+      // const app = new PIXI.Application();
+
+      // // Insert in the DOM or whatever the equivalent is in Angular
+      // document.querySelector("#pixi-container").appendChild(app.view);
+       
     }
 
     const place = () => {

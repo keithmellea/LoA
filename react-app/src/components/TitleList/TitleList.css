@@ -21,7 +21,7 @@
     left: 170px;
     height: 480px;
     width: 1000px;
-    overflow-y: scroll;
+    overflow-y: hidden;
     /* overflow-y: scroll; */
     display: none;
     flex-direction: column;

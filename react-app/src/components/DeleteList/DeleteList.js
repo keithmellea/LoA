@@ -27,7 +27,7 @@ const DeleteList = () => {
 
     return (
       <>
-        <div id="title-delete"> Delete Scrolls </div>
+        <div id="title-delete"> Destroy Scrolls </div>
         <ul id="delete-scrolls">
           {scrolls?.map((scroll) => (
             <div id="delete-scroll">

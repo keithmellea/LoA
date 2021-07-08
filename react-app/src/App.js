@@ -44,7 +44,9 @@ function App() {
               <User />
             </ProtectedRoute>
             <ProtectedRoute path="/" exact={true}>
-              <MyComponent />
+              <div id="pixi-container">
+                <MyComponent />
+              </div>
             </ProtectedRoute>
           </Switch>
         </div>

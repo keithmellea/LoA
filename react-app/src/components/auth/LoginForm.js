@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { login } from "../../store/session";
 
+import '../auth/LoginForm.css';
+
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState("");
@@ -31,38 +33,41 @@ const LoginForm = () => {
   }
 
   return (
-    <form onSubmit={onLogin}>
-      <div>
-        {errors.map((error) => (
-          <div>{error}</div>
-        ))}
-      </div>
-      <div>
-        <label htmlFor="email">Email</label>
-        <input
-          style={{ color: "black" }}
-          name="email"
-          type="text"
-          placeholder="Email"
-          value={email}
-          onChange={updateEmail}
-        />
-      </div>
-      <div>
-        <label htmlFor="password">Password</label>
-        <input
-          style={{ color: "black" }}
-          name="password"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={updatePassword}
-        />
-        <button style={{ color: "black" }} type="submit">
-          Login
-        </button>
-      </div>
-    </form>
+    <div className="loginform">
+      <form onSubmit={onLogin}>
+        <div>
+          {errors.map((error) => (
+            <div>{error}</div>
+          ))}
+        </div>
+        <div id="email">
+          <label htmlFor="email">Email</label>
+          <input
+            style={{ color: "black" }}
+            name="email"
+            type="text"
+            placeholder="Email"
+            value={email}
+            onChange={updateEmail}
+          />
+        </div>
+        <div>
+          <label htmlFor="password">Password</label>
+          <input
+            id="password"
+            style={{ color: "black" }}
+            name="password"
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={updatePassword}
+          />
+          <button style={{ color: "black" }} type="submit">
+            Login
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 

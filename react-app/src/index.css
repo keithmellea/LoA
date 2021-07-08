@@ -26,3 +26,8 @@ body {
 #site-container {
     width: 1440px;
 }
+
+#top-container {
+    position: fixed;
+    overflow: hidden;
+}
