@@ -345,7 +345,7 @@ chatText.on("pointerdown", () => {
   gameScene.addChild(librarian);
   gameScene.addChild(urns);
   gameScene.addChild(explorer);
-  gameScene.addChild(armor);
+  // gameScene.addChild(armor);
   gameScene.addChild(darker);
   gameScene.addChild(screen);
   gameScene.addChild(lightBeams);
@@ -644,6 +644,31 @@ function contain(sprite, container) {
       sprite.x = sprite.x;
       collision = "bookshelf";
       console.log(sprite.position);
+    }
+  }
+  
+  //Scribe Collisions
+  if (sprite.x < 280 && sprite.x > 170 && sprite.y < 120) {
+    // if (sprite.y < 110 && sprite.y > 100 && sprite.x > 305) {
+    //   sprite.x = sprite.x;
+    //   sprite.y = 100;
+    //   console.log("top");
+    // } else 
+    if (sprite.y < 170 && sprite.y > 70 && sprite.x > 172 && sprite.x < 278) {
+      sprite.y = 120;
+      sprite.x = sprite.x;
+      collision = "bookshelf";
+      console.log(sprite.position);
+    }
+    else if (sprite.y < 120 && sprite.y > 69 && sprite.x < 280 && sprite.x > 200) {
+      sprite.x = 280
+      sprite.y = sprite.y;
+      console.log("right side");
+    }
+     else {
+      sprite.x = 170
+      sprite.y = sprite.y;
+      console.log("left side");
     }
   }
   //Return the `collision` value
