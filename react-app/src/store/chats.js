@@ -36,7 +36,7 @@ export const chatPost = (content) => async (dispatch) => {
       content,
     }),
   });
-  console.log("between");
+  console.log("between")
   const data = await res.json();
   if (data.errors) {
     return data;
