@@ -12,7 +12,7 @@ const addChat = (content) => ({
 });
 
 //thinking about doing the GET requests in the chat component
-export const chatForChannel = (channel_id) => async (dispatch) => {
+export const chatForChannel = () => async (dispatch) => {
   const res = await fetch(`/api/chat/1`, {
     headers: {
       "Content-Type": "application/json",
@@ -26,6 +26,7 @@ export const chatForChannel = (channel_id) => async (dispatch) => {
 };
 
 export const chatPost = (content) => async (dispatch) => {
+  console.log("before res");
   const res = await fetch(`/api/chat/1`, {
     method: "POST",
     headers: {
@@ -35,10 +36,12 @@ export const chatPost = (content) => async (dispatch) => {
       content,
     }),
   });
+  console.log("between");
   const data = await res.json();
   if (data.errors) {
     return data;
   }
+  console.log("after res");
   dispatch(addChat(data));
   return {};
 };

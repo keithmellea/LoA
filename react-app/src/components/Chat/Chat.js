@@ -13,23 +13,9 @@ const Chat = () => {
     const [channel, setChannel] = useState()
     const [show, setShow] = useState(false)
     const [messagePosted, setMessagePosted] = useState(false)
-    // const [content, setContent] = useState('')
     const user = useSelector(state => state.session.user)
     const dispatch = useDispatch();
     let chats = useSelector(state => state.chats)
-
-//  function createRenderer(color, canvas) {
-//    canvas = canvas || document.createElement("canvas");
-//    var renderer = new PIXI.WebGLRenderer(800, 600, { view: canvas });
-//    var stage = new PIXI.Container();
-//    var graphics = new PIXI.Graphics();
-//    graphics.beginFill(color, 0.5);
-//    graphics.drawCircle(0, 0, 200);
-//    graphics.endFill();
-//    stage.addChild(graphics);
-//    renderer.render(stage);
-//    return { renderer: renderer, stage: stage, graphics: graphics };
-//  }
 
     useEffect(() => {
 
@@ -38,17 +24,6 @@ const Chat = () => {
         socket.on("chat", (chat) => {
             setMessages(messages => [...messages, chat])
         })
-// var canvas = document.createElement("canvas");
-// document.body.appendChild(canvas);
-// var scene = createRenderer(0x00ff00, canvas);
-// // Uncomment to see that the original canvas isn't removed.
-// scene.renderer.currentRenderer.gl
-//   .getExtension("WEBGL_lose_context")
-//   .loseContext();
-// console.log(scene);
-// scene.renderer.destroy();
-// scene.stage.removeChild(scene.graphics);
-// document.body.removeChild(canvas);
         return (() => {
             socket.disconnect()
         })
@@ -72,24 +47,7 @@ const Chat = () => {
       // })
       socket.emit("chat", { user: user.username, msg: chatInput });
       setChatInput("");
-      // setMessagePosted(true);
-      // var canvas = document.createElement("canvas");
-      // document.body.appendChild(canvas);
-      // var scene = createRenderer(0x00ff00, canvas);
-      // // Uncomment to see that the original canvas isn't removed.
-      // scene.renderer.currentRenderer.gl
-      //   .getExtension("WEBGL_lose_context")
-      //   .loseContext();
-      // console.log(scene);
-      // scene.renderer.destroy();
-      // scene.stage.removeChild(scene.graphics);
-      // document.body.removeChild(canvas);
       await dispatch(chatPost(chatInput));
-      // const app = new PIXI.Application();
-
-      // // Insert in the DOM or whatever the equivalent is in Angular
-      // document.querySelector("#pixi-container").appendChild(app.view);
-       
     }
 
     const place = () => {
@@ -146,7 +104,6 @@ const Chat = () => {
               value={chatInput}
               onChange={updateChatInput}
             />
-            {/* <button type="submit">Send</button> */}
           </form>
         </div>
       )
