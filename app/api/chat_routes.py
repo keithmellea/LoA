@@ -5,18 +5,18 @@ from app.forms import ChatForm
 
 chat_routes = Blueprint("chat", __name__)
 
-# @chat_routes.route("/")
-# def allChats():
-#     #Grabs all the chat messages. Probably will delete later.
-#     chats = Chat.query.all()
-#     return {"chats": [chat.to_dict() for chat in chats]}
-
-
-#Grabs all the chat messages from specific channel
-@chat_routes.route("/<int:id>")
-def chat_channel(id):
-    chats = Chat.query.filter(Chat.channel_id == id).all()
+@chat_routes.route("/")
+def allChats():
+    #Grabs all the chat messages. Probably will delete later.
+    chats = Chat.query.all()
     return {"chats": [chat.to_dict() for chat in chats]}
+
+
+# #Grabs all the chat messages from specific channel
+# @chat_routes.route("/<int:id>")
+# def chat_channel(id):
+#     chats = Chat.query.filter(Chat.channel_id == id).all()
+#     return {"chats": [chat.to_dict() for chat in chats]}
 
 
 @chat_routes.route("/1", methods=['POST'])
