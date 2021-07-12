@@ -10,7 +10,7 @@ If you wish to view or write in our logs to correspond with our other authors an
 ![Screen Shot 2021-06-14 at 11 14 16 AM](https://user-images.githubusercontent.com/74005185/121915918-ab727b00-cd01-11eb-986a-c165c1762cdb.png)
 
 ## TECHNOLOGIES USED
-  * PIXIjs
+  * PixiJS
   * React-Redux
   * Javascript
   * Flask
