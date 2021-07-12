@@ -19,7 +19,7 @@ def allChats():
 #     return {"chats": [chat.to_dict() for chat in chats]}
 
 
-@chat_routes.route("/1", methods=['POST'])
+@chat_routes.route("/", methods=['POST'])
 #For now, any user can post to the whole chat as a whole
 def chatPost():
     form = ChatForm()
