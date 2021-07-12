@@ -1,14 +1,37 @@
 .loginform {
-    background-color: blue;
-    width: 50vw;
-    height: 20vh;
-    position: absolute;
-    left: 250px;
-    top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 600px;
 }
 
-#email {
+/* Change font-size for fields, padding */
+#email, #password  {
+    padding-bottom: 10px;
+    font-size: 28px;
+}
+
+/* Position fields slightly away from labels */
+.login-labels {
+    padding-right: 10px;
+}
+
+/* Style Login Inputs Size */
+.login-inputs {
+    width: 400px;
+    height: 34px;
+    font-size: 28px;
+}
+
+/* Place login button underneath fields, sizing */
+#login-button {
     position: absolute;
-    left: 400px;
-    bottom: 50px;
+    bottom: 200px;
+    left: 700px;
+    width: 80px;
+    height: 40px;
+    font-size: 25px;
+    background-color: aliceblue;
+    border-radius: 10px;
 }

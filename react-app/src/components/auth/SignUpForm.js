@@ -35,7 +35,7 @@ const SignUpForm = () => {
   };
 
   if (user) {
-    return <Redirect to="/" />;
+    return <Redirect to="/game" />;
   }
 
 const demoLogin = async (e) => {
