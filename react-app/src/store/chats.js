@@ -27,7 +27,7 @@ export const chatForChannel = () => async (dispatch) => {
 
 export const chatPost = (content) => async (dispatch) => {
   console.log("before res");
-  const res = await fetch(`/api/chat`, {
+  const res = await fetch(`/api/chat/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

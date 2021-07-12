@@ -8,7 +8,7 @@ if os.environ.get('FLASK_ENV') == 'production':
         'https://libraryalexandria.herokuapp.com/'
     ]
 else:
-    origins = 'https://libraryalexandria.herokuapp.com/'
+    origins = '*'
 
 # initialize your socket instance
 socketio = SocketIO(cors_allowed_origins=origins)
