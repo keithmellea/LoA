@@ -27,6 +27,7 @@ def chatPost():
     print("before")
     if form.validate_on_submit():
         chat = Chat(
+            author = "author"
             content = form.data['content']
         )
         print("middle")
