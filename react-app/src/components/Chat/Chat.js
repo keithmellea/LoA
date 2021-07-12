@@ -84,7 +84,7 @@ const Chat = () => {
       // scene.renderer.destroy();
       // scene.stage.removeChild(scene.graphics);
       // document.body.removeChild(canvas);
-      await dispatch(chatPost(1, chatInput));
+      await dispatch(chatPost(chatInput));
       // const app = new PIXI.Application();
 
       // // Insert in the DOM or whatever the equivalent is in Angular
