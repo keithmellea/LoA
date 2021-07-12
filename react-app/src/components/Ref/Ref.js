@@ -54,19 +54,19 @@ document.body.appendChild(app.view);
 let stage = new PIXI.Container();
 
 
-function removeCanvas() {
+// function removeCanvas() {
   
-  let canvases = document.querySelectorAll("canvas");
-  let canvasOne = canvases[0];
-  let canvasTwo = canvases[1];
-  canvasOne.remove();  
-  canvasTwo.remove();
-  console.log(canvasTwo);
-}
+//   let canvases = document.querySelectorAll("canvas");
+//   let canvasOne = canvases[0];
+//   let canvasTwo = canvases[1];
+//   canvasOne.remove();  
+//   canvasTwo.remove();
+//   console.log(canvasTwo);
+// }
 
   useEffect(() => {
     dispatch(getScrolls())
-    removeCanvas(); 
+    // removeCanvas(); 
   }, [dispatch])
   
 
@@ -271,7 +271,7 @@ chatText.on("pointerdown", () => {
   let ScrollList = document.getElementById("scrolls");
   let DeleteList = document.getElementById("delete-scrolls");
 
-    writeInput.style.display = "none";
+    // writeInput.style.display = "none";
   let writeText = new Text("Write", style1);
   writeText.x = 220;
   writeText.y = 130;
@@ -490,6 +490,9 @@ chatText.on("pointerdown", () => {
       scrollAuthor.forEach((element) => {
         element.style.display = "none";
       });
+
+      const scrollContainer = document.getElementById("scroll-list-container");
+      scrollContainer.style.display = "none";
     } else if (
       explorer.position.x > 75 &&
       explorer.position.y < 190 &&
@@ -507,6 +510,9 @@ chatText.on("pointerdown", () => {
       scrollLi.forEach((element) => {
         element.style.display = "list-item";
       });
+
+      const scrollContainer = document.getElementById("scroll-list-container");
+      scrollContainer.style.display = "flex";
 
       titleList.visible = true;
       textbox.visible = true;

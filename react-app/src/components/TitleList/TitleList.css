@@ -17,17 +17,15 @@
     color: white;
     position: absolute;
     top: 220px;
-    font-size: 40px;
+    font-size: 32px;
     left: 170px;
     height: 480px;
     width: 1000px;
     overflow-y: hidden;
-    /* overflow-y: scroll; */
     display: none;
     flex-direction: column;
     align-items: flex-start;  
     flex-wrap: wrap;
-
 }
 
 .scroll-bodies {
@@ -76,3 +74,19 @@
     flex-direction: column;
     align-items: flex-start;
 }
+
+/* #scroll-list-container {
+    
+    color: white;
+    position: absolute;
+    right: 200px;
+    top: 220px;
+    font-size: 40px;
+    height: 480px;
+    width: 1600px;
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;  
+    flex-wrap: wrap;
+    overflow-x: visible;
+} */

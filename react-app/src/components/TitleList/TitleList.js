@@ -37,6 +37,7 @@ const TitleList = () => {
   } else {
     return (
       <>
+        <div id="scroll-list-container">
         <div id="title-read">Read Scrolls </div>
         <ul id="read-scrolls">
           {scrolls?.map((scroll) => (
@@ -71,6 +72,7 @@ const TitleList = () => {
             </div>
           </div>
         ))}
+        </div>
       </>
     );
   }
