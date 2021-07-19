@@ -470,6 +470,7 @@ chatText.on("pointerdown", () => {
       chat.style.display = "none";
       deleteTitle.style.display = "none";
 
+
       const scrollLi = document.getElementById(`read-scrolls`);
       scrollLi.style.display = "none";
 
@@ -478,6 +479,13 @@ chatText.on("pointerdown", () => {
 
       const scrollBody = document.querySelectorAll(`.scroll-bodies`);
       scrollBody.forEach((element) => {
+        element.style.display = "none";
+      });
+
+      const scrollDiv = document.querySelectorAll(
+        `.scroll-title-author-container`
+      );
+      scrollDiv.forEach((element) => {
         element.style.display = "none";
       });
 

@@ -12,7 +12,6 @@
     padding: 5px;
 }
 
-
 #read-scrolls {
     color: white;
     position: absolute;
@@ -28,40 +27,46 @@
     flex-wrap: wrap;
 }
 
+.scroll-title-author-container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 350px;
+    top: 200px;
+    align-items: center;
+    width: 1100px;
+    height: 500px;
+    display: none;
+}
+
 .scroll-bodies {
     color: white;
-    position: absolute;
-    width: 1000px;
-    height: 410px;
     overflow-y: scroll;
-    top: 310px;
     font-size: 25px;
-    right: 710px;
     display: none;
-    flex-direction: column;
-    align-items: flex-start;
 }
 
 .scroll-titles {
     color: white;
-    position: absolute;
-    left: 590px;
-    top: 200px;
+    /* position: absolute; */
+    /* left: 590px; */
+    /* top: 200px; */
+    padding-bottom: 20px;
     font-size: 25px;
-    display: none;
-    flex-direction: column;
-    align-items: flex-start;
+    display: none;  
+
+    /* flex-direction: column; */
+    /* align-items: flex-start; */
 }
 
 .scroll-authors {
-    color: white;
-    position: absolute;
+    /* color: white;
+    position: absolute; */
     font-size: 25px;
-    left: 570px;
-    top: 250px;
+    padding-bottom: 20px;
     display: none;
-    flex-direction: column;
-    align-items: flex-start;
+    /* flex-direction: column;
+    align-items: flex-start; */
 }
 
 #title-read {
@@ -72,7 +77,7 @@
     right: 1150px;
     display: none;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
 }
 
 /* #scroll-list-container {

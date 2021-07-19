@@ -24,15 +24,11 @@ def allChats():
 def chatPost():
     form = ChatForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    print("before")
     if form.validate_on_submit():
         chat = Chat(
             content = form.data['content']
         )
-        print("middle")
         db.session.add(chat)
         db.session.commit()
-        print("after")
         return chat.to_dict()
-    print("no if")
     return
