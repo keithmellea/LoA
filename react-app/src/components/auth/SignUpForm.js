@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux"
 import { Redirect } from 'react-router-dom';
 import { signUp, login } from '../../store/session';
 
+import '../auth/SignUpForm.css';
+
 const SignUpForm = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -46,20 +48,26 @@ const demoLogin = async (e) => {
 };
 
   return (
-    <form onSubmit={onSignUp}>
-      <div>
-        <label>User Name</label>
+    <div id="signup-container">
+      <form className="signupform" onSubmit={onSignUp}>
+        <div id="title-label">Sign Up</div>
+      <div id="username">
+          <label className="signup-labels"
+          >User Name</label>
         <input
           style={{ color: "black" }}
           type="text"
+          className="signup-inputs"
           name="username"
           onChange={updateUsername}
           value={username}
         ></input>
       </div>
-      <div>
-        <label>Email</label>
+      <div id="email">
+        <label className="signup-labels">Email</label>
         <input
+          id="password-input"
+          className="signup-inputs"
           style={{ color: "black" }}
           type="text"
           name="email"
@@ -67,9 +75,11 @@ const demoLogin = async (e) => {
           value={email}
         ></input>
       </div>
-      <div>
-        <label>Password</label>
+      <div id="password">
+        <label className="signup-labels" >Password</label>
         <input
+          id="password-input"
+          className="signup-inputs"
           style={{ color: "black" }}
           type="password"
           name="password"
@@ -77,9 +87,11 @@ const demoLogin = async (e) => {
           value={password}
         ></input>
       </div>
-      <div>
-        <label>Repeat Password</label>
+        <div id="repeat-password">
+        <label className="signup-labels">Repeat Password</label>
         <input
+          id="repeat-password-input"
+          className="signup-inputs"
           style={{ color: "black" }}
           type="password"
           name="repeat_password"
@@ -88,18 +100,19 @@ const demoLogin = async (e) => {
           required={true}
         ></input>
       </div>
-      <button style={{ color: "black" }} type="submit">
+      <button id="signup-button" style={{ color: "black" }} type="submit">
         Sign Up
       </button>
       <button
+        id="demo-button"
         style={{ color: "black" }}
         type="submit"
-        id="demo__login"
         onClick={demoLogin}
       >
         Demo Login
       </button>
-    </form>
+      </form>
+      </div>
   );
 };
 

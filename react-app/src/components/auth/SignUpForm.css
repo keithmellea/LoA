@@ -1,5 +1,5 @@
 /* Center Login Form */
-#login-container {
+#signup-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -7,7 +7,7 @@
     width: 1400px;
 }
 
-#login-errors {
+#signup-errors {
     font-size: 25px;
     color: red;
 }
@@ -18,7 +18,7 @@
     font-size: 40px;
 }
 
-.loginform {
+.signupform {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -30,31 +30,42 @@
 }
 
 /* Change font-size for fields, padding */
-#email, #password  {
+#email, #password, #repeat-password, #username  {
     padding-bottom: 10px;
     font-size: 28px;
 }
 
 /* Position fields slightly away from labels, font color */
-.login-labels {
+.signup-labels {
     padding-right: 10px;    
     color: black;
 
 }
 
 /* Style Login Inputs Size */
-.login-inputs {
+.signup-inputs {
     width: 400px;
     height: 34px;
     font-size: 28px;
 }
 
 /* Place login button underneath fields, sizing */
-#login-button {
+#signup-button {
     position: absolute;
-    top: 520px;
+    top: 550px;
     left: 650px;
-    width: 80px;
+    width: 120px;
+    height: 40px;
+    font-size: 25px;
+    background-color: aliceblue;
+    border-radius: 10px;
+}
+
+#demo-button {
+    position: absolute;
+    top: 600px;
+    left: 635px;
+    width: 160px;
     height: 40px;
     font-size: 25px;
     background-color: aliceblue;

@@ -33,13 +33,14 @@ const LoginForm = () => {
   }
 
   return (
-    <div>
+    <div id="login-container">
       <form className="loginform" onSubmit={onLogin}>
-        <div>
+        <div >
           {errors.map((error) => (
-            <div>{error}</div>
+            <div id="login-errors" >{error}</div>
           ))}
         </div>
+        <label id="title-label">Library of Alexandria</label>
         <div id="email">
           <label className="login-labels" htmlFor="email">Email</label>
           <input
