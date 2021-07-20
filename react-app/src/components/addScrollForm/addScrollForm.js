@@ -13,18 +13,9 @@ const AddScrollForm = () => {
     const [published, setPublished] = useState("yyyy-MM-dd");
     const [body, setBody] = useState("");
 
-    // const updateStartDate = (e) => setStartDate(e.target.value);
-    // const updateEndDate = (e) => setEndDate(e.target.value);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        // const newScroll = {
-        //   author: author,
-        //   title: title,
-        //   published: published,
-        //   body: body
-        // };
         let createdScroll = await dispatch(addScroll(author, title, published, body));
     }
 

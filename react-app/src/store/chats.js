@@ -11,7 +11,6 @@ const addChat = (content) => ({
   payload: content,
 });
 
-//thinking about doing the GET requests in the chat component
 export const chatForChannel = () => async (dispatch) => {
   const res = await fetch(`/api/chat/1`, {
     headers: {
@@ -20,13 +19,11 @@ export const chatForChannel = () => async (dispatch) => {
   });
   if (res.ok) {
     const data = await res.json();
-    // const other = Object.values(data);
     dispatch(showChat(data));
   }
 };
 
 export const chatPost = (content) => async (dispatch) => {
-  console.log("before res");
   const res = await fetch(`/api/chat/`, {
     method: "POST",
     headers: {
@@ -36,12 +33,10 @@ export const chatPost = (content) => async (dispatch) => {
       content,
     }),
   });
-  console.log("between")
   const data = await res.json();
   if (data.errors) {
     return data;
   }
-  console.log("after res");
   dispatch(addChat(data));
   return {};
 };

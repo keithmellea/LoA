@@ -41,12 +41,8 @@ const Chat = () => {
 
     const sendChat = async (e) => {
       e.preventDefault();
-      // socket.emit("chat_to_channel", {
-      //     channel_id: channel.id,
-      //     body: content
-      // })
       socket.emit("chat", { user: user.username, msg: chatInput });
-      setChatInput("");
+      // setChatInput("");
       await dispatch(chatPost(chatInput));
     }
 
