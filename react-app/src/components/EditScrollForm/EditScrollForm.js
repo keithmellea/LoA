@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 
 import { editScroll } from "../../store/scroll";
 
-import "../addScrollForm/addScrollForm.css";
+import "../EditScrollForm/EditScrollForm.css";
 
 const EditScrollForm = ({scroll}) => {
   const dispatch = useDispatch();
@@ -32,6 +32,7 @@ const EditScrollForm = ({scroll}) => {
       id={`add-scroll-${scroll.id}`}
       className="scroll-form"
     >
+      <div id="edit-scroll-title">Edit Scroll</div>
       <label>Author</label>
       <input
         style={{ color: "black" }}
@@ -39,7 +40,7 @@ const EditScrollForm = ({scroll}) => {
         required
         placeholder={scroll.author}
         value={author}
-        className="author"
+        className="edit-author"
         onChange={(e) => {
           setAuthor(e.target.value);
         }}
@@ -61,7 +62,7 @@ const EditScrollForm = ({scroll}) => {
         required
         placeholder={scroll.published}
         value={published}
-        className="published"
+        className="edit-published"
         onChange={(e) => setPublished(e.target.value)}
       />
       <label>Body</label>
@@ -71,7 +72,7 @@ const EditScrollForm = ({scroll}) => {
         required
         placeholder={scroll.body}
         value={body}
-        className="body"
+        className="edit-body"
         onChange={(e) => setBody(e.target.value)}
       />
       <button className="submit-button" type="submit">

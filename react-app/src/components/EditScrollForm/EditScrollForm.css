@@ -1,9 +1,43 @@
-#add-scroll {
-    color: white;
+.scroll-form {
     position: absolute;
-    top: 380px;
-    right: 800px;
+    left: 200px;
     display: none;
+    width: 1000px;
+    height: 500px;
     flex-direction: column;
-    align-items: flex-start;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    
+}
+
+#create-scroll {
+    font-size: 25px;
+    padding-bottom: 20px;
+}
+#author {
+    width: 300px;
+}
+
+#title {
+    width: 300px;
+}
+
+#published {
+    width: 300px;
+}
+
+
+#body {
+    width: 800px;
+    height: 270px;
+}
+
+.submit-button {
+    color: black;
+}
+
+#edit-scroll-title {
+    font-size: 25px;
+    margin-bottom: 20px;
 }

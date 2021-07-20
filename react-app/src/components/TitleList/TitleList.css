@@ -46,27 +46,21 @@
     display: none;
 }
 
+.scroll-bodies::-webkit-scrollbar {
+    display: none;
+}
+
 .scroll-titles {
     color: white;
-    /* position: absolute; */
-    /* left: 590px; */
-    /* top: 200px; */
     padding-bottom: 20px;
     font-size: 25px;
     display: none;  
-
-    /* flex-direction: column; */
-    /* align-items: flex-start; */
 }
 
 .scroll-authors {
-    /* color: white;
-    position: absolute; */
     font-size: 25px;
     padding-bottom: 20px;
     display: none;
-    /* flex-direction: column;
-    align-items: flex-start; */
 }
 
 #title-read {
@@ -79,19 +73,3 @@
     flex-direction: column;
     align-items: center;
 }
-
-/* #scroll-list-container {
-    
-    color: white;
-    position: absolute;
-    right: 200px;
-    top: 220px;
-    font-size: 40px;
-    height: 480px;
-    width: 1600px;
-    display: none;
-    flex-direction: column;
-    align-items: flex-start;  
-    flex-wrap: wrap;
-    overflow-x: visible;
-} */

@@ -29,52 +29,55 @@ const AddScrollForm = () => {
     }
 
     return (
-      <form
-        key={"id"}
-        onSubmit={handleSubmit}
-        id="add_scroll"
-        style={{ color: "black" }}
-      >
-        <label>Author</label>
-        <input
+      <div id="add-scroll-div">
+        <form
+          key={"id"}
+          onSubmit={handleSubmit}
+          id="add_scroll"
           style={{ color: "black" }}
-          type="text"
-          required
-          value={author}
-          id="author"
-          onChange={(e) => setAuthor(e.target.value)}
-        />
-        <label>Title</label>
-        <input
-          style={{ color: "black" }}
-          type="text"
-          required
-          value={title}
-          id="title"
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <label>Published</label>
-        <input
-          style={{ color: "black" }}
-          type="text"
-          required
-          value={published}
-          id="published"
-          onChange={(e) => setPublished(e.target.value)}
-        />
-        <label>Body</label>
-        <input
-          style={{ color: "black" }}
-          type="text"
-          required
-          placeholder={body}
-          id="body"
-          onChange={(e) => setBody(e.target.value)}
-        />
-        <button className="submit-button" type="submit">
-          Create Scroll
-        </button>
-      </form>
+        >
+          <div id='create-scroll'>Create Scroll</div>
+          <label>Author</label>
+          <input
+            style={{ color: "black" }}
+            type="text"
+            required
+            value={author}
+            id="author"
+            onChange={(e) => setAuthor(e.target.value)}
+          />
+          <label>Title</label>
+          <input
+            style={{ color: "black" }}
+            type="text"
+            required
+            value={title}
+            id="title"
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <label>Published</label>
+          <input
+            style={{ color: "black" }}
+            type="text"
+            required
+            value={published}
+            id="published"
+            onChange={(e) => setPublished(e.target.value)}
+          />
+          <label>Body</label>
+          <input
+            style={{ color: "black" }}
+            type="text"
+            required
+            placeholder={body}
+            id="body"
+            onChange={(e) => setBody(e.target.value)}
+          />
+          <button className="submit-button" type="submit">
+            Create Scroll
+          </button>
+        </form>
+      </div>
     );
 }
 
