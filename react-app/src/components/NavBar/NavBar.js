@@ -11,8 +11,8 @@ const NavBar = () => {
 if (user) {
   return (
     <nav id="navbar">
-      <ul>
-        <li>
+      <ul id="navbar-ul">
+        <li className="navbar-li" id="logout-button">
           <LogoutButton />
         </li>
       </ul>
