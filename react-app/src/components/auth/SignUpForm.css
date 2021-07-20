@@ -16,6 +16,7 @@
     color: black;
     padding-bottom: 40px;
     font-size: 40px;
+    text-align: center;
 }
 
 .signupform {
@@ -29,6 +30,9 @@
     border-radius: 20px;
 }
 
+#signup-contents {
+    padding-bottom: 100px;
+}
 /* Change font-size for fields, padding */
 #email, #password, #repeat-password, #username  {
     padding-bottom: 10px;
@@ -52,7 +56,7 @@
 /* Place login button underneath fields, sizing */
 #signup-button {
     position: absolute;
-    top: 550px;
+    top: 500px;
     left: 650px;
     width: 120px;
     height: 40px;
@@ -63,7 +67,7 @@
 
 #demo-button {
     position: absolute;
-    top: 600px;
+    top: 550px;
     left: 635px;
     width: 160px;
     height: 40px;

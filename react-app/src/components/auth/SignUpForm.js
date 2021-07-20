@@ -50,69 +50,70 @@ const demoLogin = async (e) => {
   return (
     <div id="signup-container">
       <form className="signupform" onSubmit={onSignUp}>
-        <div id="title-label">Sign Up</div>
-      <div id="username">
-          <label className="signup-labels"
-          >User Name</label>
-        <input
-          style={{ color: "black" }}
-          type="text"
-          className="signup-inputs"
-          name="username"
-          onChange={updateUsername}
-          value={username}
-        ></input>
-      </div>
-      <div id="email">
-        <label className="signup-labels">Email</label>
-        <input
-          id="password-input"
-          className="signup-inputs"
-          style={{ color: "black" }}
-          type="text"
-          name="email"
-          onChange={updateEmail}
-          value={email}
-        ></input>
-      </div>
-      <div id="password">
-        <label className="signup-labels" >Password</label>
-        <input
-          id="password-input"
-          className="signup-inputs"
-          style={{ color: "black" }}
-          type="password"
-          name="password"
-          onChange={updatePassword}
-          value={password}
-        ></input>
-      </div>
-        <div id="repeat-password">
-        <label className="signup-labels">Repeat Password</label>
-        <input
-          id="repeat-password-input"
-          className="signup-inputs"
-          style={{ color: "black" }}
-          type="password"
-          name="repeat_password"
-          onChange={updateRepeatPassword}
-          value={repeatPassword}
-          required={true}
-        ></input>
-      </div>
-      <button id="signup-button" style={{ color: "black" }} type="submit">
-        Sign Up
-      </button>
-      <button
-        id="demo-button"
-        style={{ color: "black" }}
-        type="submit"
-        onClick={demoLogin}
-      >
-        Demo Login
-      </button>
+        <div id="signup-contents">
+          <div id="title-label">Sign Up</div>
+          <div id="username">
+            <label className="signup-labels">User Name</label>
+            <input
+              style={{ color: "black" }}
+              type="text"
+              className="signup-inputs"
+              name="username"
+              onChange={updateUsername}
+              value={username}
+            ></input>
+          </div>
+          <div id="email">
+            <label className="signup-labels">Email</label>
+            <input
+              id="password-input"
+              className="signup-inputs"
+              style={{ color: "black" }}
+              type="text"
+              name="email"
+              onChange={updateEmail}
+              value={email}
+            ></input>
+          </div>
+          <div id="password">
+            <label className="signup-labels">Password</label>
+            <input
+              id="password-input"
+              className="signup-inputs"
+              style={{ color: "black" }}
+              type="password"
+              name="password"
+              onChange={updatePassword}
+              value={password}
+            ></input>
+          </div>
+          <div id="repeat-password">
+            <label className="signup-labels">Repeat Password</label>
+            <input
+              id="repeat-password-input"
+              className="signup-inputs"
+              style={{ color: "black" }}
+              type="password"
+              name="repeat_password"
+              onChange={updateRepeatPassword}
+              value={repeatPassword}
+              required={true}
+            ></input>
+          </div>
+          <button id="signup-button" style={{ color: "black" }} type="submit">
+            Sign Up
+          </button>
+          <button
+            id="demo-button"
+            style={{ color: "black" }}
+            type="submit"
+            onClick={demoLogin}
+          >
+            Demo Login
+          </button>
+        </div>
       </form>
-      </div>
+    </div>
   );
 };
 

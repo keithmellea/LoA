@@ -54,19 +54,8 @@ document.body.appendChild(app.view);
 let stage = new PIXI.Container();
 
 
-// function removeCanvas() {
-  
-//   let canvases = document.querySelectorAll("canvas");
-//   let canvasOne = canvases[0];
-//   let canvasTwo = canvases[1];
-//   canvasOne.remove();  
-//   canvasTwo.remove();
-//   console.log(canvasTwo);
-// }
-
   useEffect(() => {
     dispatch(getScrolls())
-    // removeCanvas(); 
   }, [dispatch])
   
 
